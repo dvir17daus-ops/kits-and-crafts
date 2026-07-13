@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 export const siteMetadata = {
-  title: "Kits & Crafts | ערכות בנייה ויצירה מעץ",
-  titleTemplate: "%s | Kits & Crafts",
+  title: "הסדנאייה | ערכות בנייה ויצירה מעץ",
+  titleTemplate: "%s | הסדנאייה",
   description:
-    "ערכות DIY פרימיום מעץ אמיתי לילדים, בתי ספר וירידי קהילה. מאושרים בגפ\"ן, משלוח מהיר, הוראות בעברית.",
+    "הסדנאייה (מבית בואו נחגוג) — ערכות DIY פרימיום מעץ אמיתי לילדים, בתי ספר וירידי קהילה. מאושרים בגפ\"ן, משלוח מהיר, הוראות בעברית.",
   locale: "he_IL",
-  siteUrl: "https://kitsandcrafts.co.il",
+  siteUrl: "https://hasadnaya.co.il",
 } as const;
 
 export function createPageMetadata(

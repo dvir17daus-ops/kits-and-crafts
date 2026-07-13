@@ -8,7 +8,7 @@ export function HomeJsonLd({ products }: JsonLdProps) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "ערכות מומלצות — Kits & Crafts",
+    name: "ערכות מומלצות — הסדנאייה",
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,

@@ -11,8 +11,8 @@ import { getFeaturedProducts } from "@/utils/getProducts";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
-  "Kits & Crafts | ערכות בנייה ויצירה מעץ",
-  "ערכות DIY פרימיום מעץ אמיתי לילדים, בתי ספר וירידי קהילה. מאושרים בגפ\"ן."
+  "הסדנאייה | ערכות בנייה ויצירה מעץ",
+  "הסדנאייה (מבית בואו נחגוג) — ערכות DIY פרימיום מעץ אמיתי לילדים, בתי ספר וירידי קהילה. מאושרים בגפ\"ן."
 );
 
 export default async function HomePage() {

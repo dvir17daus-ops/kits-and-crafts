@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { TreePine } from "lucide-react";
-import { SITE_NAME, SITE_NAME_HE } from "@/lib/constants";
+import Image from "next/image";
+import { SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -10,13 +10,14 @@ interface LogoProps {
 export function Logo({ light = false }: LogoProps) {
   return (
     <Link href="/" className="group flex items-center gap-2.5">
-      <div
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105",
-          light ? "bg-white text-teal-dark" : "bg-orange text-white"
-        )}
-      >
-        <TreePine className="h-5 w-5" aria-hidden="true" />
+      <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+        <Image
+          src="/images/logo-hasadnaya.png"
+          alt={SITE_NAME_HE}
+          fill
+          className="object-cover"
+          sizes="44px"
+        />
       </div>
       <div className="flex flex-col leading-tight">
         <span
@@ -28,7 +29,7 @@ export function Logo({ light = false }: LogoProps) {
           {SITE_NAME_HE}
         </span>
         <span className={cn("text-xs", light ? "text-white/70" : "text-muted")}>
-          {SITE_NAME}
+          {SITE_TAGLINE_HE}
         </span>
       </div>
     </Link>

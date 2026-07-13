@@ -1,11 +1,12 @@
-export const SITE_NAME = "Kits & Crafts";
-export const SITE_NAME_HE = "ערכות ויצירה";
+export const SITE_NAME = "הסדנאייה";
+export const SITE_NAME_HE = "הסדנאייה";
+export const SITE_TAGLINE_HE = "מבית בואו נחגוג";
 
 export const GEFEN = {
   title: "מאושרים בגפ\"ן",
   subtitle: "ספק מאושר משרד החינוך",
   description:
-    "Kits & Crafts מאושרים במערכת גפ\"ן (גני ילדים, פנימיות ונוער) של משרד החינוך — ניתן להזמין ישירות דרך מערכת גפ\"ן לפעילויות כיתתיות, ירידים וחוגים.",
+    "הסדנאייה מאושרים במערכת גפ\"ן (גני ילדים, פנימיות ונוער) של משרד החינוך — ניתן להזמין ישירות דרך מערכת גפ\"ן לפעילויות כיתתיות, ירידים וחוגים.",
   badgeLabel: "גפ\"ן",
   features: [
     "הזמנה ישירה דרך מערכת גפ\"ן",
@@ -58,7 +59,7 @@ export const MAX_QUANTITY_PER_ITEM = 10;
 
 export const BUSINESS = {
   phone: "050-1234567",
-  email: "hello@kitsandcrafts.co.il",
+  email: "hello@hasadnaya.co.il",
   whatsapp: "972501234567",
   hours: "א'-ה', 9:00–18:00",
   address: "ישראל",

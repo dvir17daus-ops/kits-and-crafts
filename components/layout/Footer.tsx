@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Award, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
-import { NAV_LINKS, BUSINESS, GEFEN, SITE_NAME_HE } from "@/lib/constants";
+import { NAV_LINKS, BUSINESS, GEFEN, SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib/constants";
 
 export function Footer() {
   return (
@@ -22,8 +22,8 @@ export function Footer() {
           <div className="md:col-span-1">
             <Logo light />
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              {SITE_NAME_HE} — ערכות יצירה ובנייה מעץ אמיתי לבתי ספר, קהילות
-              ומשפחות.
+              {SITE_NAME_HE} ({SITE_TAGLINE_HE}) — ערכות יצירה ובנייה מעץ
+              אמיתי לבתי ספר, קהילות ומשפחות.
             </p>
           </div>
 
@@ -96,7 +96,7 @@ export function Footer() {
 
         <div className="mt-10 border-t border-white/15 pt-6 text-center text-sm text-white/60">
           <p>מספקים לוועדי הורים וירידי קהילה ברחבי הארץ · {GEFEN.title}</p>
-          <p className="mt-2">© 2026 Kits & Crafts — כל הזכויות שמורות</p>
+          <p className="mt-2">© 2026 {SITE_NAME_HE} — כל הזכויות שמורות</p>
         </div>
       </div>
     </footer>
