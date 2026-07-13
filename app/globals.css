@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #faf8f5;
+  --color-cream-dark: #f3ede4;
+  --color-sand: #e5ddd0;
+  --color-slate: #1a2332;
+  --color-muted: #5c6b7a;
+  --color-primary: #b85233;
+  --color-primary-dark: #9a4530;
+  --color-accent: #2d4a3e;
+  --color-accent-light: #3d6354;
+  --color-gold: #c9a96e;
+  --color-whatsapp: #25d366;
+  --color-error: #dc2626;
+  --color-gefen: #1e4d8c;
+  --color-gefen-light: #e8f0fa;
+
+  --font-sans: var(--font-assistant), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-slate);
+  font-family: var(--font-sans);
+}
+
+@layer utilities {
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  .container-narrow {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .heading-accent {
+    @apply after:mt-3 after:block after:h-0.5 after:w-12 after:bg-primary after:content-[''];
+  }
+
+  .card-premium {
+    @apply rounded-2xl border border-sand/60 bg-white shadow-sm transition-all duration-300 hover:shadow-lg;
+  }
+
+  .grain-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-cream-dark) 25%,
+    #ece5da 50%,
+    var(--color-cream-dark) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes bounce-once {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 0.4s ease-out;
+}

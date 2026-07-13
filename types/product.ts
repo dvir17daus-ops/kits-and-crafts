@@ -1,0 +1,60 @@
+export type Category =
+  | "summer-craft"
+  | "wood-building"
+  | "string-art"
+  | "bundle-deal";
+
+export type Difficulty = "קל" | "בינוני" | "מתקדם";
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  originalPrice: number | null;
+  category: Category;
+  image: string;
+  ageGroup: string;
+  size: string;
+  whatsInTheBox: string[];
+  isFeatured: boolean;
+  isDeal: boolean;
+  discountPercent: number | null;
+  tags: string[];
+  inStock: boolean;
+  schoolFriendly: boolean;
+  fairRecommended: boolean;
+  minGroupSize: number;
+  maxGroupSize: number;
+  difficulty: Difficulty;
+  duration: string;
+}
+
+export interface CartItem {
+  productId: string;
+  quantity: number;
+  product: Product;
+}
+
+export type ContactType = "parent" | "committee" | "school" | "organization";
+
+export interface ContactFormData {
+  type: ContactType;
+  name: string;
+  phone: string;
+  email: string;
+  message: string;
+  institutionName?: string;
+  estimatedQuantity?: string;
+  eventDate?: string;
+}
+
+export interface CheckoutFormData {
+  name: string;
+  phone: string;
+  address: string;
+  email: string;
+  notes?: string;
+}
+
+export type PaymentGateway = "grow" | "meshulam" | "cardcom";
