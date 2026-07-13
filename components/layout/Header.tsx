@@ -5,7 +5,6 @@ import { Menu } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { CartIcon } from "@/components/cart/CartIcon";
-import { GefenBadge } from "@/components/trust/GefenBadge";
 import { NAV_LINKS } from "@/lib/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,15 +19,9 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand/60 bg-cream/90 backdrop-blur-md">
-      <div className="border-b border-sand/40 bg-gefen-light/50 py-1.5">
-        <div className="container-narrow flex justify-center">
-          <GefenBadge variant="compact" />
-        </div>
-      </div>
-
+    <header className="sticky top-0 z-40 bg-gradient-to-l from-teal to-teal-dark shadow-sm">
       <div className="container-narrow flex h-16 items-center justify-between gap-4">
-        <Logo />
+        <Logo light />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">
           {NAV_LINKS.map((link) => (
@@ -36,10 +29,10 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
                 pathname === link.href
-                  ? "text-primary underline decoration-primary decoration-2 underline-offset-4"
-                  : "text-muted"
+                  ? "bg-teal-deep text-white"
+                  : "text-white/90 hover:bg-white/15"
               )}
             >
               {link.label}
@@ -47,10 +40,12 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <CartIcon />
+        <div className="flex items-center gap-1">
+          <div className="hidden lg:block">
+            <CartIcon />
+          </div>
           <button
-            className="rounded-xl p-2.5 text-slate transition-colors hover:bg-cream-dark lg:hidden"
+            className="rounded-full p-2.5 text-white transition-colors hover:bg-white/15 lg:hidden"
             onClick={() => setMobileOpen(true)}
             aria-label="פתח תפריט"
             aria-expanded={mobileOpen}

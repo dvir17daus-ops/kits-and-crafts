@@ -93,7 +93,7 @@ export function CartDrawer() {
                       <p className="text-sm font-semibold text-slate">
                         {item.product.title}
                       </p>
-                      <p className="text-sm font-bold text-primary">
+                      <p className="text-sm font-bold text-green">
                         {formatPrice(item.product.price)}
                       </p>
                       <div className="mt-auto flex items-center gap-2">

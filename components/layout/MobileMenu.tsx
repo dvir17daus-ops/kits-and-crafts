@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
+import { CartIcon } from "@/components/cart/CartIcon";
 import { GefenBadge } from "@/components/trust/GefenBadge";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -31,15 +32,20 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         aria-modal="true"
         aria-label="תפריט ניווט"
       >
-        <div className="flex items-center justify-between border-b border-sand p-4">
-          <Logo />
+        <div className="flex items-center justify-between bg-gradient-to-l from-teal to-teal-dark p-4">
+          <Logo light />
           <button
             onClick={onClose}
-            className="rounded-lg p-2 hover:bg-cream-dark"
+            className="rounded-full p-2 text-white hover:bg-white/15"
             aria-label="סגור תפריט"
           >
             <X className="h-5 w-5" />
           </button>
+        </div>
+        <div className="border-b border-sand p-4">
+          <div className="inline-flex rounded-full bg-orange px-1">
+            <CartIcon />
+          </div>
         </div>
         <nav className="flex flex-col p-4" aria-label="ניווט נייד">
           {NAV_LINKS.map((link) => (
@@ -49,7 +55,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               onClick={onClose}
               className={cn(
                 "rounded-xl px-4 py-3 text-base font-medium transition-colors hover:bg-cream-dark",
-                pathname === link.href ? "text-primary" : "text-slate"
+                pathname === link.href ? "text-orange" : "text-slate"
               )}
             >
               {link.label}

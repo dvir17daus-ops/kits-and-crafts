@@ -1,15 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #faf8f5;
-  --color-cream-dark: #f3ede4;
-  --color-sand: #e5ddd0;
-  --color-slate: #1a2332;
+  --color-cream: #fbfaf6;
+  --color-cream-dark: #f0f7f8;
+  --color-sand: #e3eef0;
+  --color-slate: #1c2b3a;
   --color-muted: #5c6b7a;
-  --color-primary: #b85233;
-  --color-primary-dark: #9a4530;
-  --color-accent: #2d4a3e;
-  --color-accent-light: #3d6354;
+
+  /* Playful summer palette */
+  --color-teal: #4bc5d3;
+  --color-teal-dark: #1f8a9a;
+  --color-teal-deep: #12626f;
+  --color-orange: #f7941d;
+  --color-orange-dark: #e07c0a;
+  --color-green: #38ab5c;
+  --color-pink: #ff8fab;
+  --color-yellow: #ffd166;
+
+  --color-primary: var(--color-orange);
+  --color-primary-dark: var(--color-orange-dark);
+  --color-accent: var(--color-teal-dark);
+  --color-accent-light: var(--color-teal);
   --color-gold: #c9a96e;
   --color-whatsapp: #25d366;
   --color-error: #dc2626;
@@ -47,7 +58,7 @@ body {
   }
 
   .card-premium {
-    @apply rounded-2xl border border-sand/60 bg-white shadow-sm transition-all duration-300 hover:shadow-lg;
+    @apply rounded-2xl border border-sand bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
   }
 
   .grain-bg {

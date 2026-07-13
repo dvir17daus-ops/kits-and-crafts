@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Check, Play, Ruler, Clock, Gauge } from "lucide-react";
+import { Check, Play, Ruler, Clock, Gauge, ShoppingCart } from "lucide-react";
 import type { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
@@ -28,10 +28,10 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
 
   return (
     <article
-      className="card-premium group cursor-pointer overflow-hidden hover:scale-[1.02]"
+      className="card-premium group cursor-pointer overflow-hidden"
       onClick={() => onOpenModal(product)}
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative m-3 aspect-square overflow-hidden rounded-xl bg-cream-dark">
         <Image
           src={product.image}
           alt={product.title}
@@ -39,38 +39,33 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
         />
-        <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+        <div className="absolute left-2 top-2 flex flex-col gap-1.5">
           <Badge>{product.ageGroup}</Badge>
           {product.fairRecommended && (
             <Badge variant="gold">מומלץ ליריד</Badge>
           )}
         </div>
         {product.isDeal && product.discountPercent && (
-          <div className="absolute right-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-white">
+          <div className="absolute right-2 top-2 rounded-full bg-pink px-2.5 py-1 text-xs font-bold text-white">
             -{product.discountPercent}%
           </div>
         )}
       </div>
-      <div className="p-5">
-        <h3 className="font-semibold text-slate line-clamp-2">{product.title}</h3>
+      <div className="px-4 pb-4">
+        <h3 className="font-bold text-slate line-clamp-2">{product.title}</h3>
         <p className="mt-1 text-sm text-muted line-clamp-2">{product.description}</p>
-        <div className="mt-3 flex items-center justify-between">
-          <div>
-            {product.originalPrice && (
-              <span className="ml-2 text-sm text-muted line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-            <span className="text-xl font-bold text-slate">
-              {formatPrice(product.price)}
+        <div className="mt-3 flex items-center gap-2">
+          {product.originalPrice && (
+            <span className="text-sm text-muted line-through">
+              {formatPrice(product.originalPrice)}
             </span>
-          </div>
+          )}
+          <span className="text-lg font-extrabold text-green">
+            {formatPrice(product.price)}
+          </span>
         </div>
-        <Button
-          className="mt-4 w-full"
-          size="sm"
-          onClick={handleAddToCart}
-        >
+        <Button className="mt-4 w-full" size="sm" onClick={handleAddToCart}>
+          <ShoppingCart className="h-4 w-4" />
           הוסף לעגלה
         </Button>
       </div>

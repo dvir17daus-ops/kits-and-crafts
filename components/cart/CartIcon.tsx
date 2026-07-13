@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
@@ -23,20 +23,14 @@ export function CartIcon() {
   return (
     <button
       onClick={openCart}
-      className="relative rounded-xl p-2.5 text-slate transition-colors hover:bg-cream-dark"
+      className={cn(
+        "flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/15",
+        bounce && "animate-bounce-once"
+      )}
       aria-label={`עגלת קניות${itemCount > 0 ? `, ${itemCount} פריטים` : ""}`}
     >
-      <ShoppingBag className="h-5 w-5" />
-      {itemCount > 0 && (
-        <span
-          className={cn(
-            "absolute -left-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white",
-            bounce && "animate-bounce-once"
-          )}
-        >
-          {itemCount}
-        </span>
-      )}
+      <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+      <span>העגלה שלי ({itemCount})</span>
     </button>
   );
 }
