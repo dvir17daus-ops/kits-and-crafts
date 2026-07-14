@@ -5,7 +5,7 @@ export function Testimonials() {
   return (
     <section className="section-padding bg-white">
       <div className="container-narrow">
-        <h2 className="heading-accent text-center text-3xl font-bold text-slate">
+        <h2 className="heading-accent text-center text-2xl font-bold text-slate sm:text-3xl">
           מה אומרים עלינו
         </h2>
         <div className="mt-10 grid gap-6 md:grid-cols-3">

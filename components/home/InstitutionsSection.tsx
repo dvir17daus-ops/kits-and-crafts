@@ -35,7 +35,7 @@ export function InstitutionsSection() {
             <Award className="h-5 w-5" />
             <span className="text-sm font-semibold">מאושרים בגפ&quot;ן</span>
           </div>
-          <h2 className="heading-accent text-3xl font-bold text-slate md:text-4xl">
+          <h2 className="heading-accent text-2xl font-bold text-slate sm:text-3xl md:text-4xl">
             פתרון מושלם לירידי בתי ספר ואירועי קהילה
           </h2>
           <p className="mt-4 text-muted leading-relaxed">

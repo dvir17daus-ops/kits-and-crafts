@@ -22,10 +22,10 @@ export function CategoryHeader({
           <span className="text-slate">{breadcrumb}</span>
         </nav>
       )}
-      <h1 className="heading-accent text-3xl font-bold text-slate md:text-4xl">
+      <h1 className="heading-accent text-2xl font-bold text-slate sm:text-3xl md:text-4xl">
         {title}
       </h1>
-      <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
+      <p className="mt-4 max-w-2xl text-base text-muted leading-relaxed sm:text-lg">
         {description}
       </p>
     </div>

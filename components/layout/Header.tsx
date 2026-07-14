@@ -20,7 +20,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-gradient-to-l from-teal to-teal-dark shadow-sm">
-      <div className="container-narrow flex h-16 items-center justify-between gap-4">
+      <div className="container-narrow flex min-h-16 items-center justify-between gap-4 py-2">
         <Logo light />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">

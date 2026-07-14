@@ -25,7 +25,7 @@ export function CategoryShowcase() {
   return (
     <section className="section-padding">
       <div className="container-narrow">
-        <h2 className="heading-accent text-3xl font-bold text-slate">קטגוריות</h2>
+        <h2 className="heading-accent text-2xl font-bold text-slate sm:text-3xl">קטגוריות</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {categories.map(({ key, image }) => {
             const info = CATEGORY_INFO[key];

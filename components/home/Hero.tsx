@@ -75,14 +75,14 @@ export function Hero() {
           <button
             onClick={prev}
             aria-label="שקופית קודמת"
-            className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate shadow-md transition-transform hover:scale-105"
+            className="absolute right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate shadow-md transition-transform hover:scale-105 sm:flex sm:right-3"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
           <button
             onClick={next}
             aria-label="שקופית הבאה"
-            className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate shadow-md transition-transform hover:scale-105"
+            className="absolute left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-slate shadow-md transition-transform hover:scale-105 sm:flex sm:left-3"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -101,18 +101,23 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
-            <div className="max-w-lg rounded-3xl bg-white/95 px-6 py-6 text-center shadow-xl backdrop-blur-sm sm:px-10 sm:py-8">
-              <h1 className="text-2xl font-extrabold text-orange sm:text-3xl md:text-4xl">
+          <div className="absolute inset-0 z-10 flex items-center justify-center px-3 sm:px-4">
+            <div className="max-w-lg rounded-2xl bg-white/95 px-4 py-4 text-center shadow-xl backdrop-blur-sm sm:rounded-3xl sm:px-10 sm:py-8">
+              <h1 className="text-xl font-extrabold text-orange sm:text-3xl md:text-4xl">
                 בונים בקיץ הזה!
               </h1>
-              <p className="mt-2 text-sm font-medium text-slate sm:text-base">
+              <p className="mt-2 text-xs font-medium text-slate sm:text-base">
                 ערכות יצירה חוויתיות לילדים — עץ אמיתי, הוראות בעברית ואישור
                 גפ&quot;ן להזמנות בתי ספר וירידים.
               </p>
-              <div className="mt-5">
+              <div className="mt-3 sm:mt-5">
                 <Link href="/summer-kits">
-                  <Button size="md">לקולקציית הקיץ</Button>
+                  <span className="block sm:hidden">
+                    <Button size="sm">לקולקציית הקיץ</Button>
+                  </span>
+                  <span className="hidden sm:block">
+                    <Button size="md">לקולקציית הקיץ</Button>
+                  </span>
                 </Link>
               </div>
             </div>

@@ -19,7 +19,7 @@ export function OrderConfirmation({
           className="mx-auto h-20 w-20 text-accent"
           aria-hidden="true"
         />
-        <h2 className="mt-6 text-3xl font-bold text-slate">ההזמנה התקבלה!</h2>
+        <h2 className="mt-6 text-2xl font-bold text-slate sm:text-3xl">ההזמנה התקבלה!</h2>
         <p className="mt-2 text-muted">מספר הזמנה: {orderNumber}</p>
         <p className="mt-4 text-muted leading-relaxed">
           ניצור איתכם קשר בקרוב לאישור ותשלום.

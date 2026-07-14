@@ -96,7 +96,10 @@ export function Footer() {
 
         <div className="mt-10 border-t border-white/15 pt-6 text-center text-sm text-white/60">
           <p>מספקים לוועדי הורים וירידי קהילה ברחבי הארץ · {GEFEN.title}</p>
-          <p className="mt-2">© 2026 {SITE_NAME_HE} — כל הזכויות שמורות</p>
+          <p className="mt-2">
+            © 2026 <span className="font-logo">{SITE_NAME_HE}</span> — כל
+            הזכויות שמורות
+          </p>
         </div>
       </div>
     </footer>

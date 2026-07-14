@@ -10,19 +10,19 @@ interface LogoProps {
 export function Logo({ light = false }: LogoProps) {
   return (
     <Link href="/" className="group flex items-center gap-2.5">
-      <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-white shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 lg:h-11 lg:w-11">
         <Image
           src="/images/logo-hasadnaya.png"
           alt={SITE_NAME_HE}
           fill
           className="object-cover"
-          sizes="44px"
+          sizes="56px"
         />
       </div>
       <div className="flex flex-col leading-tight">
         <span
           className={cn(
-            "text-lg font-bold",
+            "font-logo text-xl sm:text-lg",
             light ? "text-white" : "text-slate"
           )}
         >

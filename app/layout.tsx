@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Assistant } from "next/font/google";
+import { Assistant, Secular_One } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
@@ -14,6 +14,12 @@ const assistant = Assistant({
   subsets: ["hebrew", "latin"],
   variable: "--font-assistant",
   weight: ["400", "500", "600", "700"],
+});
+
+const secularOne = Secular_One({
+  subsets: ["hebrew", "latin"],
+  variable: "--font-secular-one",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl">
-      <body className={`${assistant.variable} font-sans antialiased`}>
+      <body
+        className={`${assistant.variable} ${secularOne.variable} font-sans antialiased`}
+      >
         <CartProvider>
           <ToastProvider>
             <Header />

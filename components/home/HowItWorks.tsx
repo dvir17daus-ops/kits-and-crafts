@@ -22,7 +22,7 @@ export function HowItWorks() {
   return (
     <section className="section-padding bg-cream-dark">
       <div className="container-narrow">
-        <h2 className="heading-accent text-center text-3xl font-bold text-slate">
+        <h2 className="heading-accent text-center text-2xl font-bold text-slate sm:text-3xl">
           איך זה עובד?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-muted">

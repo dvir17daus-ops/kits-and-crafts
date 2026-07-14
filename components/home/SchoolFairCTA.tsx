@@ -15,7 +15,7 @@ export function SchoolFairCTA() {
       />
       <div className="absolute inset-0 bg-accent/85" />
       <div className="container-narrow relative section-padding text-center text-white">
-        <h2 className="text-3xl font-bold md:text-4xl">
+        <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
           מתכננים יריד בבית הספר?
         </h2>
         <p className="mx-auto mt-4 max-w-xl leading-relaxed text-white/90">
