@@ -27,17 +27,17 @@ export function TrustBadges() {
           {badges.map(({ icon: Icon, title, desc, highlight }) => (
             <div
               key={title}
-              className={`flex items-start gap-4 rounded-2xl border p-4 ${
+              className={`flex items-start gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 ${
                 highlight
-                  ? "border-gefen/20 bg-gefen-light"
-                  : "border-sand/40 bg-cream/50"
+                  ? "border-gefen/20 bg-gefen-light hover:shadow-[0_16px_32px_-12px_rgba(30,77,140,0.3)]"
+                  : "border-sand/40 bg-cream/50 hover:border-transparent hover:bg-white hover:shadow-[0_16px_32px_-12px_rgba(31,138,154,0.25)]"
               }`}
             >
               <div
-                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border ${
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-md ${
                   highlight
-                    ? "border-gefen/30 bg-gefen text-white"
-                    : "border-sand bg-cream text-accent"
+                    ? "bg-gradient-to-br from-gefen to-[#123a68] text-white shadow-gefen/30"
+                    : "bg-gradient-to-br from-accent-light to-accent text-white shadow-accent/30"
                 }`}
               >
                 <Icon className="h-5 w-5" aria-hidden="true" />

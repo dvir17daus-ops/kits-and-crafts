@@ -1,27 +1,52 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { CartIcon } from "@/components/cart/CartIcon";
 import { NAV_LINKS } from "@/lib/constants";
+import { useFlyToCart } from "@/context/FlyToCartContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const pathname = usePathname();
+  const { registerTarget } = useFlyToCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    registerTarget(menuBtnRef.current);
+  }, [registerTarget]);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 bg-gradient-to-l from-teal to-teal-dark shadow-sm">
-      <div className="container-narrow flex min-h-16 items-center justify-between gap-4 py-2">
-        <Logo light />
+    <header
+      className={cn(
+        "sticky top-0 z-40 bg-gradient-to-l from-teal to-teal-dark shadow-[0_4px_24px_-4px_rgba(18,98,111,0.35)] transition-all duration-300",
+        scrolled ? "shadow-[0_8px_28px_-4px_rgba(18,98,111,0.45)]" : ""
+      )}
+    >
+      <div
+        className={cn(
+          "container-narrow flex items-center justify-between gap-4 transition-all duration-300",
+          scrolled ? "min-h-12 py-1" : "min-h-16 py-2"
+        )}
+      >
+        <Logo light small={scrolled} />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">
           {NAV_LINKS.map((link) => (
@@ -45,6 +70,7 @@ export function Header() {
             <CartIcon />
           </div>
           <button
+            ref={menuBtnRef}
             className="rounded-full p-2.5 text-white transition-colors hover:bg-white/15 lg:hidden"
             onClick={() => setMobileOpen(true)}
             aria-label="פתח תפריט"

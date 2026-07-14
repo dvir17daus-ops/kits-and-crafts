@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Modal } from "@/components/ui/Modal";
 import { Textarea } from "@/components/ui/Textarea";
 import { PaymentGateways } from "@/components/checkout/PaymentGateways";
 import { OrderConfirmation } from "@/components/checkout/OrderConfirmation";
@@ -24,6 +26,7 @@ export function CheckoutOverlay() {
     items,
     subtotal,
     bundleDiscount,
+    shipping,
     total,
     confirmOrder,
     isOrderConfirmed,
@@ -39,6 +42,16 @@ export function CheckoutOverlay() {
   const [gateway, setGateway] = useState<PaymentGateway | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [gatewayMsg, setGatewayMsg] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState<
+    "idle" | "pending" | "failed"
+  >("idle");
+  const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (pendingTimer.current) clearTimeout(pendingTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (isCheckoutOpen) lockScroll();
@@ -72,14 +85,39 @@ export function CheckoutOverlay() {
     return Object.keys(e).length === 0;
   };
 
+  const simulatePaymentCall = () => {
+    setPaymentStatus("pending");
+    setGatewayMsg("");
+    // הערה: זו סימולציה מקומית עד לחיבור סליקה אמיתית (Grow/Meshulam/Cardcom).
+    pendingTimer.current = setTimeout(() => {
+      const isSuccess = Math.random() > 0.15;
+      if (isSuccess) {
+        setPaymentStatus("idle");
+        confirmOrder();
+      } else {
+        setPaymentStatus("failed");
+      }
+    }, 1400);
+  };
+
   const handlePay = () => {
+    if (paymentStatus === "pending") return;
     if (!validate()) return;
     if (!gateway) {
       setGatewayMsg("נא לבחור אמצעי תשלום");
       return;
     }
-    setGatewayMsg("אינטגרציית API תתווסף בשלב הבא — מדמה אישור הזמנה");
-    setTimeout(() => confirmOrder(), 800);
+    simulatePaymentCall();
+  };
+
+  const handleRetry = () => {
+    setPaymentStatus("idle");
+    simulatePaymentCall();
+  };
+
+  const handleChooseOtherGateway = () => {
+    setPaymentStatus("idle");
+    setGateway(null);
   };
 
   if (isOrderConfirmed) {
@@ -204,18 +242,66 @@ export function CheckoutOverlay() {
                     <span>-{formatPrice(bundleDiscount)}</span>
                   </div>
                 )}
+                <div className="flex justify-between">
+                  <span>משלוח</span>
+                  <span>{shipping === 0 ? "חינם" : formatPrice(shipping)}</span>
+                </div>
                 <div className="flex justify-between text-lg font-bold">
                   <span>סה״כ</span>
                   <span>{formatPrice(total)}</span>
                 </div>
               </div>
-              <Button className="mt-6 w-full" onClick={handlePay}>
-                שלם עכשיו
+              <Button
+                className="mt-6 w-full"
+                onClick={handlePay}
+                disabled={paymentStatus === "pending"}
+              >
+                {paymentStatus === "pending" ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    מעבד תשלום...
+                  </>
+                ) : (
+                  "שלם עכשיו"
+                )}
               </Button>
+              <p className="mt-3 text-center text-xs text-muted">
+                התשלום מאובטח ומוצפן. לא נשמרים פרטי אשראי באתר.
+              </p>
             </div>
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={paymentStatus === "failed"}
+        onClose={handleChooseOtherGateway}
+        size="md"
+      >
+        <div className="text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error/10 text-error">
+            <AlertTriangle className="h-8 w-8" aria-hidden="true" />
+          </div>
+          <h3 className="mt-4 text-xl font-bold text-slate">התשלום נכשל</h3>
+          <p className="mt-2 leading-relaxed text-muted">
+            חברת הסליקה לא אישרה את העסקה. זה יכול לקרות מסיבות זמניות —
+            נסו שוב, או בחרו אמצעי תשלום אחר. פרטי ההזמנה שלכם נשמרו ולא
+            אבדו.
+          </p>
+          <div className="mt-6 flex flex-col gap-3">
+            <Button className="w-full" onClick={handleRetry}>
+              ניסיון חוזר
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={handleChooseOtherGateway}
+            >
+              בחירת אמצעי תשלום אחר
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

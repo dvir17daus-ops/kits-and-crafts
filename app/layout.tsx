@@ -4,10 +4,12 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { FlyToCartProvider } from "@/context/FlyToCartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CheckoutOverlay } from "@/components/checkout/CheckoutOverlay";
 import { ToastContainer } from "@/components/ui/ToastContainer";
 import { WhatsAppBubble } from "@/components/ui/WhatsAppBubble";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -57,13 +59,16 @@ export default function RootLayout({
       >
         <CartProvider>
           <ToastProvider>
-            <Header />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
-            <CartDrawer />
-            <CheckoutOverlay />
-            <ToastContainer />
-            <WhatsAppBubble />
+            <FlyToCartProvider>
+              <ScrollProgress />
+              <Header />
+              <main className="min-h-screen">{children}</main>
+              <Footer />
+              <CartDrawer />
+              <CheckoutOverlay />
+              <ToastContainer />
+              <WhatsAppBubble />
+            </FlyToCartProvider>
           </ToastProvider>
         </CartProvider>
       </body>

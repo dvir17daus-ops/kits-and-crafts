@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Check, Play, Ruler, Clock, Gauge, ShoppingCart } from "lucide-react";
 import type { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
+import { useFlyToCart } from "@/context/FlyToCartContext";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { formatPrice } from "@/utils/formatPrice";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
@@ -19,19 +21,48 @@ interface ProductCardProps {
 export function ProductCard({ product, onOpenModal }: ProductCardProps) {
   const { addToCart, openCart } = useCart();
   const { showToast } = useToast();
+  const { fly } = useFlyToCart();
+  const cardRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0, hover: false });
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     addToCart(product);
+    fly(product.image, imageRef.current);
     showToast("נוסף לעגלה ✓", { label: "צפה בעגלה", onClick: openCart });
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: py * -7, y: px * 7, hover: true });
+  };
+
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0, hover: false });
+
   return (
     <article
-      className="card-premium group cursor-pointer overflow-hidden"
+      ref={cardRef}
+      className="card-premium group cursor-pointer overflow-hidden will-change-transform"
+      style={{
+        transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${
+          tilt.hover ? -4 : 0
+        }px)`,
+        transition: tilt.hover
+          ? "transform 0.08s linear"
+          : "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={() => onOpenModal(product)}
     >
-      <div className="relative m-3 aspect-square overflow-hidden rounded-xl bg-cream-dark">
+      <div
+        ref={imageRef}
+        className="relative m-3 aspect-square overflow-hidden rounded-xl bg-cream-dark"
+      >
         <Image
           src={product.image}
           alt={product.title}
@@ -46,7 +77,7 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
           )}
         </div>
         {product.isDeal && product.discountPercent && (
-          <div className="absolute right-2 top-2 rounded-full bg-pink px-2.5 py-1 text-xs font-bold text-white">
+          <div className="absolute right-2 top-2 rounded-full bg-gradient-to-br from-pink to-[#e85c82] px-2.5 py-1 text-xs font-bold text-white shadow-[0_4px_10px_-2px_rgba(255,143,171,0.6)]">
             -{product.discountPercent}%
           </div>
         )}
@@ -130,11 +161,14 @@ function VideoPlaceholder() {
 export function ProductModal({ product, onClose }: ProductModalProps) {
   const { addToCart, openCart } = useCart();
   const { showToast } = useToast();
+  const { fly } = useFlyToCart();
+  const modalImageRef = useRef<HTMLDivElement>(null);
 
   if (!product) return null;
 
   const handleAdd = () => {
     addToCart(product);
+    fly(product.image, modalImageRef.current);
     showToast("נוסף לעגלה ✓", { label: "צפה בעגלה", onClick: openCart });
     onClose();
   };
@@ -142,7 +176,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
   return (
     <Modal isOpen={!!product} onClose={onClose} title={product.title} size="xl">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="relative aspect-square overflow-hidden rounded-xl">
+        <div ref={modalImageRef} className="relative aspect-square overflow-hidden rounded-xl">
           <Image
             src={product.image}
             alt={product.title}
@@ -197,10 +231,31 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
 interface ProductGridProps {
   products: Product[];
+  showControls?: boolean;
 }
 
-export function ProductGridClient({ products }: ProductGridProps) {
+type SortOption = "default" | "price-asc" | "price-desc";
+
+export function ProductGridClient({
+  products,
+  showControls = false,
+}: ProductGridProps) {
   const [selected, setSelected] = useState<Product | null>(null);
+  const [sortBy, setSortBy] = useState<SortOption>("default");
+  const [ageFilter, setAgeFilter] = useState<string>("all");
+
+  const ageGroups = Array.from(new Set(products.map((p) => p.ageGroup)));
+
+  const filtered =
+    ageFilter === "all"
+      ? products
+      : products.filter((p) => p.ageGroup === ageFilter);
+
+  const sorted = [...filtered].sort((a, b) => {
+    if (sortBy === "price-asc") return a.price - b.price;
+    if (sortBy === "price-desc") return b.price - a.price;
+    return 0;
+  });
 
   if (products.length === 0) {
     return (
@@ -210,15 +265,65 @@ export function ProductGridClient({ products }: ProductGridProps) {
 
   return (
     <>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onOpenModal={setSelected}
-          />
-        ))}
-      </div>
+      {showControls && (
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sand/60 bg-white p-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setAgeFilter("all")}
+              className={cn(
+                "rounded-full px-3.5 py-1.5 text-sm font-medium transition-all active:scale-95",
+                ageFilter === "all"
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-cream-dark text-muted hover:bg-sand"
+              )}
+            >
+              כל הגילאים
+            </button>
+            {ageGroups.map((age) => (
+              <button
+                key={age}
+                onClick={() => setAgeFilter(age)}
+                className={cn(
+                  "rounded-full px-3.5 py-1.5 text-sm font-medium transition-all active:scale-95",
+                  ageFilter === age
+                    ? "bg-primary text-white shadow-sm"
+                    : "bg-cream-dark text-muted hover:bg-sand"
+                )}
+              >
+                {age}
+              </button>
+            ))}
+          </div>
+          <label className="flex items-center gap-2 text-sm text-muted">
+            מיון:
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="rounded-full border border-sand bg-white px-3 py-1.5 text-sm font-medium text-slate outline-none transition-colors focus:border-primary"
+            >
+              <option value="default">מומלץ</option>
+              <option value="price-asc">מחיר: מהזול ליקר</option>
+              <option value="price-desc">מחיר: מהיקר לזול</option>
+            </select>
+          </label>
+        </div>
+      )}
+
+      {sorted.length === 0 ? (
+        <p className="py-12 text-center text-muted">
+          לא נמצאו מוצרים בגיל שנבחר.
+        </p>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {sorted.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onOpenModal={setSelected}
+            />
+          ))}
+        </div>
+      )}
       <ProductModal product={selected} onClose={() => setSelected(null)} />
     </>
   );

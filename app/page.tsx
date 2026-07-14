@@ -7,6 +7,7 @@ import { HowItWorks } from "@/components/home/HowItWorks";
 import { Testimonials } from "@/components/home/Testimonials";
 import { SchoolFairCTA } from "@/components/home/SchoolFairCTA";
 import { HomeJsonLd } from "@/components/seo/HomeJsonLd";
+import { Reveal } from "@/components/ui/Reveal";
 import { getFeaturedProducts } from "@/utils/getProducts";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -23,12 +24,24 @@ export default async function HomePage() {
       <HomeJsonLd products={featured.slice(0, 4)} />
       <Hero />
       <TrustBadges />
-      <InstitutionsSection />
-      <FeaturedSection products={featured} />
-      <CategoryShowcase />
-      <HowItWorks />
-      <Testimonials />
-      <SchoolFairCTA />
+      <Reveal>
+        <InstitutionsSection />
+      </Reveal>
+      <Reveal>
+        <FeaturedSection products={featured} />
+      </Reveal>
+      <Reveal>
+        <CategoryShowcase />
+      </Reveal>
+      <Reveal>
+        <HowItWorks />
+      </Reveal>
+      <Reveal>
+        <Testimonials />
+      </Reveal>
+      <Reveal>
+        <SchoolFairCTA />
+      </Reveal>
     </>
   );
 }

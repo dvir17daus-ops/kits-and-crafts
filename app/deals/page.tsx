@@ -22,7 +22,7 @@ export default async function DealsPage() {
         breadcrumb="מבצעים"
       />
       <DealBanner />
-      <ProductGridClient products={products} />
+      <ProductGridClient products={products} showControls />
     </div>
   );
 }

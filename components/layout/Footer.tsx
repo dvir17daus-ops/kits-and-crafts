@@ -5,10 +5,12 @@ import { NAV_LINKS, BUSINESS, GEFEN, SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-t from-teal-deep to-teal-dark text-white">
-      <div className="container-narrow py-14">
-        <div className="mb-10 flex flex-col items-center gap-4 rounded-2xl bg-white/10 p-6 text-center md:flex-row md:text-right">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-teal-deep">
+    <footer className="relative overflow-hidden bg-gradient-to-t from-teal-deep to-teal-dark text-white">
+      <div className="blob -right-20 top-0 h-72 w-72 bg-orange/20" aria-hidden="true" />
+      <div className="blob -left-24 bottom-0 h-80 w-80 bg-pink/15" aria-hidden="true" />
+      <div className="container-narrow relative py-14">
+        <div className="mb-10 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/10 p-6 text-center shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35)] backdrop-blur-sm md:flex-row md:text-right">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-white to-cream-dark text-teal-deep shadow-md">
             <Award className="h-6 w-6" />
           </div>
           <div>

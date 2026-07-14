@@ -28,6 +28,8 @@ export interface Product {
   maxGroupSize: number;
   difficulty: Difficulty;
   duration: string;
+  /** Small cart add-on (e.g. glue & brush set) rather than a full catalog item. */
+  isAddon?: boolean;
 }
 
 export interface CartItem {

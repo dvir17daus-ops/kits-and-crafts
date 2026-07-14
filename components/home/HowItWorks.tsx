@@ -30,14 +30,14 @@ export function HowItWorks() {
         </p>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
-            <div key={step.number} className="relative text-center">
+            <div key={step.number} className="group relative text-center">
               {index < steps.length - 1 && (
                 <div
-                  className="absolute left-0 top-8 hidden h-0.5 w-full -translate-x-1/2 bg-sand md:block"
+                  className="absolute left-0 top-8 hidden h-0.5 w-full -translate-x-1/2 bg-gradient-to-l from-sand via-accent-light/50 to-sand md:block"
                   aria-hidden="true"
                 />
               )}
-              <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-sand bg-white text-2xl font-bold text-primary/40">
+              <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-cream-dark text-2xl font-bold text-primary shadow-[0_10px_24px_-8px_rgba(28,43,58,0.18)] ring-1 ring-sand transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_14px_30px_-8px_rgba(224,124,10,0.35)]">
                 {step.number}
               </div>
               <h3 className="text-lg font-semibold text-slate">{step.title}</h3>

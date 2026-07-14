@@ -1,5 +1,5 @@
 import { createPageMetadata } from "@/lib/metadata";
-import { BUSINESS, SITE_NAME_HE } from "@/lib/constants";
+import { BUSINESS, LEGAL_BUSINESS_NAME, SITE_NAME_HE } from "@/lib/constants";
 
 export const metadata = createPageMetadata(
   "תקנון האתר",
@@ -31,9 +31,10 @@ export default function TermsPage() {
         תקנון האתר ותנאי שימוש
       </h1>
       <p className="mt-4 leading-relaxed text-muted">
-        אתר {SITE_NAME_HE} (&quot;האתר&quot;) מופעל על ידי {SITE_NAME_HE}{" "}
-        (&quot;החברה&quot;/&quot;אנו&quot;). הגלישה באתר ו/או ביצוע הזמנה
-        מהווה הסכמה לתנאים המפורטים בתקנון זה. אנא קראו אותו בעיון.
+        אתר {SITE_NAME_HE} (&quot;האתר&quot;) הינו שם המסחר של{" "}
+        {LEGAL_BUSINESS_NAME} (&quot;החברה&quot;/&quot;אנו&quot;). הגלישה
+        באתר ו/או ביצוע הזמנה מהווה הסכמה לתנאים המפורטים בתקנון זה. אנא
+        קראו אותו בעיון.
       </p>
 
       <Section title="1. כללי">
@@ -96,6 +97,9 @@ export default function TermsPage() {
       </Section>
 
       <Section title="7. יצירת קשר">
+        <p>
+          {LEGAL_BUSINESS_NAME}, {BUSINESS.address}
+        </p>
         <p>
           לכל שאלה או פנייה בנוגע לתקנון זה ניתן לפנות אלינו בטלפון{" "}
           {BUSINESS.phone} או בדוא&quot;ל {BUSINESS.email}.

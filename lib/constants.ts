@@ -1,6 +1,10 @@
+import type { Product } from "@/types/product";
+
 export const SITE_NAME = "הסדנאייה";
 export const SITE_NAME_HE = "הסדנאייה";
 export const SITE_TAGLINE_HE = "מבית בואו נחגוג";
+// שם העסק הרשום (הישות המשפטית המפעילה את "הסדנאייה")
+export const LEGAL_BUSINESS_NAME = 'א.נ.ד.ר קידום והפקות';
 
 export const GEFEN = {
   title: "מאושרים בגפ\"ן",
@@ -57,12 +61,16 @@ export const BUNDLE_DISCOUNT_PERCENT = 15;
 export const BUNDLE_MIN_ITEMS = 2;
 export const MAX_QUANTITY_PER_ITEM = 10;
 
+// הערה: מחירי המשלוח הם ערכי דוגמה — יש לאשר/לעדכן בהתאם למדיניות המשלוחים בפועל.
+export const SHIPPING_COST = 25;
+export const FREE_SHIPPING_THRESHOLD = 250;
+
 export const BUSINESS = {
-  phone: "050-1234567",
-  email: "hello@hasadnaya.co.il",
-  whatsapp: "972501234567",
+  phone: "058-7387300",
+  email: "Anderkidum@gmail.com",
+  whatsapp: "972587387300",
   hours: "א'-ה', 9:00–18:00",
-  address: "ישראל",
+  address: "הנביאים 1, ראש העין",
 } as const;
 
 export const TESTIMONIALS = [
@@ -85,6 +93,58 @@ export const TESTIMONIALS = [
     role: "יריד קהילתי, חיפה",
   },
 ] as const;
+
+// תוספות קטנות שמוצעות בסל הקניות (upsell) — אין להן תמונת מוצר, מוצגות עם אייקון.
+export const UPSELL_ADDONS: Product[] = [
+  {
+    id: "addon-glue-brush",
+    title: "סט דבק ומברשות איכותי",
+    description: "דבק חוזק לעץ + 3 מברשות יצירה בגדלים שונים — משלים כל ערכה.",
+    price: 10,
+    originalPrice: null,
+    category: "bundle-deal",
+    image: "",
+    ageGroup: "לכל הגילאים",
+    size: "מארז קטן",
+    whatsInTheBox: ["דבק חוזק לעץ 50 מ״ל", "3 מברשות יצירה בגדלים שונים"],
+    isFeatured: false,
+    isDeal: false,
+    discountPercent: null,
+    tags: ["addon"],
+    inStock: true,
+    schoolFriendly: true,
+    fairRecommended: false,
+    minGroupSize: 1,
+    maxGroupSize: 1,
+    difficulty: "קל",
+    duration: "",
+    isAddon: true,
+  },
+  {
+    id: "addon-gift-wrap",
+    title: "עטיפת מתנה מהודרת",
+    description: "עטיפה בנייר איכותי + כרטיס ברכה — מוכן לחגוג.",
+    price: 15,
+    originalPrice: null,
+    category: "bundle-deal",
+    image: "",
+    ageGroup: "לכל הגילאים",
+    size: "",
+    whatsInTheBox: ["נייר עטיפה", "כרטיס ברכה", "סרט קישוט"],
+    isFeatured: false,
+    isDeal: false,
+    discountPercent: null,
+    tags: ["addon"],
+    inStock: true,
+    schoolFriendly: false,
+    fairRecommended: false,
+    minGroupSize: 1,
+    maxGroupSize: 1,
+    difficulty: "קל",
+    duration: "",
+    isAddon: true,
+  },
+];
 
 export const CONTACT_TYPES = [
   { id: "parent" as const, label: "הורה פרטי" },

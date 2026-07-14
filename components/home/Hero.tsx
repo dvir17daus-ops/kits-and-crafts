@@ -55,7 +55,7 @@ export function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-3 pt-4 sm:px-6 sm:pt-8">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-lg sm:aspect-[16/7]">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_-12px_rgba(18,98,111,0.4)] ring-1 ring-white/40 sm:aspect-[16/7] sm:rounded-3xl">
           {SLIDES.map((slide, i) => (
             <Image
               key={slide.image}
@@ -102,8 +102,8 @@ export function Hero() {
           </div>
 
           <div className="absolute inset-0 z-10 flex items-center justify-center px-3 sm:px-4">
-            <div className="max-w-lg rounded-2xl bg-white/95 px-4 py-4 text-center shadow-xl backdrop-blur-sm sm:rounded-3xl sm:px-10 sm:py-8">
-              <h1 className="text-xl font-extrabold text-orange sm:text-3xl md:text-4xl">
+            <div className="max-w-lg rounded-2xl border border-white/60 bg-white/95 px-4 py-4 text-center shadow-[0_20px_50px_-12px_rgba(28,43,58,0.35)] backdrop-blur-sm sm:rounded-3xl sm:px-10 sm:py-8">
+              <h1 className="bg-gradient-to-l from-orange to-orange-dark bg-clip-text text-xl font-extrabold text-transparent sm:text-3xl md:text-4xl">
                 בונים בקיץ הזה!
               </h1>
               <p className="mt-2 text-xs font-medium text-slate sm:text-base">

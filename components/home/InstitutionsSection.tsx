@@ -51,7 +51,7 @@ export function InstitutionsSection() {
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="card-premium p-6">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-light to-accent text-white shadow-md shadow-accent/25">
                 <Icon className="h-6 w-6" />
               </div>
               <h3 className="font-semibold text-slate">{title}</h3>

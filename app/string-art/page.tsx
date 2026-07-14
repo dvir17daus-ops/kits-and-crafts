@@ -20,7 +20,7 @@ export default async function StringArtPage() {
         description={info.description}
         breadcrumb={info.title}
       />
-      <ProductGridClient products={products} />
+      <ProductGridClient products={products} showControls />
     </div>
   );
 }

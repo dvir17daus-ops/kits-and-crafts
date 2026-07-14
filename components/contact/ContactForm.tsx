@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { GefenBadge } from "@/components/trust/GefenBadge";
-import { CONTACT_TYPES } from "@/lib/constants";
+import { BUSINESS, CONTACT_TYPES, SITE_NAME_HE } from "@/lib/constants";
 import {
   isValidEmail,
   isValidIsraeliPhone,
@@ -30,6 +30,8 @@ function ContactFormInner() {
   const [eventDate, setEventDate] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (typeParam === "institution") {
@@ -52,10 +54,45 @@ function ContactFormInner() {
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    setSent(true);
+
+    setIsSubmitting(true);
+    setSubmitError(false);
+
+    const typeLabel = CONTACT_TYPES.find((t) => t.id === type)?.label ?? type;
+
+    try {
+      const res = await fetch(
+        `https://formsubmit.co/ajax/${encodeURIComponent(BUSINESS.email)}`,
+        {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: (() => {
+            const fd = new FormData();
+            fd.append("_subject", `פנייה חדשה מהאתר — ${SITE_NAME_HE}`);
+            fd.append("סוג פנייה", typeLabel);
+            fd.append("שם", name);
+            fd.append("טלפון", phone);
+            if (email) fd.append("אימייל", email);
+            if (institutionName) fd.append("שם מוסד / ועד", institutionName);
+            if (estimatedQuantity)
+              fd.append("כמות משוערת", estimatedQuantity);
+            if (eventDate) fd.append("תאריך אירוע", eventDate);
+            fd.append("הודעה", message);
+            return fd;
+          })(),
+        }
+      );
+
+      if (!res.ok) throw new Error("שליחה נכשלה");
+      setSent(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const whatsappText = encodeURIComponent(
@@ -158,16 +195,24 @@ function ContactFormInner() {
         </div>
       </div>
 
+      {submitError && (
+        <p className="text-sm text-error">
+          השליחה נכשלה, נסו שוב או פנו אלינו ישירות בוואטסאפ.
+        </p>
+      )}
+
       <div className="flex flex-col gap-3 sm:flex-row">
-        <Button type="submit">שליחה</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "שולח..." : "שליחה"}
+        </Button>
         <a
-          href={`https://wa.me/972501234567?text=${whatsappText}`}
+          href={`https://wa.me/${BUSINESS.whatsapp}?text=${whatsappText}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Button
             type="button"
-            className="w-full bg-whatsapp hover:bg-whatsapp/90 sm:w-auto"
+            className="w-full bg-none! bg-whatsapp shadow-[0_2px_0_0_rgba(255,255,255,0.25)_inset,0_8px_20px_-6px_rgba(37,211,102,0.55)] hover:bg-whatsapp/90 hover:shadow-[0_2px_0_0_rgba(255,255,255,0.3)_inset,0_12px_26px_-6px_rgba(37,211,102,0.65)] sm:w-auto"
           >
             <MessageCircle className="h-5 w-5" />
             WhatsApp

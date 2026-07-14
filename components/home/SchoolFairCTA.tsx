@@ -13,7 +13,15 @@ export function SchoolFairCTA() {
         sizes="100vw"
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-accent/85" />
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-deep/92 via-accent/88 to-teal-dark/92" />
+      <div
+        className="blob -right-24 -top-24 h-72 w-72 bg-orange/40"
+        aria-hidden="true"
+      />
+      <div
+        className="blob -bottom-20 -left-16 h-64 w-64 bg-pink/30"
+        aria-hidden="true"
+      />
       <div className="container-narrow relative section-padding text-center text-white">
         <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
           מתכננים יריד בבית הספר?
@@ -23,7 +31,10 @@ export function SchoolFairCTA() {
           והנחות כמות לוועדי הורים.
         </p>
         <Link href="/contact?type=institution" className="mt-8 inline-block">
-          <Button size="lg" className="bg-white text-accent hover:bg-cream">
+          <Button
+            size="lg"
+            className="bg-none! bg-white text-accent! shadow-[0_8px_24px_-6px_rgba(0,0,0,0.25)] hover:bg-cream"
+          >
             קבלו הצעת מחיר לוועד
           </Button>
         </Link>

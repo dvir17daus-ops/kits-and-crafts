@@ -13,7 +13,9 @@ import type { Product, CartItem } from "@/types/product";
 import {
   BUNDLE_DISCOUNT_PERCENT,
   BUNDLE_MIN_ITEMS,
+  FREE_SHIPPING_THRESHOLD,
   MAX_QUANTITY_PER_ITEM,
+  SHIPPING_COST,
 } from "@/lib/constants";
 
 const STORAGE_KEY = "kits-crafts-cart";
@@ -23,6 +25,8 @@ interface CartContextValue {
   itemCount: number;
   subtotal: number;
   bundleDiscount: number;
+  shipping: number;
+  freeShippingRemaining: number;
   total: number;
   isCartOpen: boolean;
   isCheckoutOpen: boolean;
@@ -129,7 +133,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return 0;
   }, [itemCount, subtotal]);
 
-  const total = subtotal - bundleDiscount;
+  const amountAfterDiscount = subtotal - bundleDiscount;
+
+  const shipping = useMemo(() => {
+    if (items.length === 0) return 0;
+    return amountAfterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  }, [items.length, amountAfterDiscount]);
+
+  const freeShippingRemaining = useMemo(
+    () => Math.max(0, FREE_SHIPPING_THRESHOLD - amountAfterDiscount),
+    [amountAfterDiscount]
+  );
+
+  const total = amountAfterDiscount + shipping;
 
   const confirmOrder = useCallback(() => {
     setOrderNumber(`KC-${Math.floor(10000 + Math.random() * 90000)}`);
@@ -141,6 +157,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     itemCount,
     subtotal,
     bundleDiscount,
+    shipping,
+    freeShippingRemaining,
     total,
     isCartOpen,
     isCheckoutOpen,

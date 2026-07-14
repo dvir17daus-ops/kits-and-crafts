@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Minus, Plus, Sparkles, Trash2, Truck } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { CartEmptyState } from "@/components/cart/CartEmptyState";
+import { UpsellWidget } from "@/components/cart/UpsellWidget";
 import { Button } from "@/components/ui/Button";
 import { formatPrice } from "@/utils/formatPrice";
 import { BUNDLE_DISCOUNT_PERCENT } from "@/lib/constants";
@@ -21,6 +22,8 @@ export function CartDrawer() {
     updateQuantity,
     subtotal,
     bundleDiscount,
+    shipping,
+    freeShippingRemaining,
     total,
     itemCount,
   } = useCart();
@@ -73,6 +76,19 @@ export function CartDrawer() {
           <CartEmptyState onContinueShopping={closeCart} />
         ) : (
           <>
+            {freeShippingRemaining > 0 ? (
+              <div className="flex items-center gap-2 bg-accent/10 px-4 py-2.5 text-xs font-medium text-accent">
+                <Truck className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>
+                  עוד {formatPrice(freeShippingRemaining)} למשלוח חינם!
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 bg-green/10 px-4 py-2.5 text-xs font-medium text-green">
+                <Truck className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>זכית במשלוח חינם 🎉</span>
+              </div>
+            )}
             <div className="flex-1 overflow-y-auto p-4">
               <ul className="space-y-4">
                 {items.map((item) => (
@@ -80,15 +96,21 @@ export function CartDrawer() {
                     key={item.productId}
                     className="flex gap-3 rounded-xl border border-sand/60 p-3"
                   >
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
-                      <Image
-                        src={item.product.image}
-                        alt={item.product.title}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </div>
+                    {item.product.isAddon ? (
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-yellow to-orange text-white">
+                        <Sparkles className="h-6 w-6" aria-hidden="true" />
+                      </div>
+                    ) : (
+                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+                        <Image
+                          src={item.product.image}
+                          alt={item.product.title}
+                          fill
+                          className="object-cover"
+                          sizes="64px"
+                        />
+                      </div>
+                    )}
                     <div className="flex flex-1 flex-col">
                       <p className="text-sm font-semibold text-slate">
                         {item.product.title}
@@ -102,26 +124,26 @@ export function CartDrawer() {
                             updateQuantity(item.productId, item.quantity - 1)
                           }
                           disabled={item.quantity <= 1}
-                          className="rounded-lg border border-sand p-1 hover:bg-cream-dark disabled:opacity-40"
+                          className="rounded-lg border border-sand p-1 transition-transform duration-150 hover:bg-cream-dark active:scale-90 disabled:opacity-40 disabled:active:scale-100"
                           aria-label="הפחת כמות"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="w-6 text-center text-sm font-medium">
+                        <span className="w-6 text-center text-sm font-medium tabular-nums">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() =>
                             updateQuantity(item.productId, item.quantity + 1)
                           }
-                          className="rounded-lg border border-sand p-1 hover:bg-cream-dark"
+                          className="rounded-lg border border-sand p-1 transition-transform duration-150 hover:bg-cream-dark active:scale-90"
                           aria-label="הוסף כמות"
                         >
                           <Plus className="h-3 w-3" />
                         </button>
                         <button
                           onClick={() => removeFromCart(item.productId)}
-                          className="mr-auto rounded-lg p-1 text-muted hover:bg-red-50 hover:text-error"
+                          className="mr-auto rounded-lg p-1 text-muted transition-transform duration-150 hover:bg-red-50 hover:text-error active:scale-90"
                           aria-label="הסר מהעגלה"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -132,6 +154,8 @@ export function CartDrawer() {
                 ))}
               </ul>
             </div>
+
+            <UpsellWidget />
 
             <div className="border-t border-sand p-6">
               <div className="space-y-2 text-sm">
@@ -145,6 +169,10 @@ export function CartDrawer() {
                     <span>-{formatPrice(bundleDiscount)}</span>
                   </div>
                 )}
+                <div className="flex justify-between text-muted">
+                  <span>משלוח</span>
+                  <span>{shipping === 0 ? "חינם" : formatPrice(shipping)}</span>
+                </div>
                 <div className="flex justify-between border-t border-sand pt-2 text-lg font-bold text-slate">
                   <span>סה״כ</span>
                   <span>{formatPrice(total)}</span>
