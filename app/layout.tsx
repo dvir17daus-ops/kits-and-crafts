@@ -7,6 +7,7 @@ import { ToastProvider } from "@/context/ToastContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CheckoutOverlay } from "@/components/checkout/CheckoutOverlay";
 import { ToastContainer } from "@/components/ui/ToastContainer";
+import { WhatsAppBubble } from "@/components/ui/WhatsAppBubble";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -23,14 +24,24 @@ const secularOne = Secular_One({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteMetadata.siteUrl),
   title: {
     default: siteMetadata.title,
     template: siteMetadata.titleTemplate,
   },
   description: siteMetadata.description,
   openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
     locale: siteMetadata.locale,
     type: "website",
+    images: [{ url: siteMetadata.ogImage, width: 1024, height: 585 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: [siteMetadata.ogImage],
   },
 };
 
@@ -52,6 +63,7 @@ export default function RootLayout({
             <CartDrawer />
             <CheckoutOverlay />
             <ToastContainer />
+            <WhatsAppBubble />
           </ToastProvider>
         </CartProvider>
       </body>

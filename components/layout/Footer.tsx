@@ -94,9 +94,29 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-white/15 pt-6 text-center text-sm text-white/60">
+        <div className="mt-10 flex flex-col items-center gap-4 border-t border-white/15 pt-6 text-center text-sm text-white/60">
+          <nav
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+            aria-label="קישורים משפטיים"
+          >
+            <Link href="/accessibility" className="hover:text-white">
+              הצהרת נגישות
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/terms" className="hover:text-white">
+              תקנון האתר
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/privacy" className="hover:text-white">
+              מדיניות פרטיות
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/returns" className="hover:text-white">
+              ביטול והחזרות
+            </Link>
+          </nav>
           <p>מספקים לוועדי הורים וירידי קהילה ברחבי הארץ · {GEFEN.title}</p>
-          <p className="mt-2">
+          <p>
             © 2026 <span className="font-logo">{SITE_NAME_HE}</span> — כל
             הזכויות שמורות
           </p>

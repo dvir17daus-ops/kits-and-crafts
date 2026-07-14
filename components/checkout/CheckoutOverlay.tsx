@@ -86,6 +86,10 @@ export function CheckoutOverlay() {
     return (
       <OrderConfirmation
         orderNumber={orderNumber}
+        items={items}
+        total={total}
+        customerName={name}
+        customerPhone={phone}
         onReturnHome={() => {
           clearCart();
           closeCheckout();

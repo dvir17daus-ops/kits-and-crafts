@@ -6,7 +6,9 @@ export const siteMetadata = {
   description:
     "הסדנאייה (מבית בואו נחגוג) — ערכות DIY פרימיום מעץ אמיתי לילדים, בתי ספר וירידי קהילה. מאושרים בגפ\"ן, משלוח מהיר, הוראות בעברית.",
   locale: "he_IL",
-  siteUrl: "https://hasadnaya.co.il",
+  // TODO: switch to the custom domain (e.g. https://hasadnaya.co.il) once it's connected in Vercel.
+  siteUrl: "https://kits-and-crafts.vercel.app",
+  ogImage: "/images/og-image.png",
 } as const;
 
 export function createPageMetadata(
@@ -21,6 +23,13 @@ export function createPageMetadata(
       description,
       locale: siteMetadata.locale,
       type: "website",
+      images: [{ url: siteMetadata.ogImage, width: 1024, height: 585 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteMetadata.ogImage],
     },
   };
 }
