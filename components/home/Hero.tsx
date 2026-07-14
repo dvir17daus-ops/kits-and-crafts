@@ -10,6 +10,10 @@ import { cn } from "@/lib/utils";
 
 const SLIDES = [
   {
+    image: "/images/kids-crafting.jpg",
+    alt: "ילד וילדה יוצרים ביחד בחוץ",
+  },
+  {
     image:
       "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1600&h=700&fit=crop",
     alt: "ילדים יוצרים יחד בחוץ",
