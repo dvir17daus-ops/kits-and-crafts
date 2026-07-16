@@ -12,6 +12,8 @@ import {
   Gauge,
   ShoppingCart,
   Sparkles,
+  GraduationCap,
+  MessageCircle,
 } from "lucide-react";
 import type { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
@@ -23,7 +25,7 @@ import { Badge } from "@/components/ui/Badge";
 import { StarRating } from "@/components/ui/StarRating";
 import { Reveal } from "@/components/ui/Reveal";
 import { formatPrice } from "@/utils/formatPrice";
-import { LOW_STOCK_THRESHOLD } from "@/lib/constants";
+import { BUSINESS, GUIDANCE, LOW_STOCK_THRESHOLD } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 function LowStockNotice({ stockCount }: { stockCount: number }) {
@@ -123,6 +125,10 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
       <div className="px-4 pb-4 pt-3.5">
         <p className="text-xs font-medium text-muted">{product.ageGroup}</p>
         <h3 className="mt-1 font-bold text-slate line-clamp-2">{product.title}</h3>
+        <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-accent">
+          <GraduationCap className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          {GUIDANCE.shortLabel}
+        </p>
         {typeof product.rating === "number" && (
           <StarRating
             rating={product.rating}
@@ -341,6 +347,28 @@ export function ProductModal({
               <LowStockNotice stockCount={product.stockCount} />
             )}
           <p className="text-muted leading-relaxed">{product.description}</p>
+
+          <div className="rounded-xl border border-accent/25 bg-cream-dark/80 p-4">
+            <p className="flex items-center gap-2 text-sm font-bold text-slate">
+              <GraduationCap className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              {GUIDANCE.title}
+            </p>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted">
+              {GUIDANCE.description}
+            </p>
+            <a
+              href={`https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+                GUIDANCE.whatsappText(product.title)
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-whatsapp transition-opacity hover:opacity-80"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              {GUIDANCE.cta}
+            </a>
+          </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-muted">
             {product.size ? (

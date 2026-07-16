@@ -1,14 +1,14 @@
 "use client";
 
-import { Award, BookMarked, ShieldCheck, Truck } from "lucide-react";
-import { GEFEN } from "@/lib/constants";
+import { Award, BookMarked, GraduationCap, ShieldCheck } from "lucide-react";
+import { GEFEN, GUIDANCE } from "@/lib/constants";
 import { Reveal } from "@/components/ui/Reveal";
 
 const badges = [
   { icon: Award, label: GEFEN.homeLabel, highlight: true },
+  { icon: GraduationCap, label: GUIDANCE.shortLabel },
   { icon: ShieldCheck, label: "חומרים בטוחים לילדים" },
   { icon: BookMarked, label: "מדריך בעברית" },
-  { icon: Truck, label: "משלוח לכל הארץ" },
 ];
 
 export function TrustBadges() {

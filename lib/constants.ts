@@ -89,6 +89,19 @@ export const BUSINESS = {
   address: "הנביאים 1, ראש העין",
 } as const;
 
+/** אפשרות להזמין הדרכה חיה יחד עם הערכה */
+export const GUIDANCE = {
+  title: "אפשר להזמין הדרכה",
+  shortLabel: "הדרכה זמינה עם המוצר",
+  description:
+    "רוצים מדריך שמגיע עם הערכה? אפשר להזמין הדרכה לפעילות — לגנים, בתי ספר, ירידים ומשפחות.",
+  cta: "להזמנת הדרכה בוואטסאפ",
+  whatsappText: (productTitle?: string) =>
+    productTitle
+      ? `שלום! אשמח לקבל פרטים על הזמנת הדרכה יחד עם הערכה: ${productTitle}`
+      : "שלום! אשמח לקבל פרטים על הזמנת הדרכה עם הערכות שלכם",
+} as const;
+
 export const TESTIMONIALS = [
   {
     quote:
