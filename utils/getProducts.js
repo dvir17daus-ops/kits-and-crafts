@@ -1,5 +1,9 @@
-const SHEETS_API_URL = process.env.NEXT_PUBLIC_SHEETS_API_URL;
-const FETCH_TIMEOUT_MS = 4000;
+const DEFAULT_SHEETS_API_URL =
+  "https://opensheet.elk.sh/18i5pGMyeGW_-M8Nm7UE4oPgYu9ZDuC0bHsnFehTp_GQ/1";
+
+const SHEETS_API_URL =
+  process.env.NEXT_PUBLIC_SHEETS_API_URL?.trim() || DEFAULT_SHEETS_API_URL;
+const FETCH_TIMEOUT_MS = 8000;
 
 // In-memory cache of the last successfully fetched product list.
 let lastGoodRemoteData = null;

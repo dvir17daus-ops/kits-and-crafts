@@ -342,29 +342,40 @@ export function ProductModal({
             )}
           <p className="text-muted leading-relaxed">{product.description}</p>
 
-          <div className="flex gap-4 text-sm text-muted">
-            <span className="flex items-center gap-1">
-              <Ruler className="h-4 w-4" /> {product.size}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="h-4 w-4" /> {product.duration}
-            </span>
-            <span className="flex items-center gap-1">
-              <Gauge className="h-4 w-4" /> {product.difficulty}
-            </span>
+          <div className="flex flex-wrap gap-4 text-sm text-muted">
+            {product.size ? (
+              <span className="flex items-center gap-1">
+                <Ruler className="h-4 w-4" /> {product.size}
+              </span>
+            ) : null}
+            {product.duration ? (
+              <span className="flex items-center gap-1">
+                <Clock className="h-4 w-4" />{" "}
+                {/^\d+$/.test(product.duration.trim())
+                  ? `${product.duration} דקות`
+                  : product.duration}
+              </span>
+            ) : null}
+            {product.difficulty ? (
+              <span className="flex items-center gap-1">
+                <Gauge className="h-4 w-4" /> {product.difficulty}
+              </span>
+            ) : null}
           </div>
 
+          {(product.whatsInTheBox?.length ?? 0) > 0 && (
           <div>
             <h4 className="mb-2 font-semibold text-slate">מה יש בקופסה</h4>
             <ul className="space-y-1.5">
-              {product.whatsInTheBox.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-muted">
+              {product.whatsInTheBox.map((item, i) => (
+                <li key={`${item}-${i}`} className="flex items-center gap-2 text-sm text-muted">
                   <Check className="h-4 w-4 shrink-0 text-accent" />
                   {item}
                 </li>
               ))}
             </ul>
           </div>
+          )}
 
           {product.videoUrl && <ProductVideo url={product.videoUrl} title={product.title} />}
 
