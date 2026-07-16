@@ -11,28 +11,27 @@ export function BusinessDetails() {
         <li>
           <a
             href={phoneHref}
-            className="flex items-start gap-3 text-muted transition-colors hover:text-primary"
-            dir="ltr"
+            className="inline-flex items-center gap-3 text-muted transition-colors hover:text-primary"
           >
-            <Phone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-            <span>{BUSINESS.phone}</span>
+            <Phone className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+            <span dir="ltr">{BUSINESS.phone}</span>
           </a>
         </li>
         <li>
           <a
             href={`mailto:${BUSINESS.email}`}
-            className="flex items-start gap-3 text-muted transition-colors hover:text-primary"
+            className="inline-flex items-center gap-3 text-muted transition-colors hover:text-primary"
           >
-            <Mail className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+            <Mail className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
             <span>{BUSINESS.email}</span>
           </a>
         </li>
-        <li className="flex items-start gap-3 text-muted">
-          <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <li className="inline-flex items-center gap-3 text-muted">
+          <Clock className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
           <span>{BUSINESS.hours}</span>
         </li>
-        <li className="flex items-start gap-3 text-muted">
-          <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <li className="inline-flex items-center gap-3 text-muted">
+          <MapPin className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
           <span>{BUSINESS.address}</span>
         </li>
       </ul>
