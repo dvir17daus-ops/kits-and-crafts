@@ -18,7 +18,9 @@ export function GefenBadge({ variant = "compact", className }: GefenBadgeProps) 
         title={GEFEN.description}
       >
         <Award className="h-4 w-4 text-gefen" aria-hidden="true" />
-        <span className="text-sm font-semibold text-gefen">{GEFEN.title}</span>
+        <span className="text-sm font-semibold text-gefen">
+          {GEFEN.title} · {GEFEN.number}
+        </span>
       </div>
     );
   }
