@@ -14,19 +14,14 @@ export const LEGAL_BUSINESS_NAME = 'א.נ.ד.ר קידום והפקות';
 
 export const GEFEN = {
   title: "מאושרים בגפ\"ן",
-  number: "37512",
-  subtitle: "ספק מאושר משרד החינוך · מספר 37512",
+  number: "37513",
+  subtitle: "ספק מאושר מטעם משרד החינוך · תוכנית מספר 37513",
   /** Short line for homepage trust strip */
-  homeLabel: "פעילויות מאושרות בגפ\"ן · מספר 37512",
+  homeLabel: "פעילות מאושרת בגפ\"ן · מספר 37513",
   description:
-    "הסדנאייה מאושרים במערכת גפ\"ן (גני ילדים, פנימיות ונוער) של משרד החינוך — מספר ספק 37512. ניתן להזמין ישירות דרך מערכת גפ\"ן לפעילויות כיתתיות, ירידים וחוגים.",
+    "פעילות מאושרת במערכת גפ\"ן מספר 37513 מטעם משרד החינוך.",
   badgeLabel: "גפ\"ן",
-  features: [
-    "הזמנה ישירה דרך מערכת גפ\"ן",
-    "מספר ספק 37512",
-    "מאושרים לפעילויות בבתי ספר",
-    "מתאים לוועדי הורים ומוסדות חינוך",
-  ],
+  features: [] as string[],
 } as const;
 
 export const NAV_LINKS = [
@@ -191,8 +186,7 @@ export const COUPON_CODES: Record<string, { percent: number; label: string }> = 
 };
 
 export const CONTACT_TYPES = [
-  { id: "parent" as const, label: "הורה פרטי" },
-  { id: "committee" as const, label: "ועד הורים" },
-  { id: "school" as const, label: "בית ספר" },
-  { id: "organization" as const, label: "עמותה / קהילה" },
+  { id: "parent" as const, label: "הזמנה פרטית" },
+  { id: "school" as const, label: "יריד בית ספר" },
+  { id: "organization" as const, label: "הזמנת כמות" },
 ];

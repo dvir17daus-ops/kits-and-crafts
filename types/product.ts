@@ -47,7 +47,7 @@ export interface CartItem {
   product: Product;
 }
 
-export type ContactType = "parent" | "committee" | "school" | "organization";
+export type ContactType = "parent" | "school" | "organization";
 
 export interface ContactFormData {
   type: ContactType;

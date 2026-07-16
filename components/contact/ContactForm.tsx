@@ -34,13 +34,12 @@ function ContactFormInner() {
 
   useEffect(() => {
     if (typeParam === "institution") {
-      setType("committee");
+      setType("school");
       setMessage("שלום, אנחנו מעוניינים בהצעת מחיר ליריד / הזמנת כמות.");
     }
   }, [typeParam]);
 
-  const isInstitution =
-    type === "committee" || type === "school" || type === "organization";
+  const isInstitution = type === "school" || type === "organization";
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -75,7 +74,7 @@ function ContactFormInner() {
             fd.append("שם", name);
             fd.append("טלפון", phone);
             if (email) fd.append("אימייל", email);
-            if (institutionName) fd.append("שם מוסד / ועד", institutionName);
+            if (institutionName) fd.append("שם מוסד", institutionName);
             if (estimatedQuantity)
               fd.append("כמות משוערת", estimatedQuantity);
             if (eventDate) fd.append("תאריך אירוע", eventDate);
@@ -96,7 +95,7 @@ function ContactFormInner() {
 
   const whatsappText = encodeURIComponent(
     isInstitution
-      ? "שלום, אני מוועד/מוסד חינוך ומעוניין/ת בהצעת מחיר ליריד / הזמנת כמות"
+      ? "שלום, אשמח לקבל הצעת מחיר ליריד בית ספר / הזמנת כמות"
       : "שלום, אשמח לקבל מידע על הערכות"
   );
 
@@ -151,7 +150,7 @@ function ContactFormInner() {
         {isInstitution && (
           <>
             <Input
-              label="שם מוסד / ועד"
+              label="שם מוסד"
               value={institutionName}
               onChange={(e) => setInstitutionName(e.target.value)}
             />

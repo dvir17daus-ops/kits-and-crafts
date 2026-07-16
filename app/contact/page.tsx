@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
   "צור קשר",
-  "יצירת קשר להזמנות, ירידי בתי ספר והצעות מחיר לוועדי הורים. מאושרים בגפ\"ן."
+  "נשמח לעזור בהזמנות פרטיות, ירידי בתי ספר והזמנות כמות."
 );
 
 export default function ContactPage() {
@@ -14,7 +14,7 @@ export default function ContactPage() {
     <div className="container-narrow section-padding">
       <CategoryHeader
         title="צור קשר"
-        description="נשמח לעזור בהזמנות פרטיות, ירידי בתי ספר והזמנות כמות לוועדי הורים."
+        description="נשמח לעזור בהזמנות פרטיות, ירידי בתי ספר והזמנות כמות."
         breadcrumb="צור קשר"
       />
       <div className="mb-8">

@@ -70,16 +70,18 @@ export function GefenBadge({ variant = "compact", className }: GefenBadgeProps) 
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
             {GEFEN.description}
           </p>
-          <ul className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
-            {GEFEN.features.map((feature) => (
-              <li
-                key={feature}
-                className="rounded-full bg-white px-3 py-1 text-xs font-medium text-gefen shadow-sm"
-              >
-                {feature}
-              </li>
-            ))}
-          </ul>
+          {GEFEN.features.length > 0 && (
+            <ul className="mt-4 flex flex-wrap justify-center gap-3 md:justify-start">
+              {GEFEN.features.map((feature) => (
+                <li
+                  key={feature}
+                  className="rounded-full bg-white px-3 py-1 text-xs font-medium text-gefen shadow-sm"
+                >
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
