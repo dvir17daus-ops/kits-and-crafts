@@ -7,8 +7,8 @@ export function Hero() {
   return (
     <section className="relative isolate min-h-[78vh] overflow-hidden sm:min-h-[85vh]">
       <Image
-        src="https://images.unsplash.com/photo-1541692641319-981cc79ee10a?w=2000&h=1200&fit=crop"
-        alt="ילדים בונים יחד עם קוביות עץ צבעוניות"
+        src="/images/hero-crafting.jpg"
+        alt="ידיים קטנות ביצירה עם צבעים ומכחולים על שולחן הסדנה"
         fill
         priority
         className="object-cover object-center scale-105 animate-[hero-drift_18s_ease-in-out_infinite_alternate]"
