@@ -10,6 +10,7 @@ import { CheckoutOverlay } from "@/components/checkout/CheckoutOverlay";
 import { ToastContainer } from "@/components/ui/ToastContainer";
 import { WhatsAppBubble } from "@/components/ui/WhatsAppBubble";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { RefreshToHome } from "@/components/ui/RefreshToHome";
 import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         <CartProvider>
           <ToastProvider>
             <FlyToCartProvider>
+              <RefreshToHome />
               <ScrollProgress />
               <a
                 href="#main-content"
