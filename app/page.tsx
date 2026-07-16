@@ -24,22 +24,14 @@ export default async function HomePage() {
       <HomeJsonLd products={featured.slice(0, 4)} />
       <Hero />
       <TrustBadges />
-      <Reveal>
+      <Reveal direction="up">
         <FeaturedSection products={featured} />
       </Reveal>
-      <Reveal>
-        <CategoryShowcase />
-      </Reveal>
-      <Reveal>
-        <HowItWorks />
-      </Reveal>
-      <Reveal>
-        <InstitutionsSection />
-      </Reveal>
-      <Reveal>
-        <Testimonials />
-      </Reveal>
-      <Reveal>
+      <CategoryShowcase />
+      <HowItWorks />
+      <InstitutionsSection />
+      <Testimonials />
+      <Reveal direction="scale">
         <SchoolFairCTA />
       </Reveal>
     </>

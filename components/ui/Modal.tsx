@@ -61,7 +61,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}
@@ -76,7 +76,9 @@ export function Modal({
       <div
         ref={panelRef}
         className={cn(
-          "relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl",
+          "relative z-10 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-2xl",
+          "max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2rem)]",
+          "animate-[modal-in_0.35s_cubic-bezier(0.16,1,0.3,1)_both]",
           {
             "max-w-lg": size === "md",
             "max-w-2xl": size === "lg",
@@ -86,7 +88,7 @@ export function Modal({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 z-20 flex items-center gap-3 border-b border-sand bg-white/95 px-4 py-3 backdrop-blur-sm sm:px-6 sm:py-4">
+        <div className="flex shrink-0 items-center gap-3 border-b border-sand bg-white px-4 py-3 sm:px-6 sm:py-4">
           {title ? (
             <h2
               id="modal-title"
@@ -106,7 +108,9 @@ export function Modal({
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="p-6">{children}</div>
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6">
+          {children}
+        </div>
       </div>
     </div>
   );

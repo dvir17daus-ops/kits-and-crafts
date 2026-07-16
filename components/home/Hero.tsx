@@ -25,7 +25,7 @@ export function Hero() {
       />
 
       <div className="container-narrow relative flex min-h-[78vh] flex-col justify-end pb-14 pt-24 sm:min-h-[85vh] sm:pb-20 sm:pt-28">
-        <div className="max-w-xl rounded-3xl bg-cream/95 px-6 py-7 shadow-[0_24px_60px_-20px_rgba(28,43,58,0.45)] sm:px-10 sm:py-9">
+        <div className="max-w-xl rounded-3xl bg-cream/95 px-6 py-7 shadow-[0_24px_60px_-20px_rgba(28,43,58,0.45)] animate-[hero-panel-in_0.9s_cubic-bezier(0.16,1,0.3,1)_both] sm:px-10 sm:py-9">
           <p className="font-brand text-sm font-medium text-brand-brown/80">
             {SITE_TAGLINE_HE}
           </p>

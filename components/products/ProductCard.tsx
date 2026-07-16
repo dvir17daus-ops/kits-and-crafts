@@ -21,6 +21,7 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { StarRating } from "@/components/ui/StarRating";
+import { Reveal } from "@/components/ui/Reveal";
 import { formatPrice } from "@/utils/formatPrice";
 import { LOW_STOCK_THRESHOLD } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -543,12 +544,17 @@ export function ProductGridClient({
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {sorted.map((product) => (
-            <ProductCard
+          {sorted.map((product, i) => (
+            <Reveal
               key={product.id}
-              product={product}
-              onOpenModal={setSelected}
-            />
+              direction={i % 2 === 0 ? "up" : "scale"}
+              delay={(i % 4) * 90}
+            >
+              <ProductCard
+                product={product}
+                onOpenModal={setSelected}
+              />
+            </Reveal>
           ))}
         </div>
       )}
