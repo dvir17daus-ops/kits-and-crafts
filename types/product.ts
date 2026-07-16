@@ -30,6 +30,12 @@ export interface Product {
   duration: string;
   /** Small cart add-on (e.g. glue & brush set) rather than a full catalog item. */
   isAddon?: boolean;
+  /** Average customer rating out of 5, e.g. 4.8. */
+  rating?: number;
+  /** Number of customer reviews behind the rating. */
+  reviewCount?: number;
+  /** Units left in stock. When low (see LOW_STOCK_THRESHOLD), shows an urgency message. Leave undefined/null when stock isn't tracked closely. */
+  stockCount?: number | null;
 }
 
 export interface CartItem {
@@ -58,5 +64,3 @@ export interface CheckoutFormData {
   email: string;
   notes?: string;
 }
-
-export type PaymentGateway = "grow" | "meshulam" | "cardcom";

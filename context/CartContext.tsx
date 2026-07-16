@@ -13,8 +13,8 @@ import type { Product, CartItem } from "@/types/product";
 import {
   BUNDLE_DISCOUNT_PERCENT,
   BUNDLE_MIN_ITEMS,
+  COUPON_CODES,
   FREE_SHIPPING_THRESHOLD,
-  MAX_QUANTITY_PER_ITEM,
   SHIPPING_COST,
 } from "@/lib/constants";
 
@@ -25,8 +25,11 @@ interface CartContextValue {
   itemCount: number;
   subtotal: number;
   bundleDiscount: number;
+  couponCode: string | null;
+  couponDiscount: number;
   shipping: number;
   freeShippingRemaining: number;
+  freeShippingProgress: number;
   total: number;
   isCartOpen: boolean;
   isCheckoutOpen: boolean;
@@ -36,6 +39,8 @@ interface CartContextValue {
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
+  applyCoupon: (code: string) => { success: boolean; message: string };
+  removeCoupon: () => void;
   openCart: () => void;
   closeCart: () => void;
   openCheckout: () => void;
@@ -61,6 +66,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [couponCode, setCouponCode] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -75,18 +81,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, hydrated]);
 
   const addToCart = useCallback((product: Product, quantity = 1) => {
+    if (!product.inStock) return;
     setItems((prev) => {
       const existing = prev.find((i) => i.productId === product.id);
       if (existing) {
         return prev.map((i) =>
           i.productId === product.id
-            ? {
-                ...i,
-                quantity: Math.min(
-                  i.quantity + quantity,
-                  MAX_QUANTITY_PER_ITEM
-                ),
-              }
+            ? { ...i, quantity: i.quantity + quantity }
             : i
         );
       }
@@ -104,16 +105,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQuantity = useCallback((productId: string, quantity: number) => {
     if (quantity < 1) return;
     setItems((prev) =>
-      prev.map((i) =>
-        i.productId === productId
-          ? { ...i, quantity: Math.min(quantity, MAX_QUANTITY_PER_ITEM) }
-          : i
-      )
+      prev.map((i) => (i.productId === productId ? { ...i, quantity } : i))
     );
   }, []);
 
   const clearCart = useCallback(() => {
     setItems([]);
+    setCouponCode(null);
+  }, []);
+
+  const applyCoupon = useCallback((code: string) => {
+    const normalized = code.trim().toUpperCase();
+    const coupon = COUPON_CODES[normalized];
+    if (!coupon) {
+      return { success: false, message: "קוד הקופון לא נמצא או שאינו בתוקף" };
+    }
+    setCouponCode(normalized);
+    return { success: true, message: coupon.label };
+  }, []);
+
+  const removeCoupon = useCallback(() => {
+    setCouponCode(null);
   }, []);
 
   const itemCount = useMemo(
@@ -135,6 +147,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const amountAfterDiscount = subtotal - bundleDiscount;
 
+  const couponDiscount = useMemo(() => {
+    if (!couponCode) return 0;
+    const coupon = COUPON_CODES[couponCode];
+    if (!coupon) return 0;
+    return Math.round(amountAfterDiscount * (coupon.percent / 100));
+  }, [couponCode, amountAfterDiscount]);
+
+  const amountAfterCoupon = amountAfterDiscount - couponDiscount;
+
   const shipping = useMemo(() => {
     if (items.length === 0) return 0;
     return amountAfterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
@@ -145,10 +166,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [amountAfterDiscount]
   );
 
-  const total = amountAfterDiscount + shipping;
+  const freeShippingProgress = useMemo(
+    () =>
+      Math.min(
+        100,
+        Math.round((amountAfterDiscount / FREE_SHIPPING_THRESHOLD) * 100)
+      ),
+    [amountAfterDiscount]
+  );
+
+  const total = amountAfterCoupon + shipping;
 
   const confirmOrder = useCallback(() => {
-    setOrderNumber(`KC-${Math.floor(10000 + Math.random() * 90000)}`);
+    setOrderNumber(`HS-${Math.floor(10000 + Math.random() * 90000)}`);
     setIsOrderConfirmed(true);
   }, []);
 
@@ -157,8 +187,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     itemCount,
     subtotal,
     bundleDiscount,
+    couponCode,
+    couponDiscount,
     shipping,
     freeShippingRemaining,
+    freeShippingProgress,
     total,
     isCartOpen,
     isCheckoutOpen,
@@ -168,6 +201,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     removeFromCart,
     updateQuantity,
     clearCart,
+    applyCoupon,
+    removeCoupon,
     openCart: () => setIsCartOpen(true),
     closeCart: () => setIsCartOpen(false),
     openCheckout: () => {

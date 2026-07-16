@@ -59,7 +59,6 @@ export const CATEGORY_INFO: Record<
 
 export const BUNDLE_DISCOUNT_PERCENT = 15;
 export const BUNDLE_MIN_ITEMS = 2;
-export const MAX_QUANTITY_PER_ITEM = 10;
 
 // הערה: מחירי המשלוח הם ערכי דוגמה — יש לאשר/לעדכן בהתאם למדיניות המשלוחים בפועל.
 export const SHIPPING_COST = 25;
@@ -119,6 +118,9 @@ export const UPSELL_ADDONS: Product[] = [
     difficulty: "קל",
     duration: "",
     isAddon: true,
+    rating: 4.7,
+    reviewCount: 19,
+    stockCount: null,
   },
   {
     id: "addon-gift-wrap",
@@ -143,8 +145,20 @@ export const UPSELL_ADDONS: Product[] = [
     difficulty: "קל",
     duration: "",
     isAddon: true,
+    rating: 4.6,
+    reviewCount: 11,
+    stockCount: null,
   },
 ];
+
+// כמות מלאי נמוכה שממנה מוצג דגש דחיפות ("נותרו X בלבד במלאי") בכרטיס/במודל המוצר.
+export const LOW_STOCK_THRESHOLD = 6;
+
+// קודי קופון פעילים. ניתן להוסיף/להסיר קודים כאן — ההנחה מחושבת באחוזים מסכום העגלה (לפני משלוח).
+export const COUPON_CODES: Record<string, { percent: number; label: string }> = {
+  WELCOME10: { percent: 10, label: "10% הנחה על ההזמנה הראשונה" },
+  SUMMER15: { percent: 15, label: "15% הנחת קיץ" },
+};
 
 export const CONTACT_TYPES = [
   { id: "parent" as const, label: "הורה פרטי" },

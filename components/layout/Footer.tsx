@@ -1,9 +1,12 @@
 import Link from "next/link";
-import { Award, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Award, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { NAV_LINKS, BUSINESS, GEFEN, SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib/constants";
 
 export function Footer() {
+  const phoneHref = `tel:${BUSINESS.phone.replace(/-/g, "")}`;
+  const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}`;
+
   return (
     <footer className="relative overflow-hidden bg-gradient-to-t from-teal-deep to-teal-dark text-white">
       <div className="blob -right-20 top-0 h-72 w-72 bg-orange/20" aria-hidden="true" />
@@ -48,11 +51,22 @@ export function Footer() {
           <div>
             <h3 className="mb-4 font-bold text-white">צור קשר</h3>
             <ul className="space-y-2.5 text-sm text-white/75">
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0" /> {BUSINESS.phone}
+              <li>
+                <a
+                  href={phoneHref}
+                  className="flex items-center gap-2 transition-colors hover:text-white"
+                  dir="ltr"
+                >
+                  <Phone className="h-4 w-4 shrink-0" /> {BUSINESS.phone}
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0" /> {BUSINESS.email}
+              <li>
+                <a
+                  href={`mailto:${BUSINESS.email}`}
+                  className="flex items-center gap-2 transition-colors hover:text-white"
+                >
+                  <Mail className="h-4 w-4 shrink-0" /> {BUSINESS.email}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" /> {BUSINESS.address}
@@ -62,37 +76,19 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 font-bold text-white">עקבו אחרינו</h3>
-            <div className="flex gap-3">
-              <a
-                href="#"
-                aria-label="פייסבוק"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-orange"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                aria-label="אינסטגרם"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-orange"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-
-            <div className="mt-6">
-              <p className="mb-2 text-sm text-white/70">משלוחים לכל הארץ</p>
-              <div className="flex gap-2">
-                {["VISA", "Mastercard", "PayBox"].map((provider) => (
-                  <span
-                    key={provider}
-                    className="rounded-md bg-white px-2.5 py-1 text-xs font-bold text-slate"
-                  >
-                    {provider}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <h3 className="mb-4 font-bold text-white">דברו איתנו</h3>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-whatsapp px-4 py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+            >
+              <MessageCircle className="h-4 w-4" />
+              וואטסאפ
+            </a>
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
+              משלוחים לכל הארץ · ביטול תוך 14 יום · מאושרים בגפ&quot;ן
+            </p>
           </div>
         </div>
 

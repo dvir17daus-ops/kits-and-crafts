@@ -61,8 +61,16 @@ export default function RootLayout({
           <ToastProvider>
             <FlyToCartProvider>
               <ScrollProgress />
+              <a
+                href="#main-content"
+                className="sr-only focus:fixed focus:right-4 focus:top-4 focus:z-[100] focus:inline-flex focus:h-auto focus:w-auto focus:overflow-visible focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-slate focus:shadow-lg focus:outline-none"
+              >
+                דלג לתוכן הראשי
+              </a>
               <Header />
-              <main className="min-h-screen">{children}</main>
+              <main id="main-content" className="min-h-screen">
+                {children}
+              </main>
               <Footer />
               <CartDrawer />
               <CheckoutOverlay />

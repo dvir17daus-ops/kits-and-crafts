@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "default" | "gold" | "gefen" | "deal";
+  variant?: "default" | "gold" | "gefen" | "deal" | "bestseller";
   className?: string;
 }
 
@@ -16,6 +16,8 @@ export function Badge({ children, variant = "default", className }: BadgeProps) 
           "border border-gold/30 bg-gold/10 text-gold": variant === "gold",
           "border border-gefen/30 bg-gefen-light text-gefen": variant === "gefen",
           "bg-primary/10 text-primary": variant === "deal",
+          "bg-gradient-to-r from-orange to-orange-dark text-white shadow-sm":
+            variant === "bestseller",
         },
         className
       )}

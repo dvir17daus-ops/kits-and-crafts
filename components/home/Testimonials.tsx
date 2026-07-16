@@ -1,10 +1,20 @@
+import Image from "next/image";
 import { TESTIMONIALS } from "@/lib/constants";
 import { Quote } from "lucide-react";
 
 export function Testimonials() {
   return (
-    <section className="section-padding bg-white">
-      <div className="container-narrow">
+    <section className="relative overflow-hidden section-padding bg-white">
+      <Image
+        src="/images/kids-crafting.jpg"
+        alt=""
+        fill
+        className="object-cover"
+        sizes="100vw"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-cream/85" />
+      <div className="container-narrow relative">
         <h2 className="heading-accent text-center text-2xl font-bold text-slate sm:text-3xl">
           מה אומרים עלינו
         </h2>

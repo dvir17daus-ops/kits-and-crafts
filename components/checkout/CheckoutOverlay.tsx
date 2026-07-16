@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AlertTriangle, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { MessageCircle, ShieldCheck } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Modal } from "@/components/ui/Modal";
 import { Textarea } from "@/components/ui/Textarea";
-import { PaymentGateways } from "@/components/checkout/PaymentGateways";
 import { OrderConfirmation } from "@/components/checkout/OrderConfirmation";
 import { formatPrice } from "@/utils/formatPrice";
 import {
@@ -16,8 +15,9 @@ import {
   isValidIsraeliPhone,
   validationMessages,
 } from "@/utils/validation";
-import type { PaymentGateway } from "@/types/product";
 import { lockScroll, unlockScroll } from "@/utils/scrollLock";
+import { BUSINESS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 export function CheckoutOverlay() {
   const {
@@ -26,6 +26,10 @@ export function CheckoutOverlay() {
     items,
     subtotal,
     bundleDiscount,
+    couponCode,
+    couponDiscount,
+    applyCoupon,
+    removeCoupon,
     shipping,
     total,
     confirmOrder,
@@ -39,19 +43,12 @@ export function CheckoutOverlay() {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
-  const [gateway, setGateway] = useState<PaymentGateway | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [gatewayMsg, setGatewayMsg] = useState("");
-  const [paymentStatus, setPaymentStatus] = useState<
-    "idle" | "pending" | "failed"
-  >("idle");
-  const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (pendingTimer.current) clearTimeout(pendingTimer.current);
-    };
-  }, []);
+  const [couponInput, setCouponInput] = useState("");
+  const [couponFeedback, setCouponFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     if (isCheckoutOpen) lockScroll();
@@ -71,6 +68,16 @@ export function CheckoutOverlay() {
 
   if (!isCheckoutOpen) return null;
 
+  const handleApplyCoupon = () => {
+    if (!couponInput.trim()) return;
+    const result = applyCoupon(couponInput);
+    setCouponFeedback({
+      type: result.success ? "success" : "error",
+      message: result.message,
+    });
+    if (result.success) setCouponInput("");
+  };
+
   const validate = () => {
     const e: Record<string, string> = {};
     if (!name.trim()) e.name = validationMessages.required;
@@ -85,39 +92,9 @@ export function CheckoutOverlay() {
     return Object.keys(e).length === 0;
   };
 
-  const simulatePaymentCall = () => {
-    setPaymentStatus("pending");
-    setGatewayMsg("");
-    // הערה: זו סימולציה מקומית עד לחיבור סליקה אמיתית (Grow/Meshulam/Cardcom).
-    pendingTimer.current = setTimeout(() => {
-      const isSuccess = Math.random() > 0.15;
-      if (isSuccess) {
-        setPaymentStatus("idle");
-        confirmOrder();
-      } else {
-        setPaymentStatus("failed");
-      }
-    }, 1400);
-  };
-
-  const handlePay = () => {
-    if (paymentStatus === "pending") return;
+  const handleSubmitOrder = () => {
     if (!validate()) return;
-    if (!gateway) {
-      setGatewayMsg("נא לבחור אמצעי תשלום");
-      return;
-    }
-    simulatePaymentCall();
-  };
-
-  const handleRetry = () => {
-    setPaymentStatus("idle");
-    simulatePaymentCall();
-  };
-
-  const handleChooseOtherGateway = () => {
-    setPaymentStatus("idle");
-    setGateway(null);
+    confirmOrder();
   };
 
   if (isOrderConfirmed) {
@@ -128,6 +105,9 @@ export function CheckoutOverlay() {
         total={total}
         customerName={name}
         customerPhone={phone}
+        customerEmail={email}
+        customerAddress={address}
+        notes={notes}
         onReturnHome={() => {
           clearCart();
           closeCheckout();
@@ -154,10 +134,18 @@ export function CheckoutOverlay() {
           </button>
         </div>
 
+        <div className="mb-6 rounded-2xl border border-accent/20 bg-accent/5 px-5 py-4 text-sm leading-relaxed text-slate">
+          <p className="font-semibold text-accent">איך זה עובד?</p>
+          <p className="mt-1 text-muted">
+            ממלאים את הפרטים → שולחים את ההזמנה בוואטסאפ → אנחנו מאשרים ומסדרים
+            תשלום ומשלוח. בלי סיבוכים.
+          </p>
+        </div>
+
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
             <div className="card-premium p-6">
-              <h2 className="mb-4 text-lg font-semibold">פרטי חיוב</h2>
+              <h2 className="mb-4 text-lg font-semibold">פרטי הזמנה</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Input
                   label="שם מלא *"
@@ -202,18 +190,6 @@ export function CheckoutOverlay() {
                 </div>
               </div>
             </div>
-
-            <div className="card-premium p-6">
-              <h2 className="mb-4 text-lg font-semibold">תשלום</h2>
-              <PaymentGateways
-                selected={gateway}
-                onSelect={(g) => {
-                  setGateway(g);
-                  setGatewayMsg("");
-                }}
-                message={gatewayMsg}
-              />
-            </div>
           </div>
 
           <div className="lg:col-span-1">
@@ -231,6 +207,66 @@ export function CheckoutOverlay() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-4 border-t border-sand pt-4">
+                {couponCode ? (
+                  <div className="flex items-center justify-between rounded-lg bg-green/10 px-3 py-2 text-sm text-green">
+                    <span className="font-semibold">קופון {couponCode} הופעל</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        removeCoupon();
+                        setCouponFeedback(null);
+                      }}
+                      className="text-xs text-green underline hover:text-error"
+                    >
+                      הסר
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <label className="mb-1.5 block text-sm font-medium text-slate">
+                      קוד קופון
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleApplyCoupon();
+                          }
+                        }}
+                        placeholder="הקלידו קוד קופון"
+                        className="flex-1 rounded-lg border border-sand bg-white px-3 py-2 text-sm text-slate outline-none transition-colors focus:border-primary"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handleApplyCoupon}
+                      >
+                        החל
+                      </Button>
+                    </div>
+                    {couponFeedback && (
+                      <p
+                        className={cn(
+                          "mt-1.5 text-xs",
+                          couponFeedback.type === "success"
+                            ? "text-green"
+                            : "text-error"
+                        )}
+                      >
+                        {couponFeedback.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div className="mt-4 space-y-1 border-t border-sand pt-4 text-sm">
                 <div className="flex justify-between">
                   <span>ביניים</span>
@@ -238,8 +274,14 @@ export function CheckoutOverlay() {
                 </div>
                 {bundleDiscount > 0 && (
                   <div className="flex justify-between text-accent">
-                    <span>הנחה</span>
+                    <span>הנחת חבילה</span>
                     <span>-{formatPrice(bundleDiscount)}</span>
+                  </div>
+                )}
+                {couponDiscount > 0 && (
+                  <div className="flex justify-between text-green">
+                    <span>הנחת קופון</span>
+                    <span>-{formatPrice(couponDiscount)}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
@@ -251,57 +293,38 @@ export function CheckoutOverlay() {
                   <span>{formatPrice(total)}</span>
                 </div>
               </div>
-              <Button
-                className="mt-6 w-full"
-                onClick={handlePay}
-                disabled={paymentStatus === "pending"}
-              >
-                {paymentStatus === "pending" ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-                    מעבד תשלום...
-                  </>
-                ) : (
-                  "שלם עכשיו"
-                )}
+
+              <Button className="mt-6 w-full" onClick={handleSubmitOrder}>
+                <MessageCircle className="h-5 w-5" />
+                שליחת הזמנה בוואטסאפ
               </Button>
-              <p className="mt-3 text-center text-xs text-muted">
-                התשלום מאובטח ומוצפן. לא נשמרים פרטי אשראי באתר.
-              </p>
+
+              <div className="mt-4 space-y-2 text-center text-xs text-muted">
+                <p className="flex items-center justify-center gap-1.5">
+                  <ShieldCheck className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                  נחזור אליכם לאישור ותיאום תשלום
+                </p>
+                <p>
+                  ביטול תוך 14 יום ·{" "}
+                  <Link href="/returns" className="underline hover:text-slate">
+                    מדיניות החזרות
+                  </Link>
+                </p>
+                <p>
+                  שאלות?{" "}
+                  <a
+                    href={`tel:${BUSINESS.phone.replace(/-/g, "")}`}
+                    className="underline hover:text-slate"
+                    dir="ltr"
+                  >
+                    {BUSINESS.phone}
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <Modal
-        isOpen={paymentStatus === "failed"}
-        onClose={handleChooseOtherGateway}
-        size="md"
-      >
-        <div className="text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error/10 text-error">
-            <AlertTriangle className="h-8 w-8" aria-hidden="true" />
-          </div>
-          <h3 className="mt-4 text-xl font-bold text-slate">התשלום נכשל</h3>
-          <p className="mt-2 leading-relaxed text-muted">
-            חברת הסליקה לא אישרה את העסקה. זה יכול לקרות מסיבות זמניות —
-            נסו שוב, או בחרו אמצעי תשלום אחר. פרטי ההזמנה שלכם נשמרו ולא
-            אבדו.
-          </p>
-          <div className="mt-6 flex flex-col gap-3">
-            <Button className="w-full" onClick={handleRetry}>
-              ניסיון חוזר
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={handleChooseOtherGateway}
-            >
-              בחירת אמצעי תשלום אחר
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 }

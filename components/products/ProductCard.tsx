@@ -1,8 +1,18 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Check, Play, Ruler, Clock, Gauge, ShoppingCart } from "lucide-react";
+import {
+  Check,
+  Flame,
+  Minus,
+  Plus,
+  Ruler,
+  Clock,
+  Gauge,
+  ShoppingCart,
+  Sparkles,
+} from "lucide-react";
 import type { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
@@ -10,8 +20,19 @@ import { useFlyToCart } from "@/context/FlyToCartContext";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { StarRating } from "@/components/ui/StarRating";
 import { formatPrice } from "@/utils/formatPrice";
+import { LOW_STOCK_THRESHOLD } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+function LowStockNotice({ stockCount }: { stockCount: number }) {
+  return (
+    <p className="mt-2 flex items-center gap-1 text-xs font-bold text-error">
+      <Flame className="h-3.5 w-3.5" aria-hidden="true" />
+      נותרו {stockCount} בלבד במלאי!
+    </p>
+  );
+}
 
 interface ProductCardProps {
   product: Product;
@@ -25,12 +46,36 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
   const cardRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0, hover: false });
+  const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addToCart(product);
+    addToCart(product, quantity);
     fly(product.image, imageRef.current);
-    showToast("נוסף לעגלה ✓", { label: "צפה בעגלה", onClick: openCart });
+    showToast(
+      quantity > 1 ? `${quantity} יחידות נוספו לעגלה` : "נוסף לעגלה",
+      { label: "צפה בעגלה", onClick: openCart }
+    );
+    setQuantity(1);
+  };
+
+  const decreaseQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setQuantity((q) => Math.max(1, q - 1));
+  };
+
+  const increaseQuantity = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setQuantity((q) => q + 1);
+  };
+
+  const handleQuantityInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = e.target.value.replace(/[^0-9]/g, "");
+    setQuantity(digitsOnly === "" ? 0 : parseInt(digitsOnly, 10));
+  };
+
+  const handleQuantityInputBlur = () => {
+    setQuantity((q) => (q < 1 ? 1 : q));
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -72,6 +117,12 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
         />
         <div className="absolute left-2 top-2 flex flex-col gap-1.5">
           <Badge>{product.ageGroup}</Badge>
+          {product.isFeatured && (
+            <Badge variant="bestseller">
+              <Sparkles className="mr-1 h-3 w-3" aria-hidden="true" />
+              הכי נמכר
+            </Badge>
+          )}
           {product.fairRecommended && (
             <Badge variant="gold">מומלץ ליריד</Badge>
           )}
@@ -84,6 +135,13 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
       </div>
       <div className="px-4 pb-4">
         <h3 className="font-bold text-slate line-clamp-2">{product.title}</h3>
+        {typeof product.rating === "number" && (
+          <StarRating
+            rating={product.rating}
+            reviewCount={product.reviewCount}
+            className="mt-1.5"
+          />
+        )}
         <p className="mt-1 text-sm text-muted line-clamp-2">{product.description}</p>
         <div className="mt-3 flex items-center gap-2">
           {product.originalPrice && (
@@ -95,10 +153,57 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
             {formatPrice(product.price)}
           </span>
         </div>
-        <Button className="mt-4 w-full" size="sm" onClick={handleAddToCart}>
-          <ShoppingCart className="h-4 w-4" />
-          הוסף לעגלה
-        </Button>
+        {product.inStock &&
+          typeof product.stockCount === "number" &&
+          product.stockCount <= LOW_STOCK_THRESHOLD && (
+            <LowStockNotice stockCount={product.stockCount} />
+          )}
+        {product.inStock ? (
+          <div className="mt-4 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center rounded-full border border-sand bg-cream">
+              <button
+                type="button"
+                onClick={decreaseQuantity}
+                disabled={quantity <= 1}
+                aria-label="הפחת כמות"
+                className="p-2 text-slate transition-colors hover:text-primary disabled:opacity-30"
+              >
+                <Minus className="h-3.5 w-3.5" />
+              </button>
+              <input
+                type="text"
+                inputMode="numeric"
+                value={quantity === 0 ? "" : quantity}
+                onChange={handleQuantityInputChange}
+                onBlur={handleQuantityInputBlur}
+                onClick={(e) => e.stopPropagation()}
+                aria-label="כמות"
+                className="w-10 bg-transparent text-center text-sm font-bold tabular-nums text-slate outline-none"
+              />
+              <button
+                type="button"
+                onClick={increaseQuantity}
+                aria-label="הוסף כמות"
+                className="p-2 text-slate transition-colors hover:text-primary"
+              >
+                <Plus className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <Button className="flex-1" size="sm" onClick={handleAddToCart}>
+              <ShoppingCart className="h-4 w-4" />
+              הוסף לעגלה
+            </Button>
+          </div>
+        ) : (
+          <Button
+            className="mt-4 w-full"
+            size="sm"
+            disabled
+            onClick={(e) => e.stopPropagation()}
+          >
+            אין במלאי
+          </Button>
+        )}
       </div>
     </article>
   );
@@ -107,69 +212,43 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
 interface ProductModalProps {
   product: Product | null;
   onClose: () => void;
+  allProducts?: Product[];
+  onSelectRelated?: (product: Product) => void;
 }
 
-function VideoPlaceholder() {
-  const [playing, setPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  const handlePlay = () => {
-    setPlaying(true);
-    setProgress(0);
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return p + 2;
-      });
-    }, 100);
-  };
-
-  return (
-    <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-cream-dark to-sand">
-      {!playing ? (
-        <button
-          onClick={handlePlay}
-          className="absolute inset-0 flex flex-col items-center justify-center gap-2 transition-colors hover:bg-black/5"
-          aria-label="הפעל סרטון הדרכה"
-        >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg">
-            <Play className="h-6 w-6 mr-[-2px]" fill="white" />
-          </div>
-          <span className="text-sm font-medium text-muted">סרטון הדרכה — בקרוב</span>
-        </button>
-      ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4">
-          <p className="text-sm font-medium text-slate">מציג סרטון הדרכה...</p>
-          <div className="h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-sand">
-            <div
-              className="h-full rounded-full bg-primary transition-all duration-100"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          {progress >= 100 && (
-            <p className="text-xs text-muted">סרטון הדרכה מלא יתווסף בקרוב</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export function ProductModal({ product, onClose }: ProductModalProps) {
+export function ProductModal({
+  product,
+  onClose,
+  allProducts = [],
+  onSelectRelated,
+}: ProductModalProps) {
   const { addToCart, openCart } = useCart();
   const { showToast } = useToast();
   const { fly } = useFlyToCart();
   const modalImageRef = useRef<HTMLDivElement>(null);
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    setQuantity(1);
+  }, [product?.id]);
 
   if (!product) return null;
 
+  const relatedProducts = allProducts
+    .filter(
+      (p) =>
+        p.id !== product.id && p.category === product.category && !p.isAddon
+    )
+    .slice(0, 3);
+
   const handleAdd = () => {
-    addToCart(product);
+    addToCart(product, quantity);
     fly(product.image, modalImageRef.current);
-    showToast("נוסף לעגלה ✓", { label: "צפה בעגלה", onClick: openCart });
+    showToast(
+      quantity > 1 ? `${quantity} יחידות נוספו לעגלה` : "נוסף לעגלה",
+      { label: "צפה בעגלה", onClick: openCart }
+    );
+    setQuantity(1);
     onClose();
   };
 
@@ -190,8 +269,25 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             <Badge>{product.ageGroup}</Badge>
             {product.fairRecommended && <Badge variant="gold">מומלץ ליריד</Badge>}
             {product.schoolFriendly && <Badge variant="gefen">מתאים לבית ספר</Badge>}
+            {!product.inStock && (
+              <span className="rounded-full bg-error/10 px-3 py-1 text-xs font-bold text-error">
+                אין במלאי
+              </span>
+            )}
           </div>
+          {typeof product.rating === "number" && (
+            <StarRating
+              rating={product.rating}
+              reviewCount={product.reviewCount}
+              size="md"
+            />
+          )}
           <p className="text-2xl font-bold text-slate">{formatPrice(product.price)}</p>
+          {product.inStock &&
+            typeof product.stockCount === "number" &&
+            product.stockCount <= LOW_STOCK_THRESHOLD && (
+              <LowStockNotice stockCount={product.stockCount} />
+            )}
           <p className="text-muted leading-relaxed">{product.description}</p>
 
           <div className="flex gap-4 text-sm text-muted">
@@ -218,13 +314,92 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             </ul>
           </div>
 
-          <VideoPlaceholder />
-
-          <Button className="w-full" onClick={handleAdd}>
-            הוסף לעגלה
-          </Button>
+          {product.inStock ? (
+            <div className="flex items-center gap-3">
+              <div className="flex items-center rounded-full border border-sand bg-cream">
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  disabled={quantity <= 1}
+                  aria-label="הפחת כמות"
+                  className="p-2.5 text-slate transition-colors hover:text-primary disabled:opacity-30"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={quantity === 0 ? "" : quantity}
+                  onChange={(e) => {
+                    const digitsOnly = e.target.value.replace(/[^0-9]/g, "");
+                    setQuantity(digitsOnly === "" ? 0 : parseInt(digitsOnly, 10));
+                  }}
+                  onBlur={() =>
+                    setQuantity((q) => (q < 1 ? 1 : q))
+                  }
+                  aria-label="כמות"
+                  className="w-12 bg-transparent text-center text-base font-bold tabular-nums text-slate outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => q + 1)}
+                  aria-label="הוסף כמות"
+                  className="p-2.5 text-slate transition-colors hover:text-primary"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+              <Button className="flex-1" onClick={handleAdd}>
+                הוסף לעגלה
+              </Button>
+            </div>
+          ) : (
+            <Button className="w-full" disabled>
+              אין במלאי
+            </Button>
+          )}
+          {product.inStock && (
+            <p className="text-xs text-muted">
+              מזמינים לכיתה שלמה או לקייטנה? אין הגבלה על הכמות — הקלידו את
+              המספר הרצוי בתיבת הכמות.
+            </p>
+          )}
         </div>
       </div>
+
+      {relatedProducts.length > 0 && (
+        <div className="mt-8 border-t border-sand/70 pt-6">
+          <h4 className="mb-3 font-semibold text-slate">משלימים את הערכה</h4>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {relatedProducts.map((related) => (
+              <button
+                key={related.id}
+                type="button"
+                onClick={() => onSelectRelated?.(related)}
+                className="flex items-center gap-3 rounded-xl border border-sand/70 bg-cream p-2.5 text-right transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+              >
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-cream-dark">
+                  <Image
+                    src={related.image}
+                    alt={related.title}
+                    fill
+                    className="object-cover"
+                    sizes="56px"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-slate">
+                    {related.title}
+                  </p>
+                  <p className="text-sm font-bold text-green">
+                    {formatPrice(related.price)}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </Modal>
   );
 }
@@ -324,7 +499,12 @@ export function ProductGridClient({
           ))}
         </div>
       )}
-      <ProductModal product={selected} onClose={() => setSelected(null)} />
+      <ProductModal
+        product={selected}
+        onClose={() => setSelected(null)}
+        allProducts={products}
+        onSelectRelated={setSelected}
+      />
     </>
   );
 }

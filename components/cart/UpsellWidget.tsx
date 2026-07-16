@@ -43,7 +43,7 @@ export function UpsellWidget() {
               type="button"
               onClick={() => {
                 addToCart(addon);
-                showToast(`${addon.title} נוסף לעגלה ✓`);
+                showToast(`${addon.title} נוסף לעגלה`);
               }}
               aria-label={`הוספת ${addon.title} לעגלה`}
               className="flex shrink-0 items-center gap-1 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-colors hover:bg-primary hover:text-white"

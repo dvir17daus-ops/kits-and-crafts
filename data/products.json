@@ -9,18 +9,30 @@
     "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 8+",
     "size": "25×18×12 ס״מ",
-    "whatsInTheBox": ["לוחות עץ מגולענים", "ברגים", "מדריך בעברית", "דבק עץ", "צבעים"],
+    "whatsInTheBox": [
+      "לוחות עץ מגולענים",
+      "ברגים",
+      "מדריך בעברית",
+      "דבק עץ",
+      "צבעים"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["outdoor", "family"],
+    "tags": [
+      "outdoor",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 30,
     "difficulty": "בינוני",
-    "duration": "60–90 דקות"
+    "duration": "60–90 דקות",
+    "rating": 4.8,
+    "reviewCount": 47,
+    "stockCount": null
   },
   {
     "id": "kit-002",
@@ -32,18 +44,29 @@
     "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "30×15×15 ס״מ",
-    "whatsInTheBox": ["חלקי עץ", "מפתח ברגים", "מדריך מצולם", "מדבקות"],
+    "whatsInTheBox": [
+      "חלקי עץ",
+      "מפתח ברגים",
+      "מדריך מצולם",
+      "מדבקות"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["indoor", "family"],
+    "tags": [
+      "indoor",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 35,
     "difficulty": "קל",
-    "duration": "45–60 דקות"
+    "duration": "45–60 דקות",
+    "rating": 4.8,
+    "reviewCount": 51,
+    "stockCount": null
   },
   {
     "id": "kit-003",
@@ -55,18 +78,29 @@
     "image": "https://images.unsplash.com/photo-1452860606245-08befbf9d051?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 7+",
     "size": "20×15 ס״מ",
-    "whatsInTheBox": ["4 מסגרות עץ", "חומרי קישוט", "מדריך", "דבק"],
+    "whatsInTheBox": [
+      "4 מסגרות עץ",
+      "חומרי קישוט",
+      "מדריך",
+      "דבק"
+    ],
     "isFeatured": false,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["gift", "family"],
+    "tags": [
+      "gift",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": false,
     "minGroupSize": 1,
     "maxGroupSize": 40,
     "difficulty": "קל",
-    "duration": "30–45 דקות"
+    "duration": "30–45 דקות",
+    "rating": 4.5,
+    "reviewCount": 39,
+    "stockCount": null
   },
   {
     "id": "kit-004",
@@ -78,18 +112,30 @@
     "image": "https://images.unsplash.com/photo-1558060379-d2065042b9cf?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "18×8×8 ס״מ",
-    "whatsInTheBox": ["חלקי עץ", "גלגלים", "צבעים", "מברג", "מדריך"],
+    "whatsInTheBox": [
+      "חלקי עץ",
+      "גלגלים",
+      "צבעים",
+      "מברג",
+      "מדריך"
+    ],
     "isFeatured": false,
     "isDeal": true,
     "discountPercent": 15,
-    "tags": ["toy", "family"],
+    "tags": [
+      "toy",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 30,
     "difficulty": "קל",
-    "duration": "45 דקות"
+    "duration": "45 דקות",
+    "rating": 4.5,
+    "reviewCount": 58,
+    "stockCount": null
   },
   {
     "id": "kit-005",
@@ -101,18 +147,30 @@
     "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 10+",
     "size": "20×15×10 ס״מ",
-    "whatsInTheBox": ["לוחות עץ", "צירים", "ידית", "ברגים", "מדריך מפורט"],
+    "whatsInTheBox": [
+      "לוחות עץ",
+      "צירים",
+      "ידית",
+      "ברגים",
+      "מדריך מפורט"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["advanced", "family"],
+    "tags": [
+      "advanced",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": false,
     "minGroupSize": 1,
     "maxGroupSize": 20,
     "difficulty": "מתקדם",
-    "duration": "90–120 דקות"
+    "duration": "90–120 דקות",
+    "rating": 4.8,
+    "reviewCount": 62,
+    "stockCount": 4
   },
   {
     "id": "kit-006",
@@ -124,18 +182,30 @@
     "image": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 5+",
     "size": "ערכה ל-2 ילדים",
-    "whatsInTheBox": ["נייר צבעוני", "ענפים", "חרוזים", "דבק", "מדריך"],
+    "whatsInTheBox": [
+      "נייר צבעוני",
+      "ענפים",
+      "חרוזים",
+      "דבק",
+      "מדריך"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["outdoor", "summer"],
+    "tags": [
+      "outdoor",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 40,
     "difficulty": "קל",
-    "duration": "30–45 דקות"
+    "duration": "30–45 דקות",
+    "rating": 4.8,
+    "reviewCount": 25,
+    "stockCount": null
   },
   {
     "id": "kit-007",
@@ -147,18 +217,29 @@
     "image": "https://images.unsplash.com/photo-1513364778564-2073ec304d05?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 4+",
     "size": "10 אבנים + צבעים",
-    "whatsInTheBox": ["אבנים חלקות", "6 צבעי אקריל", "מברשות", "מדריך"],
+    "whatsInTheBox": [
+      "אבנים חלקות",
+      "6 צבעי אקריל",
+      "מברשות",
+      "מדריך"
+    ],
     "isFeatured": false,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["outdoor", "summer"],
+    "tags": [
+      "outdoor",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 35,
     "difficulty": "קל",
-    "duration": "30 דקות"
+    "duration": "30 דקות",
+    "rating": 4.5,
+    "reviewCount": 14,
+    "stockCount": null
   },
   {
     "id": "kit-008",
@@ -170,18 +251,30 @@
     "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 8+",
     "size": "40×20×15 ס״מ",
-    "whatsInTheBox": ["לוחות עץ", "עציצים", "אדמה", "זרעים", "מדריך"],
+    "whatsInTheBox": [
+      "לוחות עץ",
+      "עציצים",
+      "אדמה",
+      "זרעים",
+      "מדריך"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["garden", "summer"],
+    "tags": [
+      "garden",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": false,
     "minGroupSize": 1,
     "maxGroupSize": 25,
     "difficulty": "בינוני",
-    "duration": "60 דקות"
+    "duration": "60 דקות",
+    "rating": 4.8,
+    "reviewCount": 32,
+    "stockCount": null
   },
   {
     "id": "kit-009",
@@ -190,21 +283,32 @@
     "price": 79,
     "originalPrice": null,
     "category": "summer-craft",
-    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop",
+    "image": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "3 תליונים",
-    "whatsInTheBox": ["חומרים ממוחזרים", "חוטים", "חרוזים", "מדריך"],
+    "whatsInTheBox": [
+      "חומרים ממוחזרים",
+      "חוטים",
+      "חרוזים",
+      "מדריך"
+    ],
     "isFeatured": false,
     "isDeal": true,
     "discountPercent": 15,
-    "tags": ["eco", "summer"],
+    "tags": [
+      "eco",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 40,
     "difficulty": "קל",
-    "duration": "45 דקות"
+    "duration": "45 דקות",
+    "rating": 4.5,
+    "reviewCount": 36,
+    "stockCount": null
   },
   {
     "id": "kit-010",
@@ -216,18 +320,29 @@
     "image": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 5+",
     "size": "3 ערכות",
-    "whatsInTheBox": ["פרפרי קיץ", "ציור אבנים", "תליוני רוח", "מדריך מאוחד"],
+    "whatsInTheBox": [
+      "פרפרי קיץ",
+      "ציור אבנים",
+      "תליוני רוח",
+      "מדריך מאוחד"
+    ],
     "isFeatured": true,
     "isDeal": true,
     "discountPercent": 16,
-    "tags": ["bundle", "summer"],
+    "tags": [
+      "bundle",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 50,
     "difficulty": "קל",
-    "duration": "2–3 שעות"
+    "duration": "2–3 שעות",
+    "rating": 4.8,
+    "reviewCount": 36,
+    "stockCount": null
   },
   {
     "id": "kit-011",
@@ -239,18 +354,30 @@
     "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 8+",
     "size": "25×25 ס״מ",
-    "whatsInTheBox": ["לוח עץ", "מסמרים", "חוט אדום", "תבנית", "מדריך"],
+    "whatsInTheBox": [
+      "לוח עץ",
+      "מסמרים",
+      "חוט אדום",
+      "תבנית",
+      "מדריך"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["art", "gift"],
+    "tags": [
+      "art",
+      "gift"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 30,
     "difficulty": "בינוני",
-    "duration": "60–90 דקות"
+    "duration": "60–90 דקות",
+    "rating": 4.8,
+    "reviewCount": 40,
+    "stockCount": null
   },
   {
     "id": "kit-012",
@@ -262,18 +389,30 @@
     "image": "https://images.unsplash.com/photo-1513364778564-2073ec304d05?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 8+",
     "size": "25×25 ס״מ",
-    "whatsInTheBox": ["לוח עץ", "מסמרים", "חוט זהב", "תבנית", "מדריך"],
+    "whatsInTheBox": [
+      "לוח עץ",
+      "מסמרים",
+      "חוט זהב",
+      "תבנית",
+      "מדריך"
+    ],
     "isFeatured": false,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["art", "gift"],
+    "tags": [
+      "art",
+      "gift"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": false,
     "minGroupSize": 1,
     "maxGroupSize": 30,
     "difficulty": "בינוני",
-    "duration": "60–90 דקות"
+    "duration": "60–90 דקות",
+    "rating": 4.5,
+    "reviewCount": 28,
+    "stockCount": null
   },
   {
     "id": "kit-013",
@@ -285,18 +424,30 @@
     "image": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 9+",
     "size": "30×30 ס״מ",
-    "whatsInTheBox": ["לוח עץ", "מסמרים", "חוטים צבעוניים", "תבנית", "מדריך"],
+    "whatsInTheBox": [
+      "לוח עץ",
+      "מסמרים",
+      "חוטים צבעוניים",
+      "תבנית",
+      "מדריך"
+    ],
     "isFeatured": true,
     "isDeal": false,
     "discountPercent": null,
-    "tags": ["art", "nature"],
+    "tags": [
+      "art",
+      "nature"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 25,
     "difficulty": "מתקדם",
-    "duration": "90 דקות"
+    "duration": "90 דקות",
+    "rating": 4.8,
+    "reviewCount": 47,
+    "stockCount": 3
   },
   {
     "id": "kit-014",
@@ -308,18 +459,29 @@
     "image": "https://images.unsplash.com/photo-1513364778564-2073ec304d05?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 8+",
     "size": "3 ערכות",
-    "whatsInTheBox": ["לב", "כוכב", "עץ", "3 מדריכים"],
+    "whatsInTheBox": [
+      "לב",
+      "כוכב",
+      "עץ",
+      "3 מדריכים"
+    ],
     "isFeatured": false,
     "isDeal": true,
     "discountPercent": 16,
-    "tags": ["bundle", "gift"],
+    "tags": [
+      "bundle",
+      "gift"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 40,
     "difficulty": "בינוני",
-    "duration": "3×60 דקות"
+    "duration": "3×60 דקות",
+    "rating": 4.5,
+    "reviewCount": 50,
+    "stockCount": null
   },
   {
     "id": "kit-015",
@@ -331,18 +493,28 @@
     "image": "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "2 ערכות",
-    "whatsInTheBox": ["מגדל עץ", "מכונית עץ", "2 מדריכים"],
+    "whatsInTheBox": [
+      "מגדל עץ",
+      "מכונית עץ",
+      "2 מדריכים"
+    ],
     "isFeatured": true,
     "isDeal": true,
     "discountPercent": 15,
-    "tags": ["bundle", "family"],
+    "tags": [
+      "bundle",
+      "family"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 50,
     "difficulty": "קל",
-    "duration": "2 שעות"
+    "duration": "2 שעות",
+    "rating": 4.8,
+    "reviewCount": 54,
+    "stockCount": null
   },
   {
     "id": "kit-016",
@@ -354,18 +526,29 @@
     "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "10 ערכות מעורבות",
-    "whatsInTheBox": ["10 ערכות לבחירה", "מדריכים", "אריזה ליריד"],
+    "whatsInTheBox": [
+      "10 ערכות לבחירה",
+      "מדריכים",
+      "אריזה ליריד"
+    ],
     "isFeatured": true,
     "isDeal": true,
     "discountPercent": 20,
-    "tags": ["bundle", "school", "fair"],
+    "tags": [
+      "bundle",
+      "school",
+      "fair"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 10,
     "maxGroupSize": 100,
     "difficulty": "קל",
-    "duration": "לפי ערכה"
+    "duration": "לפי ערכה",
+    "rating": 4.8,
+    "reviewCount": 58,
+    "stockCount": 2
   },
   {
     "id": "kit-017",
@@ -377,18 +560,29 @@
     "image": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 5+",
     "size": "25 ערכות",
-    "whatsInTheBox": ["25 ערכות לבחירה", "מדריכים", "חשבונית מס"],
+    "whatsInTheBox": [
+      "25 ערכות לבחירה",
+      "מדריכים",
+      "חשבונית מס"
+    ],
     "isFeatured": false,
     "isDeal": true,
     "discountPercent": 20,
-    "tags": ["bundle", "school", "class"],
+    "tags": [
+      "bundle",
+      "school",
+      "class"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 25,
     "maxGroupSize": 100,
     "difficulty": "קל",
-    "duration": "לפי ערכה"
+    "duration": "לפי ערכה",
+    "rating": 4.5,
+    "reviewCount": 61,
+    "stockCount": null
   },
   {
     "id": "kit-018",
@@ -400,17 +594,27 @@
     "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=600&fit=crop",
     "ageGroup": "גילאי 6+",
     "size": "2 ערכות",
-    "whatsInTheBox": ["פרפרי קיץ", "בית ציפור", "2 מדריכים"],
+    "whatsInTheBox": [
+      "פרפרי קיץ",
+      "בית ציפור",
+      "2 מדריכים"
+    ],
     "isFeatured": false,
     "isDeal": true,
     "discountPercent": 15,
-    "tags": ["bundle", "summer"],
+    "tags": [
+      "bundle",
+      "summer"
+    ],
     "inStock": true,
     "schoolFriendly": true,
     "fairRecommended": true,
     "minGroupSize": 1,
     "maxGroupSize": 40,
     "difficulty": "בינוני",
-    "duration": "2–3 שעות"
+    "duration": "2–3 שעות",
+    "rating": 4.5,
+    "reviewCount": 25,
+    "stockCount": null
   }
 ]
