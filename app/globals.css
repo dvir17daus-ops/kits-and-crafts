@@ -27,9 +27,9 @@
   --color-gefen: #1e4d8c;
   --color-gefen-light: #e8f0fa;
 
-  /* Brand mark (logo) colors */
-  --color-brand-orange: #f17a28;
-  --color-brand-teal: #2b8688;
+  /* Brand mark (logo) colors — sampled from brand artwork */
+  --color-brand-orange: #f48019;
+  --color-brand-teal: #1f7773;
   --color-brand-brown: #4a3c2b;
 
   --font-sans: var(--font-assistant), ui-sans-serif, system-ui, sans-serif;

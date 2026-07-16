@@ -134,6 +134,11 @@ function normalizeProducts(rows) {
     .filter((p) => p && p.id && p.title && p.image);
 }
 
+/**
+ * @returns {Promise<{ products: any[] | null, reason?: string }>}
+ * `products` is null when the remote source is unavailable / empty
+ * (caller should fall back). Never throws for empty sheets.
+ */
 async function fetchFromSheets() {
   const { signal, clear } = withTimeout(FETCH_TIMEOUT_MS);
   try {
@@ -142,14 +147,20 @@ async function fetchFromSheets() {
       next: { revalidate: 60 },
     });
     if (!res.ok) {
-      throw new Error(`Google Sheets API responded with ${res.status}`);
+      return { products: null, reason: `HTTP ${res.status}` };
     }
     const json = await res.json();
     const products = normalizeProducts(json);
     if (products.length === 0) {
-      throw new Error("Google Sheets API returned an empty or invalid payload");
+      // Headers-only / empty sheet is normal until products are added.
+      return { products: null, reason: "empty" };
     }
-    return products;
+    return { products };
+  } catch (error) {
+    return {
+      products: null,
+      reason: error instanceof Error ? error.message : "fetch failed",
+    };
   } finally {
     clear();
   }
@@ -168,20 +179,21 @@ async function loadProducts() {
     return loadLocalFallback();
   }
 
-  try {
-    const remote = await fetchFromSheets();
-    lastGoodRemoteData = remote;
-    return remote;
-  } catch (error) {
-    console.error(
-      "[getProducts] Google Sheets fetch failed, falling back:",
-      error instanceof Error ? error.message : error
-    );
-    if (lastGoodRemoteData) {
-      return lastGoodRemoteData;
-    }
-    return loadLocalFallback();
+  const { products, reason } = await fetchFromSheets();
+  if (products) {
+    lastGoodRemoteData = products;
+    return products;
   }
+
+  // Soft fallback — do not console.error (Next.js surfaces that as a red overlay).
+  if (process.env.NODE_ENV === "development" && reason && reason !== "empty") {
+    console.warn(`[getProducts] Sheets unavailable (${reason}), using local products`);
+  }
+
+  if (lastGoodRemoteData) {
+    return lastGoodRemoteData;
+  }
+  return loadLocalFallback();
 }
 
 export async function getProducts() {
