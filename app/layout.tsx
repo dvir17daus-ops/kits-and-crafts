@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Assistant, Secular_One } from "next/font/google";
+import { Assistant, Varela_Round } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
@@ -20,9 +20,9 @@ const assistant = Assistant({
   weight: ["400", "500", "600", "700"],
 });
 
-const secularOne = Secular_One({
+const varelaRound = Varela_Round({
   subsets: ["hebrew", "latin"],
-  variable: "--font-secular-one",
+  variable: "--font-varela",
   weight: "400",
 });
 
@@ -56,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${assistant.variable} ${secularOne.variable} font-sans antialiased`}
+        className={`${assistant.variable} ${varelaRound.variable} font-sans antialiased`}
       >
         <CartProvider>
           <ToastProvider>

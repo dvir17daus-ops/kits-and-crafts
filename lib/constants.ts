@@ -2,7 +2,13 @@ import type { Product } from "@/types/product";
 
 export const SITE_NAME = "הסדנאייה";
 export const SITE_NAME_HE = "הסדנאייה";
+/** שתי האותיות הראשונות (מימין) — כתום כמו בלוגו */
+export const SITE_NAME_ORANGE = "הס";
+/** שאר האותיות — טורקיז כמו בלוגו */
+export const SITE_NAME_TEAL = "דנאייה";
 export const SITE_TAGLINE_HE = "מבית בואו נחגוג";
+/** הסלוגן מתחת לשם — כמו בלוגו */
+export const SITE_SLOGAN_HE = "ערכות יצירה ובנייה מעץ לילדים";
 // שם העסק הרשום (הישות המשפטית המפעילה את "הסדנאייה")
 export const LEGAL_BUSINESS_NAME = 'א.נ.ד.ר קידום והפקות';
 

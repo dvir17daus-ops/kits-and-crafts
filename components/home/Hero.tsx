@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib/constants";
+import { BrandMark } from "@/components/brand/BrandMark";
+import { SITE_TAGLINE_HE } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -15,35 +16,26 @@ export function Hero() {
         sizes="100vw"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-l from-slate/75 via-slate/45 to-teal-deep/55"
+        className="absolute inset-0 bg-gradient-to-l from-slate/70 via-slate/40 to-teal-deep/50"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-slate/50 via-transparent to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-slate/55 via-transparent to-transparent"
         aria-hidden="true"
       />
 
       <div className="container-narrow relative flex min-h-[78vh] flex-col justify-end pb-14 pt-24 sm:min-h-[85vh] sm:pb-20 sm:pt-28">
-        <div className="max-w-2xl">
-          <p className="text-sm font-medium tracking-wide text-white/80 sm:text-base">
+        <div className="max-w-xl rounded-3xl bg-cream/95 px-6 py-7 shadow-[0_24px_60px_-20px_rgba(28,43,58,0.45)] sm:px-10 sm:py-9">
+          <p className="font-brand text-sm font-medium text-brand-brown/80">
             {SITE_TAGLINE_HE}
           </p>
-          <h1 className="mt-2 font-logo text-5xl leading-[1.05] text-white sm:text-6xl md:text-7xl lg:text-8xl">
-            {SITE_NAME_HE}
-          </h1>
-          <p className="mt-5 max-w-lg text-lg font-medium leading-relaxed text-white/90 sm:text-xl">
-            ערכות יצירה ובנייה מעץ אמיתי — לילדים, למשפחה ולירידי בתי ספר.
-          </p>
+          <BrandMark size="hero" className="mt-2" />
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/summer-kits">
               <Button size="lg">לקולקציית הקיץ</Button>
             </Link>
             <Link href="/wood-kits">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/40 bg-white/10 text-white hover:border-white hover:bg-white hover:text-slate"
-              >
+              <Button size="lg" variant="outline">
                 ערכות בנייה בעץ
               </Button>
             </Link>

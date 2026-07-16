@@ -27,8 +27,14 @@
   --color-gefen: #1e4d8c;
   --color-gefen-light: #e8f0fa;
 
+  /* Brand mark (logo) colors */
+  --color-brand-orange: #f17a28;
+  --color-brand-teal: #2b8688;
+  --color-brand-brown: #4a3c2b;
+
   --font-sans: var(--font-assistant), ui-sans-serif, system-ui, sans-serif;
-  --font-logo: var(--font-secular-one), var(--font-sans);
+  --font-logo: var(--font-varela), var(--font-sans);
+  --font-brand: var(--font-varela), var(--font-sans);
 
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
