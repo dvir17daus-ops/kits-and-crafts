@@ -186,7 +186,7 @@ export const COUPON_CODES: Record<string, { percent: number; label: string }> = 
 };
 
 export const CONTACT_TYPES = [
-  { id: "parent" as const, label: "הזמנה פרטית" },
+  { id: "parent" as const, label: "לקוח פרטי" },
   { id: "school" as const, label: "יריד בית ספר" },
   { id: "organization" as const, label: "הזמנת כמות" },
 ];
