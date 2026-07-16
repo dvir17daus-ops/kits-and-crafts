@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { BUSINESS, GEFEN } from "@/lib/constants";
+import { BUSINESS } from "@/lib/constants";
 
 export function BusinessDetails() {
   const phoneHref = `tel:${BUSINESS.phone.replace(/-/g, "")}`;
@@ -36,10 +36,6 @@ export function BusinessDetails() {
           <span>{BUSINESS.address}</span>
         </li>
       </ul>
-      <div className="rounded-xl border border-gefen/20 bg-gefen-light p-4">
-        <p className="font-semibold text-gefen">{GEFEN.title}</p>
-        <p className="mt-1 text-sm text-muted">{GEFEN.description}</p>
-      </div>
     </div>
   );
 }

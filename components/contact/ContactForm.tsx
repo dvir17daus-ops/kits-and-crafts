@@ -6,7 +6,6 @@ import { MessageCircle, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
-import { GefenBadge } from "@/components/trust/GefenBadge";
 import { BUSINESS, CONTACT_TYPES, SITE_NAME_HE } from "@/lib/constants";
 import {
   isValidEmail,
@@ -133,8 +132,6 @@ function ContactFormInner() {
           ))}
         </div>
       </div>
-
-      {isInstitution && <GefenBadge variant="full" />}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Input

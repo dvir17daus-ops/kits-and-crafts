@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { FileCheck, Package, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { GEFEN } from "@/lib/constants";
 
 const features = [
   {
@@ -31,14 +30,12 @@ export function InstitutionsSection() {
     <section className="section-padding bg-white">
       <div className="container-narrow">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold tracking-wide text-gefen">
-            {GEFEN.title}
-          </p>
-          <h2 className="mt-2 font-logo text-3xl text-slate sm:text-4xl">
+          <h2 className="font-logo text-3xl text-slate sm:text-4xl">
             לירידים, ועדים ובתי ספר
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            מלווים אתכם מההזמנה ועד היום עצמו — עם אישור גפ&quot;ן והזמנות כמות.
+            מלווים אתכם מההזמנה ועד היום עצמו — חשבונית מס, אריזה ליריד והנחות
+            כמות.
           </p>
         </div>
 

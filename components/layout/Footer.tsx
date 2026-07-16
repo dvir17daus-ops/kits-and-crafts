@@ -12,9 +12,7 @@ export function Footer() {
       <div className="container-narrow py-14">
         <div className="mb-10 border-b border-white/10 pb-8">
           <p className="text-sm font-bold text-white/90">{GEFEN.title}</p>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/65">
-            {GEFEN.description}
-          </p>
+          <p className="mt-1 text-sm text-white/65">{GEFEN.subtitle}</p>
         </div>
 
         <div className="grid gap-10 md:grid-cols-4">
@@ -81,7 +79,7 @@ export function Footer() {
               וואטסאפ
             </a>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              משלוחים לכל הארץ · ביטול תוך 14 יום · מאושרים בגפ&quot;ן
+              משלוחים לכל הארץ · ביטול תוך 14 יום
             </p>
           </div>
         </div>

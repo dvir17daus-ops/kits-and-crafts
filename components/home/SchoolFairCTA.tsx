@@ -20,8 +20,8 @@ export function SchoolFairCTA() {
           מתכננים יריד בבית הספר?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-          נלווה אתכם מההזמנה ועד היום עצמו — ערכות ארוזות, מאושרים בגפ&quot;ן,
-          והנחות כמות לוועדי הורים.
+          נלווה אתכם מההזמנה ועד היום עצמו — ערכות ארוזות והנחות כמות לוועדי
+          הורים.
         </p>
         <Link href="/contact?type=institution" className="mt-8 inline-block">
           <Button

@@ -63,7 +63,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           ))}
         </nav>
         <div className="border-t border-sand p-4">
-          <GefenBadge variant="full" />
+          <GefenBadge variant="compact" />
         </div>
       </div>
     </div>

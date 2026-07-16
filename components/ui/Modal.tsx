@@ -25,56 +25,58 @@ export function Modal({
   size = "lg",
   className,
 }: ModalProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      lockScroll();
-      const handleKey = (e: KeyboardEvent) => {
-        if (e.key === "Escape") onClose();
-        if (e.key === "Tab" && panelRef.current) {
-          const focusable =
-            panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
+    if (!isOpen) return;
+
+    lockScroll();
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab" && panelRef.current) {
+        const focusable =
+          panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
-      };
-      document.addEventListener("keydown", handleKey);
-      panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
-      return () => {
-        unlockScroll();
-        document.removeEventListener("keydown", handleKey);
-      };
-    }
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+
+    return () => {
+      unlockScroll();
+      document.removeEventListener("keydown", handleKey);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      ref={overlayRef}
       className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}
-      onClick={(e) => {
-        if (e.target === overlayRef.current) onClose();
-      }}
     >
-      <div className="absolute inset-0 bg-slate/50 backdrop-blur-sm" />
+      <button
+        type="button"
+        aria-label="סגור חלון"
+        className="absolute inset-0 bg-slate/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
       <div
         ref={panelRef}
         className={cn(
-          "relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-t-2xl bg-white shadow-2xl transition-all duration-300 sm:rounded-2xl",
+          "relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl",
           {
             "max-w-lg": size === "md",
             "max-w-2xl": size === "lg",
@@ -82,16 +84,23 @@ export function Modal({
           },
           className
         )}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 flex items-center justify-between border-b border-sand bg-white px-6 py-4">
-          {title && (
-            <h2 id="modal-title" className="text-xl font-bold text-slate">
+        <div className="sticky top-0 z-20 flex items-center gap-3 border-b border-sand bg-white/95 px-4 py-3 backdrop-blur-sm sm:px-6 sm:py-4">
+          {title ? (
+            <h2
+              id="modal-title"
+              className="min-w-0 flex-1 truncate text-lg font-bold text-slate sm:text-xl"
+            >
               {title}
             </h2>
+          ) : (
+            <span className="flex-1" />
           )}
           <button
+            type="button"
             onClick={onClose}
-            className="mr-auto rounded-lg p-2 text-muted transition-colors hover:bg-cream-dark hover:text-slate"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-dark text-slate transition-colors hover:bg-sand hover:text-slate"
             aria-label="סגור"
           >
             <X className="h-5 w-5" />

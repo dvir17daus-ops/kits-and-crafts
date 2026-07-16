@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Menu, Award } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { CartIcon } from "@/components/cart/CartIcon";
-import { GEFEN, NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
 import { useFlyToCart } from "@/context/FlyToCartContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -66,14 +66,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/contact?type=institution"
-            className="hidden items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-white/20 xl:inline-flex"
-            title={GEFEN.description}
-          >
-            <Award className="h-3.5 w-3.5" aria-hidden="true" />
-            {GEFEN.badgeLabel}
-          </Link>
           <div className="hidden lg:block">
             <CartIcon />
           </div>

@@ -10,8 +10,8 @@ export function DealBanner() {
           <p className="text-2xl font-bold text-slate">
             קנה 2 ערכות וקבל {BUNDLE_DISCOUNT_PERCENT}% הנחה
           </p>
-          <p className="mt-2 text-muted">
-            הנחה אוטומטית בעגלה · מתאים לקנייה משפחתית
+          <p className="mt-4 text-sm font-medium text-muted">
+            הנחה אוטומטית בעגלה · מתאים לקנייה משפחתית ולוועדי הורים
           </p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
@@ -23,9 +23,6 @@ export function DealBanner() {
           </Link>
         </div>
       </div>
-      <p className="mt-4 text-sm font-medium text-gefen">
-        מאושרים בגפ&quot;ן — ניתן להזמין דרך מערכת גפ&quot;ן של משרד החינוך
-      </p>
     </div>
   );
 }
