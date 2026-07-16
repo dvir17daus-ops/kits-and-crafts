@@ -10,7 +10,7 @@ export function Testimonials() {
     <section className="section-padding bg-cream-dark">
       <div className="container-narrow">
         <Reveal direction="fade">
-          <h2 className="text-center font-logo text-3xl font-normal tracking-tight text-slate sm:text-4xl">
+          <h2 className="text-center font-logo text-3xl font-bold tracking-tight text-slate sm:text-4xl">
             מה אומרים עלינו
           </h2>
         </Reveal>

@@ -1,5 +1,3 @@
-import type { Product } from "@/types/product";
-
 export const SITE_NAME = "הסדנאייה";
 export const SITE_NAME_HE = "הסדנאייה";
 /** שתי האותיות הראשונות (מימין) — כתום כמו בלוגו */
@@ -118,63 +116,8 @@ export const TESTIMONIALS = [
   },
 ] as const;
 
-// תוספות קטנות שמוצעות בסל הקניות (upsell) — אין להן תמונת מוצר, מוצגות עם אייקון.
-export const UPSELL_ADDONS: Product[] = [
-  {
-    id: "addon-glue-brush",
-    title: "סט דבק ומברשות איכותי",
-    description: "דבק חוזק לעץ + 3 מברשות יצירה בגדלים שונים — משלים כל ערכה.",
-    price: 10,
-    originalPrice: null,
-    category: "bundle-deal",
-    image: "",
-    ageGroup: "לכל הגילאים",
-    size: "מארז קטן",
-    whatsInTheBox: ["דבק חוזק לעץ 50 מ״ל", "3 מברשות יצירה בגדלים שונים"],
-    isFeatured: false,
-    isDeal: false,
-    discountPercent: null,
-    tags: ["addon"],
-    inStock: true,
-    schoolFriendly: true,
-    fairRecommended: false,
-    minGroupSize: 1,
-    maxGroupSize: 1,
-    difficulty: "קל",
-    duration: "",
-    isAddon: true,
-    rating: 4.7,
-    reviewCount: 19,
-    stockCount: null,
-  },
-  {
-    id: "addon-gift-wrap",
-    title: "עטיפת מתנה מהודרת",
-    description: "עטיפה בנייר איכותי + כרטיס ברכה — מוכן לחגוג.",
-    price: 15,
-    originalPrice: null,
-    category: "bundle-deal",
-    image: "",
-    ageGroup: "לכל הגילאים",
-    size: "",
-    whatsInTheBox: ["נייר עטיפה", "כרטיס ברכה", "סרט קישוט"],
-    isFeatured: false,
-    isDeal: false,
-    discountPercent: null,
-    tags: ["addon"],
-    inStock: true,
-    schoolFriendly: false,
-    fairRecommended: false,
-    minGroupSize: 1,
-    maxGroupSize: 1,
-    difficulty: "קל",
-    duration: "",
-    isAddon: true,
-    rating: 4.6,
-    reviewCount: 11,
-    stockCount: null,
-  },
-];
+/** Prefix for cart guidance add-ons created from a product's `guidancePrice`. */
+export const GUIDANCE_ADDON_ID_PREFIX = "guidance-";
 
 // כמות מלאי נמוכה שממנה מוצג דגש דחיפות ("נותרו X בלבד במלאי") בכרטיס/במודל המוצר.
 export const LOW_STOCK_THRESHOLD = 6;

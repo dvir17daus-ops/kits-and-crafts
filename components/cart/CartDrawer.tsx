@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Minus, Plus, Sparkles, Trash2, Truck } from "lucide-react";
+import { Minus, Plus, GraduationCap, Trash2, Truck } from "lucide-react";
 import type { CartItem } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { CartEmptyState } from "@/components/cart/CartEmptyState";
@@ -36,8 +36,8 @@ function CartLineItem({ item, onUpdateQuantity, onRemove }: CartLineItemProps) {
   return (
     <li className="flex gap-3 py-3">
       {item.product.isAddon ? (
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-yellow to-orange text-white">
-          <Sparkles className="h-6 w-6" aria-hidden="true" />
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal to-teal-dark text-white">
+          <GraduationCap className="h-6 w-6" aria-hidden="true" />
         </div>
       ) : (
         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">

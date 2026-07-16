@@ -13,7 +13,7 @@ export function FeaturedSection({ products }: FeaturedSectionProps) {
       <div className="container-narrow">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <h2 className="font-logo text-3xl font-normal tracking-tight text-slate sm:text-4xl">
+            <h2 className="font-logo text-3xl font-bold tracking-tight text-slate sm:text-4xl">
               ערכות מומלצות
             </h2>
             <p className="mt-2 text-muted">הבחירות שלנו — ליריד ולמשפחה</p>

@@ -4,6 +4,7 @@ import {
   SITE_NAME_TEAL,
   SITE_SLOGAN_HE,
 } from "@/lib/constants";
+import { fredoka } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 interface BrandMarkProps {
@@ -15,8 +16,7 @@ interface BrandMarkProps {
 }
 
 /**
- * Text-only brand wordmark: name + optional slogan.
- * Rounded Fredoka display — soft, playful, brand-colored.
+ * Text-only brand wordmark: thick rounded Fredoka + brand colors.
  */
 export function BrandMark({
   size = "md",
@@ -36,13 +36,13 @@ export function BrandMark({
     >
       <p
         className={cn(
-          /* Makabi YG is already a heavy display face — avoid faux-bold */
-          "m-0 font-brand font-normal leading-[0.95] tracking-tight",
+          fredoka.className,
+          "brand-display m-0 leading-[0.92]",
           {
             "text-lg": size === "sm",
             "text-xl sm:text-2xl": size === "md",
-            "text-3xl tracking-[-0.01em]": size === "lg",
-            "text-[3rem] tracking-[-0.015em] sm:text-6xl md:text-7xl lg:text-[5.4rem]":
+            "text-3xl": size === "lg",
+            "text-[3.1rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]":
               size === "hero",
           }
         )}
@@ -57,12 +57,13 @@ export function BrandMark({
       {showSlogan ? (
         <p
           className={cn(
-            "m-0 font-brand font-normal leading-snug tracking-[0.02em]",
+            fredoka.className,
+            "brand-slogan m-0 leading-snug",
             {
               "mt-1 text-[10px]": size === "sm",
               "mt-1.5 text-xs": size === "md",
               "mt-2 text-sm": size === "lg",
-              "mt-4 max-w-md text-base opacity-95 sm:text-lg md:text-xl md:leading-relaxed":
+              "mt-4 max-w-md text-base sm:text-lg md:text-xl md:leading-relaxed":
                 size === "hero",
             },
             light || onHero ? "text-white/95" : "text-brand-brown"

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { Assistant, Fredoka, Varela_Round } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
@@ -13,43 +11,8 @@ import { WhatsAppBubble } from "@/components/ui/WhatsAppBubble";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { RefreshToHome } from "@/components/ui/RefreshToHome";
 import { siteMetadata } from "@/lib/metadata";
+import { assistant, fredoka, makabiyg, varelaRound } from "@/lib/fonts";
 import "./globals.css";
-
-const assistant = Assistant({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-assistant",
-  weight: ["400", "500", "600", "700"],
-});
-
-const varelaRound = Varela_Round({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-varela",
-  weight: "400",
-});
-
-const fredoka = Fredoka({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-fredoka",
-  weight: ["400", "500", "600", "700"],
-});
-
-/** Makabi YG — rounded Hebrew display (GPL, Yoram Gnat) */
-const makabiyg = localFont({
-  src: [
-    {
-      path: "./fonts/makabiyg/makabiyg-webfont.woff",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/makabiyg/makabiyg-webfont.ttf",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--font-makabiyg",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -81,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${assistant.variable} ${varelaRound.variable} ${fredoka.variable} ${makabiyg.variable} font-sans antialiased`}
+        className={`${assistant.variable} ${varelaRound.variable} ${fredoka.variable} ${makabiyg.variable} ${assistant.className} antialiased`}
       >
         <CartProvider>
           <ToastProvider>
@@ -90,7 +53,7 @@ export default function RootLayout({
               <ScrollProgress />
               <a
                 href="#main-content"
-                className="sr-only focus:fixed focus:right-4 focus:top-4 focus:z-[100] focus:inline-flex focus:h-auto focus:w-auto focus:overflow-visible focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-slate focus:shadow-lg focus:outline-none"
+                className="sr-only focus:fixed focus:right-4 focus:top-4 focus:z-[100] focus:inline-flex focus:h-auto focus:w-auto focus:overflow-visible focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-slate focus:outline-none focus:shadow-lg"
               >
                 דלג לתוכן הראשי
               </a>

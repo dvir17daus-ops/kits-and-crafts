@@ -31,8 +31,13 @@ export interface Product {
   duration: string;
   /** Optional product tutorial / demo video URL (YouTube, Vimeo, or direct mp4). */
   videoUrl?: string | null;
-  /** Small cart add-on (e.g. glue & brush set) rather than a full catalog item. */
+  /** Small cart add-on (e.g. live guidance) rather than a full catalog item. */
   isAddon?: boolean;
+  /**
+   * Optional live-guidance add-on price from Excel (`מחיר הדרכה`).
+   * Leave empty / null when the product has no guidance option.
+   */
+  guidancePrice?: number | null;
   /** Average customer rating out of 5, e.g. 4.8. */
   rating?: number;
   /** Number of customer reviews behind the rating. */

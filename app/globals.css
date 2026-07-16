@@ -33,9 +33,9 @@
   --color-brand-brown: #4a3c2b;
 
   --font-sans: var(--font-assistant), ui-sans-serif, system-ui, sans-serif;
-  /* Makabi YG — rounded Hebrew brand / headings */
-  --font-logo: var(--font-makabiyg), var(--font-fredoka), var(--font-varela), var(--font-sans);
-  --font-brand: var(--font-makabiyg), var(--font-fredoka), var(--font-varela), var(--font-sans);
+  /* Fredoka 700 = thick rounded Hebrew display */
+  --font-logo: "Fredoka", var(--font-fredoka), var(--font-makabiyg), var(--font-varela), sans-serif;
+  --font-brand: "Fredoka", var(--font-fredoka), var(--font-makabiyg), var(--font-varela), sans-serif;
 
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
@@ -62,7 +62,24 @@ body {
   }
 
   .heading-accent {
-    @apply font-logo font-normal tracking-tight;
+    @apply font-logo font-bold tracking-tight;
+  }
+
+  /** Extra-plump rounded display for brand wordmark */
+  .brand-display {
+    font-family: "Fredoka", var(--font-fredoka), sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
+    -webkit-text-stroke: 0.65px currentColor;
+    paint-order: stroke fill;
+  }
+
+  .brand-slogan {
+    font-family: "Fredoka", var(--font-fredoka), sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em;
+    -webkit-text-stroke: 0.25px currentColor;
+    paint-order: stroke fill;
   }
 
   .card-premium {

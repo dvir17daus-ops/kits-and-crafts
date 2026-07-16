@@ -110,6 +110,10 @@ export function normalizeProductRow(row, index = 0) {
       category: normalizeCategory(row.category),
       image: normalizeImageUrl(row.image),
       videoUrl: row.videoUrl || null,
+      guidancePrice:
+        row.guidancePrice === undefined || row.guidancePrice === null || row.guidancePrice === ""
+          ? null
+          : Number(row.guidancePrice),
       stockCount:
         row.stockCount === undefined || row.stockCount === null || row.stockCount === ""
           ? null
@@ -154,6 +158,11 @@ export function normalizeProductRow(row, index = 0) {
     rating: toNumber(pick(row, "דירוג", "rating", "Rating"), undefined),
     reviewCount: toNumber(pick(row, "מספר ביקורות", "reviewCount", "reviews"), undefined),
     stockCount: toNumber(pick(row, "כמות במלאי", "stockCount", "stock"), null),
+    // Empty cell = no guidance upsell in cart
+    guidancePrice: toNumber(
+      pick(row, "מחיר הדרכה", "guidancePrice", "guidance_price", "הדרכה"),
+      null
+    ),
   };
 }
 
