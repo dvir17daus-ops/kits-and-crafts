@@ -34,13 +34,13 @@ function CartLineItem({ item, onUpdateQuantity, onRemove }: CartLineItemProps) {
   };
 
   return (
-    <li className="flex gap-3 rounded-xl border border-sand/60 p-3">
+    <li className="flex gap-3 py-3">
       {item.product.isAddon ? (
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-yellow to-orange text-white">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-yellow to-orange text-white">
           <Sparkles className="h-6 w-6" aria-hidden="true" />
         </div>
       ) : (
-        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
           <Image
             src={item.product.image}
             alt={item.product.title}
@@ -52,7 +52,7 @@ function CartLineItem({ item, onUpdateQuantity, onRemove }: CartLineItemProps) {
       )}
       <div className="flex flex-1 flex-col">
         <p className="text-sm font-semibold text-slate">{item.product.title}</p>
-        <p className="text-sm font-bold text-green">
+        <p className="text-sm font-bold text-slate">
           {formatPrice(item.product.price)}
         </p>
         <div className="mt-auto flex items-center gap-2">
@@ -197,7 +197,7 @@ export function CartDrawer() {
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
-              <ul className="space-y-4">
+              <ul className="divide-y divide-sand/70">
                 {items.map((item) => (
                   <CartLineItem
                     key={item.productId}

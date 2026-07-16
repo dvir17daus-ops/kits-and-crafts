@@ -1,40 +1,38 @@
-import Image from "next/image";
 import { TESTIMONIALS } from "@/lib/constants";
-import { Quote } from "lucide-react";
 
 export function Testimonials() {
+  const [featured, ...rest] = TESTIMONIALS;
+
   return (
-    <section className="relative overflow-hidden section-padding bg-white">
-      <Image
-        src="/images/kids-crafting.jpg"
-        alt=""
-        fill
-        className="object-cover"
-        sizes="100vw"
-        aria-hidden="true"
-      />
-      <div className="absolute inset-0 bg-cream/85" />
-      <div className="container-narrow relative">
-        <h2 className="heading-accent text-center text-2xl font-bold text-slate sm:text-3xl">
+    <section className="section-padding bg-cream-dark">
+      <div className="container-narrow">
+        <h2 className="text-center font-logo text-3xl text-slate sm:text-4xl">
           מה אומרים עלינו
         </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <blockquote
-              key={t.name}
-              className="card-premium relative p-6 pt-14"
-            >
-              <span className="absolute right-6 top-0 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange to-orange-dark text-white shadow-md shadow-orange/30">
-                <Quote className="h-5 w-5" fill="white" aria-hidden="true" />
-              </span>
-              <p className="relative text-muted leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
-              <footer className="mt-4 border-t border-sand pt-4">
-                <p className="font-semibold text-slate">{t.name}</p>
-                <p className="text-sm text-muted">{t.role}</p>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
+
+        <blockquote className="mx-auto mt-10 max-w-3xl text-center">
+          <p className="font-logo text-2xl leading-relaxed text-slate sm:text-3xl md:text-[2.15rem]">
+            &ldquo;{featured.quote}&rdquo;
+          </p>
+          <footer className="mt-6">
+            <p className="font-bold text-slate">{featured.name}</p>
+            <p className="mt-1 text-sm text-muted">{featured.role}</p>
+          </footer>
+        </blockquote>
+
+        {rest.length > 0 && (
+          <div className="mx-auto mt-12 grid max-w-4xl gap-8 border-t border-sand pt-10 sm:grid-cols-2">
+            {rest.map((t) => (
+              <blockquote key={t.name}>
+                <p className="text-muted leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
+                <footer className="mt-4">
+                  <p className="text-sm font-bold text-slate">{t.name}</p>
+                  <p className="text-xs text-muted">{t.role}</p>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

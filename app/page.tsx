@@ -25,9 +25,6 @@ export default async function HomePage() {
       <Hero />
       <TrustBadges />
       <Reveal>
-        <InstitutionsSection />
-      </Reveal>
-      <Reveal>
         <FeaturedSection products={featured} />
       </Reveal>
       <Reveal>
@@ -35,6 +32,9 @@ export default async function HomePage() {
       </Reveal>
       <Reveal>
         <HowItWorks />
+      </Reveal>
+      <Reveal>
+        <InstitutionsSection />
       </Reveal>
       <Reveal>
         <Testimonials />

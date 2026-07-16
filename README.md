@@ -55,11 +55,29 @@ public/           # תמונות סטטיות
 }
 ```
 
-## חיבור Google Sheets (עתידי)
+## חיבור Google Sheets
 
-1. העתיקו `.env.local.example` ל-`.env.local`
-2. הגדירו `NEXT_PUBLIC_SHEETS_API_URL` לכתובת API
-3. [`utils/getProducts.js`](utils/getProducts.js) יטען אוטומטית מה-API
+הגיליון של האתר: [הסדנאייה — Google Sheets](https://docs.google.com/spreadsheets/d/18i5pGMyeGW_-M8Nm7UE4oPgYu9ZDuC0bHsnFehTp_GQ/edit)
+
+1. ייבאו את הקובץ [`data/products-sheet-template.csv`](data/products-sheet-template.csv) לגיליון  
+   (קובץ → ייבוא → העלאה → החלף את הגיליון / הוסף לראשון).
+2. ודאו ששיתוף הגיליון הוא **"כל מי שיש לו את הקישור יכול לצפות"**.
+3. ב-`.env.local` (וכן ב-Vercel → Environment Variables):
+
+```
+NEXT_PUBLIC_SHEETS_API_URL=https://opensheet.elk.sh/18i5pGMyeGW_-M8Nm7UE4oPgYu9ZDuC0bHsnFehTp_GQ/1
+```
+
+4. אחרי ייבוא — האתר קורא מוצרים מהגיליון (עם גיבוי ל-`data/products.json` אם הגיליון ריק/לא זמין).
+
+### כותרות העמודות (שורה 1)
+
+מזהה · שם המוצר · תיאור · מחיר · מחיר מקורי · קטגוריה · קישור לתמונה · קישור לסרטון · גיל · גודל · מה בקופסה · מומלץ בדף הבית · מבצע · אחוז הנחה · תגיות · במלאי · מתאים לבית ספר · מומלץ ליריד · כמות מינימום לקבוצה · כמות מקסימום לקבוצה · רמת קושי · זמן הכנה · דירוג · מספר ביקורות · כמות במלאי
+
+- **קטגוריה**: `ערכות בנייה בעץ` / `ערכות יצירה בקיץ` / `ערכות אומנות בחוטים` / `מבצעים`
+- **כן/לא**: מומלץ, מבצע, במלאי, מתאים לבית ספר, מומלץ ליריד
+- **מה בקופסה / תגיות**: מופרדים ב- `|`
+- **קישור לסרטון**: YouTube / Vimeo / קובץ mp4 (אופציונלי)
 
 ## פלטת צבעים
 

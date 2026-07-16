@@ -9,14 +9,14 @@ interface FeaturedSectionProps {
 
 export function FeaturedSection({ products }: FeaturedSectionProps) {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding">
       <div className="container-narrow">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <h2 className="heading-accent text-2xl font-bold text-slate sm:text-3xl">
+            <h2 className="font-logo text-3xl text-slate sm:text-4xl">
               ערכות מומלצות
             </h2>
-            <p className="mt-2 text-muted">הבחירות שלנו — מושלמות ליריד ולמשפחה</p>
+            <p className="mt-2 text-muted">הבחירות שלנו — ליריד ולמשפחה</p>
           </div>
           <Link href="/deals">
             <Button variant="outline">לכל המבצעים</Button>

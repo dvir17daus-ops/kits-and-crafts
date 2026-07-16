@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { FileCheck, Package, Users, BookOpen, Award } from "lucide-react";
-import { GefenBadge } from "@/components/trust/GefenBadge";
+import { FileCheck, Package, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { GEFEN } from "@/lib/constants";
 
 const features = [
   {
@@ -22,45 +22,40 @@ const features = [
   {
     icon: BookOpen,
     title: "מדריך בעברית",
-    desc: "הוראות ברורות לכל ערכה — מוכן לפעילות",
+    desc: "הוראות ברורות לכל ערכה",
   },
 ];
 
 export function InstitutionsSection() {
   return (
-    <section className="section-padding bg-cream-dark">
+    <section className="section-padding bg-white">
       <div className="container-narrow">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-gefen">
-            <Award className="h-5 w-5" />
-            <span className="text-sm font-semibold">מאושרים בגפ&quot;ן</span>
-          </div>
-          <h2 className="heading-accent text-2xl font-bold text-slate sm:text-3xl md:text-4xl">
-            פתרון מושלם לירידי בתי ספר ואירועי קהילה
+          <p className="text-sm font-bold tracking-wide text-gefen">
+            {GEFEN.title}
+          </p>
+          <h2 className="mt-2 font-logo text-3xl text-slate sm:text-4xl">
+            לירידים, ועדים ובתי ספר
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            אנחנו מלווים ועדי הורים, מורים וארגונים קהילתיים — מההזמנה ועד
-            היום עצמו.
+            מלווים אתכם מההזמנה ועד היום עצמו — עם אישור גפ&quot;ן והזמנות כמות.
           </p>
         </div>
 
-        <div className="mt-10">
-          <GefenBadge variant="banner" />
-        </div>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="card-premium p-6">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-light to-accent text-white shadow-md shadow-accent/25">
-                <Icon className="h-6 w-6" />
-              </div>
-              <h3 className="font-semibold text-slate">{title}</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">{desc}</p>
+            <div key={title} className="text-center sm:text-right">
+              <Icon
+                className="mx-auto h-6 w-6 text-accent sm:mx-0"
+                aria-hidden="true"
+              />
+              <h3 className="mt-3 font-bold text-slate">{title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted">{desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link href="/contact?type=institution">
             <Button size="lg" variant="accent">
               צרו קשר להזמנת כמות

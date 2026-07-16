@@ -36,8 +36,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 bg-gradient-to-l from-teal to-teal-dark shadow-[0_4px_24px_-4px_rgba(18,98,111,0.35)] transition-all duration-300",
-        scrolled ? "shadow-[0_8px_28px_-4px_rgba(18,98,111,0.45)]" : ""
+        "sticky top-0 z-40 border-b border-teal-deep/20 bg-teal-dark/95 text-white shadow-sm backdrop-blur-md transition-all duration-300",
+        scrolled ? "bg-teal-deep/98 shadow-md" : ""
       )}
     >
       <div
@@ -56,8 +56,8 @@ export function Header() {
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
                 pathname === link.href
-                  ? "bg-teal-deep text-white"
-                  : "text-white/90 hover:bg-white/15"
+                  ? "bg-white/20 text-white"
+                  : "text-white/90 hover:bg-white/10"
               )}
             >
               {link.label}

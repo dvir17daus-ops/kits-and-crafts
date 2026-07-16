@@ -1,5 +1,3 @@
-import { ArrowLeft } from "lucide-react";
-
 const steps = [
   {
     number: "01",
@@ -22,37 +20,28 @@ export function HowItWorks() {
   return (
     <section className="section-padding bg-cream-dark">
       <div className="container-narrow">
-        <h2 className="heading-accent text-center text-2xl font-bold text-slate sm:text-3xl">
-          איך זה עובד?
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-center text-muted">
-          3 שלבים פשוטים לוועד הורים או מוסד חינוך
-        </p>
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {steps.map((step, index) => (
-            <div key={step.number} className="group relative text-center">
-              {index < steps.length - 1 && (
-                <div
-                  className="absolute left-0 top-8 hidden h-0.5 w-full -translate-x-1/2 bg-gradient-to-l from-sand via-accent-light/50 to-sand md:block"
-                  aria-hidden="true"
-                />
-              )}
-              <div className="relative mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-cream-dark text-2xl font-bold text-primary shadow-[0_10px_24px_-8px_rgba(28,43,58,0.18)] ring-1 ring-sand transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_14px_30px_-8px_rgba(224,124,10,0.35)]">
+        <div className="mx-auto max-w-xl text-center">
+          <h2 className="font-logo text-3xl text-slate sm:text-4xl">
+            איך זה עובד?
+          </h2>
+          <p className="mt-3 text-muted">
+            שלושה שלבים פשוטים לוועד הורים או מוסד חינוך
+          </p>
+        </div>
+
+        <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+          {steps.map((step) => (
+            <li key={step.number} className="text-center md:text-right">
+              <span className="font-logo text-4xl text-primary/80">
                 {step.number}
-              </div>
-              <h3 className="text-lg font-semibold text-slate">{step.title}</h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
+              </span>
+              <h3 className="mt-3 text-lg font-bold text-slate">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 {step.description}
               </p>
-              {index < steps.length - 1 && (
-                <ArrowLeft
-                  className="mx-auto mt-4 h-5 w-5 text-sand md:hidden"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

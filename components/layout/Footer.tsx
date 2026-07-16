@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { NAV_LINKS, BUSINESS, GEFEN, SITE_NAME_HE, SITE_TAGLINE_HE } from "@/lib/constants";
 
@@ -8,19 +8,13 @@ export function Footer() {
   const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}`;
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-t from-teal-deep to-teal-dark text-white">
-      <div className="blob -right-20 top-0 h-72 w-72 bg-orange/20" aria-hidden="true" />
-      <div className="blob -left-24 bottom-0 h-80 w-80 bg-pink/15" aria-hidden="true" />
-      <div className="container-narrow relative py-14">
-        <div className="mb-10 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/10 p-6 text-center shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35)] backdrop-blur-sm md:flex-row md:text-right">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-white to-cream-dark text-teal-deep shadow-md">
-            <Award className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="font-bold text-white">{GEFEN.title}</p>
-            <p className="mt-1 text-sm text-white/80">{GEFEN.subtitle}</p>
-            <p className="mt-2 text-sm text-white/60">{GEFEN.description}</p>
-          </div>
+    <footer className="bg-teal-deep text-white">
+      <div className="container-narrow py-14">
+        <div className="mb-10 border-b border-white/10 pb-8">
+          <p className="text-sm font-bold text-white/90">{GEFEN.title}</p>
+          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/65">
+            {GEFEN.description}
+          </p>
         </div>
 
         <div className="grid gap-10 md:grid-cols-4">
@@ -113,7 +107,6 @@ export function Footer() {
               ביטול והחזרות
             </Link>
           </nav>
-          <p>מספקים לוועדי הורים וירידי קהילה ברחבי הארץ · {GEFEN.title}</p>
           <p>
             © 2026 <span className="font-logo">{SITE_NAME_HE}</span> — כל
             הזכויות שמורות

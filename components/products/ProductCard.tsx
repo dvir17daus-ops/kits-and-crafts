@@ -43,9 +43,7 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
   const { addToCart, openCart } = useCart();
   const { showToast } = useToast();
   const { fly } = useFlyToCart();
-  const cardRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0, hover: false });
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -78,63 +76,52 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
     setQuantity((q) => (q < 1 ? 1 : q));
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: py * -7, y: px * 7, hover: true });
-  };
-
-  const handleMouseLeave = () => setTilt({ x: 0, y: 0, hover: false });
+  const primaryBadge = product.isFeatured
+    ? ("bestseller" as const)
+    : product.isDeal && product.discountPercent
+      ? ("deal" as const)
+      : product.fairRecommended
+        ? ("fair" as const)
+        : null;
 
   return (
     <article
-      ref={cardRef}
-      className="card-premium group cursor-pointer overflow-hidden will-change-transform"
-      style={{
-        transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${
-          tilt.hover ? -4 : 0
-        }px)`,
-        transition: tilt.hover
-          ? "transform 0.08s linear"
-          : "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      className="group cursor-pointer overflow-hidden rounded-2xl border border-sand/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sand hover:shadow-[0_20px_40px_-20px_rgba(28,43,58,0.2)]"
       onClick={() => onOpenModal(product)}
     >
       <div
         ref={imageRef}
-        className="relative m-3 aspect-square overflow-hidden rounded-xl bg-cream-dark"
+        className="relative aspect-[4/5] overflow-hidden bg-cream-dark sm:aspect-square"
       >
         <Image
           src={product.image}
           alt={product.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
         />
-        <div className="absolute left-2 top-2 flex flex-col gap-1.5">
-          <Badge>{product.ageGroup}</Badge>
-          {product.isFeatured && (
+        {primaryBadge === "bestseller" && (
+          <div className="absolute right-3 top-3">
             <Badge variant="bestseller">
               <Sparkles className="mr-1 h-3 w-3" aria-hidden="true" />
               הכי נמכר
             </Badge>
-          )}
-          {product.fairRecommended && (
-            <Badge variant="gold">מומלץ ליריד</Badge>
-          )}
-        </div>
-        {product.isDeal && product.discountPercent && (
-          <div className="absolute right-2 top-2 rounded-full bg-gradient-to-br from-pink to-[#e85c82] px-2.5 py-1 text-xs font-bold text-white shadow-[0_4px_10px_-2px_rgba(255,143,171,0.6)]">
+          </div>
+        )}
+        {primaryBadge === "deal" && product.discountPercent && (
+          <div className="absolute right-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-white">
             -{product.discountPercent}%
           </div>
         )}
+        {primaryBadge === "fair" && (
+          <div className="absolute right-3 top-3">
+            <Badge variant="gold">מומלץ ליריד</Badge>
+          </div>
+        )}
       </div>
-      <div className="px-4 pb-4">
-        <h3 className="font-bold text-slate line-clamp-2">{product.title}</h3>
+      <div className="px-4 pb-4 pt-3.5">
+        <p className="text-xs font-medium text-muted">{product.ageGroup}</p>
+        <h3 className="mt-1 font-bold text-slate line-clamp-2">{product.title}</h3>
         {typeof product.rating === "number" && (
           <StarRating
             rating={product.rating}
@@ -142,14 +129,13 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
             className="mt-1.5"
           />
         )}
-        <p className="mt-1 text-sm text-muted line-clamp-2">{product.description}</p>
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-3 flex items-baseline gap-2">
           {product.originalPrice && (
             <span className="text-sm text-muted line-through">
               {formatPrice(product.originalPrice)}
             </span>
           )}
-          <span className="text-lg font-extrabold text-green">
+          <span className="text-lg font-extrabold text-slate">
             {formatPrice(product.price)}
           </span>
         </div>
@@ -214,6 +200,71 @@ interface ProductModalProps {
   onClose: () => void;
   allProducts?: Product[];
   onSelectRelated?: (product: Product) => void;
+}
+
+function getEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) {
+      const id = u.pathname.replace("/", "");
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    }
+    if (u.hostname.includes("youtube.com")) {
+      const id = u.searchParams.get("v");
+      if (id) return `https://www.youtube.com/embed/${id}`;
+      if (u.pathname.startsWith("/embed/")) return url;
+      const shorts = u.pathname.match(/\/shorts\/([^/]+)/);
+      if (shorts?.[1]) return `https://www.youtube.com/embed/${shorts[1]}`;
+    }
+    if (u.hostname.includes("vimeo.com")) {
+      const id = u.pathname.split("/").filter(Boolean).pop();
+      return id ? `https://player.vimeo.com/video/${id}` : null;
+    }
+    if (/\.(mp4|webm|ogg)(\?|$)/i.test(u.pathname)) return null;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function ProductVideo({ url, title }: { url: string; title: string }) {
+  const embed = getEmbedUrl(url);
+  const isDirect = /\.(mp4|webm|ogg)(\?|$)/i.test(url);
+
+  return (
+    <div>
+      <h4 className="mb-2 font-semibold text-slate">סרטון הדרכה</h4>
+      <div className="relative aspect-video overflow-hidden rounded-xl bg-cream-dark">
+        {embed ? (
+          <iframe
+            src={embed}
+            title={`סרטון הדרכה — ${title}`}
+            className="absolute inset-0 h-full w-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : isDirect ? (
+          <video
+            src={url}
+            controls
+            className="absolute inset-0 h-full w-full object-cover"
+            preload="metadata"
+          >
+            הדפדפן שלך לא תומך בנגן וידאו.
+          </video>
+        ) : (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 flex items-center justify-center text-sm font-medium text-primary underline"
+          >
+            צפייה בסרטון ההדרכה
+          </a>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export function ProductModal({
@@ -313,6 +364,8 @@ export function ProductModal({
               ))}
             </ul>
           </div>
+
+          {product.videoUrl && <ProductVideo url={product.videoUrl} title={product.title} />}
 
           {product.inStock ? (
             <div className="flex items-center gap-3">
