@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import { cn } from "@/lib/utils";
@@ -26,13 +27,15 @@ export function Modal({
   className,
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!isOpen) return;
 
     lockScroll();
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") onCloseRef.current();
       if (e.key === "Tab" && panelRef.current) {
         const focusable =
           panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
@@ -55,13 +58,13 @@ export function Modal({
       unlockScroll();
       document.removeEventListener("keydown", handleKey);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}
@@ -70,7 +73,7 @@ export function Modal({
         type="button"
         aria-label="סגור חלון"
         className="absolute inset-0 bg-slate/50 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={() => onCloseRef.current()}
       />
 
       <div
@@ -101,7 +104,7 @@ export function Modal({
           )}
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => onCloseRef.current()}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-dark text-slate transition-colors hover:bg-sand hover:text-slate"
             aria-label="סגור"
           >
@@ -112,6 +115,7 @@ export function Modal({
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
