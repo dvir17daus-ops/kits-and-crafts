@@ -19,7 +19,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <Logo light />
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              {SITE_NAME_HE} ({SITE_TAGLINE_HE}) — ערכות יצירה ובנייה מעץ
+              {SITE_NAME_HE} {SITE_TAGLINE_HE} — ערכות יצירה ובנייה מעץ
               אמיתי לבתי ספר, קהילות ומשפחות.
             </p>
           </div>
@@ -42,26 +42,28 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 font-bold text-white">צור קשר</h3>
-            <ul className="space-y-2.5 text-sm text-white/75">
+            <ul className="space-y-3 text-sm text-white/75">
               <li>
                 <a
                   href={phoneHref}
-                  className="flex items-center gap-2 transition-colors hover:text-white"
-                  dir="ltr"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
                 >
-                  <Phone className="h-4 w-4 shrink-0" /> {BUSINESS.phone}
+                  <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span dir="ltr">{BUSINESS.phone}</span>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${BUSINESS.email}`}
-                  className="flex items-center gap-2 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
                 >
-                  <Mail className="h-4 w-4 shrink-0" /> {BUSINESS.email}
+                  <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{BUSINESS.email}</span>
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 shrink-0" /> {BUSINESS.address}
+              <li className="inline-flex items-center gap-2">
+                <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>{BUSINESS.address}</span>
               </li>
               <li>{BUSINESS.hours}</li>
             </ul>
