@@ -27,6 +27,7 @@ export function Modal({
   className,
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
@@ -44,15 +45,19 @@ export function Modal({
         const last = focusable[focusable.length - 1];
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
-          last.focus();
+          last.focus({ preventScroll: true });
         } else if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
-          first.focus();
+          first.focus({ preventScroll: true });
         }
       }
     };
     document.addEventListener("keydown", handleKey);
-    panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+
+    // Focus close button without scrolling the page underneath.
+    requestAnimationFrame(() => {
+      closeBtnRef.current?.focus({ preventScroll: true });
+    });
 
     return () => {
       unlockScroll();
@@ -72,6 +77,7 @@ export function Modal({
       <button
         type="button"
         aria-label="סגור חלון"
+        tabIndex={-1}
         className="absolute inset-0 bg-slate/50 backdrop-blur-sm"
         onClick={() => onCloseRef.current()}
       />
@@ -103,6 +109,7 @@ export function Modal({
             <span className="flex-1" />
           )}
           <button
+            ref={closeBtnRef}
             type="button"
             onClick={() => onCloseRef.current()}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-dark text-slate transition-colors hover:bg-sand hover:text-slate"
