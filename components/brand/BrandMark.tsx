@@ -36,7 +36,9 @@ export function BrandMark({
           aria-label={SITE_NAME_HE}
         >
           <span className="text-brand-orange">{SITE_NAME_ORANGE}</span>
-          <span className="text-brand-teal">{SITE_NAME_TEAL}</span>
+          <span className={light ? "text-white" : "text-brand-teal"}>
+            {SITE_NAME_TEAL}
+          </span>
         </span>
         {(size === "hero" || size === "lg") && (
           <span

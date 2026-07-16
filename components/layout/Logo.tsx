@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BrandMark } from "@/components/brand/BrandMark";
 import { SITE_NAME_HE } from "@/lib/constants";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -28,16 +28,29 @@ export function Logo({ light = false, small = false }: LogoProps) {
           sizes="56px"
         />
       </div>
-      <BrandMark
-        size={small ? "sm" : "md"}
-        light={light}
-        showSlogan={!small && !light}
-        className={cn(
-          "transition-all duration-300",
-          small && "scale-95",
-          light && "[&_.text-brand-orange]:text-orange [&_.text-brand-teal]:text-white"
-        )}
-      />
+      {!small &&
+        (light ? (
+          <BrandMark size="md" light showSlogan={false} />
+        ) : (
+          <Image
+            src="/images/brand-wordmark-transparent.png"
+            alt=""
+            width={280}
+            height={120}
+            className="hidden h-11 w-auto object-contain object-right md:h-12 sm:block"
+            aria-hidden="true"
+          />
+        ))}
+      {small && (
+        <span
+          className={cn(
+            "font-brand text-base font-bold sm:hidden",
+            light ? "text-white" : "text-brand-teal"
+          )}
+        >
+          {SITE_NAME_HE}
+        </span>
+      )}
     </Link>
   );
 }
