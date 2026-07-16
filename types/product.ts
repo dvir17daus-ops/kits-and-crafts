@@ -2,6 +2,7 @@ export type Category =
   | "summer-craft"
   | "wood-building"
   | "string-art"
+  | "holiday-craft"
   | "bundle-deal";
 
 export type Difficulty = "קל" | "בינוני" | "מתקדם";

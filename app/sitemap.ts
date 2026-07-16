@@ -6,6 +6,7 @@ const routes = [
   "/summer-kits",
   "/wood-kits",
   "/string-art",
+  "/holiday-crafts",
   "/deals",
   "/contact",
   "/accessibility",

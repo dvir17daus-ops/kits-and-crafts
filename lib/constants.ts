@@ -30,6 +30,7 @@ export const NAV_LINKS = [
   { href: "/summer-kits", label: "ערכות יצירה בקיץ" },
   { href: "/wood-kits", label: "ערכות בנייה בעץ" },
   { href: "/string-art", label: "ערכות אומנות בחוטים" },
+  { href: "/holiday-crafts", label: "יצירות חגי ישראל" },
   { href: "/deals", label: "מבצעים" },
   { href: "/contact", label: "צור קשר" },
 ] as const;
@@ -55,6 +56,12 @@ export const CATEGORY_INFO: Record<
     description:
       "יצירות String Art מרהיבות — פעילות יצירתית שמתאימה לכל הגילאים.",
     href: "/string-art",
+  },
+  "holiday-craft": {
+    title: "יצירות חגי ישראל",
+    description:
+      "ערכות יצירה לחגי ישראל — ראש השנה, סוכות, חנוכה, פורים ועוד. מתאים לגנים, בתי ספר ומשפחות.",
+    href: "/holiday-crafts",
   },
   "bundle-deal": {
     title: "מבצעים והנחות",

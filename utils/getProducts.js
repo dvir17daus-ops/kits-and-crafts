@@ -18,6 +18,9 @@ const CATEGORY_FROM_HE = {
   "ערכות אומנות בחוטים": "string-art",
   "אומנות בחוטים": "string-art",
   "string-art": "string-art",
+  "יצירות חגי ישראל": "holiday-craft",
+  "חגי ישראל": "holiday-craft",
+  "holiday-craft": "holiday-craft",
   מבצעים: "bundle-deal",
   "bundle-deal": "bundle-deal",
 };
