@@ -16,7 +16,7 @@ interface BrandMarkProps {
 
 /**
  * Text-only brand wordmark: name + optional slogan.
- * No heart, dashed line, sparkles, or illustrations.
+ * Rounded Fredoka display — soft, playful, brand-colored.
  */
 export function BrandMark({
   size = "md",
@@ -30,18 +30,18 @@ export function BrandMark({
     <div
       className={cn(
         "flex flex-col",
-        onHero && "drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)]",
+        onHero && "drop-shadow-[0_8px_28px_rgba(0,0,0,0.4)]",
         className
       )}
     >
       <p
         className={cn(
-          "m-0 font-brand font-bold leading-[0.95] tracking-tight",
+          "m-0 font-brand font-bold leading-[0.92] tracking-[-0.02em]",
           {
             "text-lg": size === "sm",
             "text-xl sm:text-2xl": size === "md",
-            "text-3xl": size === "lg",
-            "text-[2.85rem] sm:text-6xl md:text-7xl lg:text-[5.1rem]":
+            "text-3xl tracking-[-0.025em]": size === "lg",
+            "text-[2.9rem] tracking-[-0.03em] sm:text-6xl md:text-7xl lg:text-[5.25rem]":
               size === "hero",
           }
         )}
@@ -56,12 +56,13 @@ export function BrandMark({
       {showSlogan ? (
         <p
           className={cn(
-            "m-0 font-brand font-medium leading-snug",
+            "m-0 font-brand font-medium leading-snug tracking-[0.01em]",
             {
               "mt-1 text-[10px]": size === "sm",
               "mt-1.5 text-xs": size === "md",
               "mt-2 text-sm": size === "lg",
-              "mt-3.5 text-base sm:text-lg md:text-xl": size === "hero",
+              "mt-4 max-w-md text-base sm:text-lg md:text-xl md:leading-relaxed":
+                size === "hero",
             },
             light || onHero ? "text-white/95" : "text-brand-brown"
           )}

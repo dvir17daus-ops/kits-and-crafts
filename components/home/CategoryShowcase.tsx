@@ -35,7 +35,7 @@ export function CategoryShowcase() {
       <div className="container-narrow">
         <Reveal direction="right">
           <div className="max-w-xl">
-            <h2 className="font-logo text-3xl text-slate sm:text-4xl">
+            <h2 className="font-logo text-3xl font-bold tracking-tight text-slate sm:text-4xl">
               בחרו את הפעילות
             </h2>
             <p className="mt-3 text-muted leading-relaxed">

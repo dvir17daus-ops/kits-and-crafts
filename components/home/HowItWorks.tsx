@@ -26,7 +26,7 @@ export function HowItWorks() {
       <div className="container-narrow">
         <Reveal direction="up">
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="font-logo text-3xl text-slate sm:text-4xl">
+            <h2 className="font-logo text-3xl font-bold tracking-tight text-slate sm:text-4xl">
               איך זה עובד?
             </h2>
             <p className="mt-3 text-muted">

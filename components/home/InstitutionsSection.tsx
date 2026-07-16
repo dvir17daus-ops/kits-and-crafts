@@ -34,7 +34,7 @@ export function InstitutionsSection() {
       <div className="container-narrow">
         <Reveal direction="up">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-logo text-3xl text-slate sm:text-4xl">
+            <h2 className="font-logo text-3xl font-bold tracking-tight text-slate sm:text-4xl">
               לירידים, ועדים ובתי ספר
             </h2>
             <p className="mt-4 text-muted leading-relaxed">
