@@ -69,6 +69,28 @@ function normalizeCategory(raw) {
 }
 
 /**
+ * Convert Google Drive share/view links into a URL Next/Image can load.
+ * Also accepts already-direct image URLs unchanged.
+ */
+export function normalizeImageUrl(raw) {
+  if (!raw) return "";
+  const url = String(raw).trim();
+  if (!url) return "";
+
+  const fileMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+  if (fileMatch) {
+    return `https://lh3.googleusercontent.com/d/${fileMatch[1]}`;
+  }
+
+  const idMatch = url.match(/drive\.google\.com\/(?:open|uc)\?[^#]*\bid=([^&]+)/i);
+  if (idMatch) {
+    return `https://lh3.googleusercontent.com/d/${idMatch[1]}`;
+  }
+
+  return url;
+}
+
+/**
  * Maps a Google Sheets / opensheet row (Hebrew or English headers) into a Product.
  */
 export function normalizeProductRow(row, index = 0) {
@@ -79,6 +101,7 @@ export function normalizeProductRow(row, index = 0) {
       price: Number(row.price),
       originalPrice: row.originalPrice == null || row.originalPrice === "" ? null : Number(row.originalPrice),
       category: normalizeCategory(row.category),
+      image: normalizeImageUrl(row.image),
       videoUrl: row.videoUrl || null,
       stockCount:
         row.stockCount === undefined || row.stockCount === null || row.stockCount === ""
@@ -102,7 +125,7 @@ export function normalizeProductRow(row, index = 0) {
     price,
     originalPrice,
     category: normalizeCategory(pick(row, "קטגוריה", "category", "Category")),
-    image: String(pick(row, "קישור לתמונה", "image", "תמונה", "Image") || ""),
+    image: normalizeImageUrl(pick(row, "קישור לתמונה", "image", "תמונה", "Image") || ""),
     videoUrl: (() => {
       const v = pick(row, "קישור לסרטון", "videoUrl", "video", "סרטון");
       return v ? String(v) : null;
@@ -127,11 +150,33 @@ export function normalizeProductRow(row, index = 0) {
   };
 }
 
+/**
+ * Collapse sheet rows into products.
+ * Extra rows that only fill "מה בקופסה" are appended to the previous product
+ * (common when pasting a list down the column in Excel/Sheets).
+ */
 function normalizeProducts(rows) {
   if (!Array.isArray(rows)) return [];
-  return rows
-    .map((row, i) => normalizeProductRow(row, i))
-    .filter((p) => p && p.id && p.title && p.image);
+
+  const products = [];
+  for (const row of rows) {
+    const title = pick(row, "שם המוצר", "title", "שם", "Title");
+    const boxOnly = pick(row, "מה בקופסה", "whatsInTheBox", "whats_in_the_box");
+
+    if (!title) {
+      if (boxOnly && products.length > 0) {
+        const extras = toList(boxOnly);
+        const prev = products[products.length - 1];
+        prev.whatsInTheBox = [...(prev.whatsInTheBox || []), ...extras];
+      }
+      continue;
+    }
+
+    const product = normalizeProductRow(row, products.length);
+    if (product) products.push(product);
+  }
+
+  return products.filter((p) => p && p.id && p.title && p.image);
 }
 
 /**
@@ -144,7 +189,10 @@ async function fetchFromSheets() {
   try {
     const res = await fetch(SHEETS_API_URL, {
       signal,
-      next: { revalidate: 60 },
+      // Always re-fetch in development so Excel/Sheets edits show up immediately.
+      ...(process.env.NODE_ENV === "development"
+        ? { cache: "no-store" }
+        : { next: { revalidate: 30 } }),
     });
     if (!res.ok) {
       return { products: null, reason: `HTTP ${res.status}` };
