@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface BrandMarkProps {
   size?: "sm" | "md" | "lg" | "hero";
-  /** On dark backgrounds (hero / teal header) */
+  /** On dark backgrounds (teal header / footer) */
   light?: boolean;
   showSlogan?: boolean;
   className?: string;
@@ -20,8 +20,19 @@ export function BrandMark({
   showSlogan = true,
   className,
 }: BrandMarkProps) {
+  const onHero = size === "hero";
+  const softLine = light || onHero;
+  const softSlogan = light || onHero;
+
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div
+      className={cn(
+        "flex flex-col",
+        onHero &&
+          "[filter:drop-shadow(0_2px_3px_rgba(0,0,0,0.35))_drop-shadow(0_8px_24px_rgba(0,0,0,0.35))]",
+        className
+      )}
+    >
       <div className="relative inline-flex w-fit">
         <span
           className={cn(
@@ -30,7 +41,7 @@ export function BrandMark({
               "text-lg": size === "sm",
               "text-xl sm:text-2xl": size === "md",
               "text-3xl": size === "lg",
-              "text-5xl sm:text-6xl md:text-7xl lg:text-8xl": size === "hero",
+              "text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem]": size === "hero",
             }
           )}
           aria-label={SITE_NAME_HE}
@@ -56,15 +67,15 @@ export function BrandMark({
         <>
           <div
             className={cn(
-              "mt-2 flex items-center gap-2",
-              size === "hero" ? "mt-4 gap-3" : "mt-1.5"
+              "mt-2 flex max-w-full items-center gap-2",
+              size === "hero" ? "mt-4 w-[min(100%,22rem)] gap-3 sm:w-[min(100%,28rem)]" : "mt-1.5"
             )}
             aria-hidden="true"
           >
             <span
               className={cn(
                 "h-px flex-1 border-t border-dashed",
-                light ? "border-white/50" : "border-brand-teal/70"
+                softLine ? "border-white/55" : "border-brand-teal/70"
               )}
             />
             <span
@@ -78,7 +89,7 @@ export function BrandMark({
             <span
               className={cn(
                 "h-px flex-1 border-t border-dashed",
-                light ? "border-white/50" : "border-brand-teal/70"
+                softLine ? "border-white/55" : "border-brand-teal/70"
               )}
             />
           </div>
@@ -91,7 +102,7 @@ export function BrandMark({
                 "mt-2 text-sm": size === "lg",
                 "mt-3 text-base sm:text-lg md:text-xl": size === "hero",
               },
-              light ? "text-white/90" : "text-brand-brown"
+              softSlogan ? "text-white/95" : "text-brand-brown"
             )}
           >
             {SITE_SLOGAN_HE}

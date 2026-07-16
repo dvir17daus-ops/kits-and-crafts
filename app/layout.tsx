@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Assistant, Varela_Round } from "next/font/google";
+import { Assistant, Fredoka, Varela_Round } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
@@ -24,6 +24,13 @@ const varelaRound = Varela_Round({
   subsets: ["hebrew", "latin"],
   variable: "--font-varela",
   weight: "400",
+});
+
+/** Rounded playful Hebrew display — closest free match to the brand wordmark */
+const fredoka = Fredoka({
+  subsets: ["hebrew", "latin"],
+  variable: "--font-fredoka",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${assistant.variable} ${varelaRound.variable} font-sans antialiased`}
+        className={`${assistant.variable} ${varelaRound.variable} ${fredoka.variable} font-sans antialiased`}
       >
         <CartProvider>
           <ToastProvider>

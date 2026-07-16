@@ -28,19 +28,7 @@ export function Logo({ light = false, small = false }: LogoProps) {
           sizes="56px"
         />
       </div>
-      {!small &&
-        (light ? (
-          <BrandMark size="md" light showSlogan={false} />
-        ) : (
-          <Image
-            src="/images/brand-wordmark-transparent.png"
-            alt=""
-            width={280}
-            height={120}
-            className="hidden h-11 w-auto object-contain object-right md:h-12 sm:block"
-            aria-hidden="true"
-          />
-        ))}
+      {!small && <BrandMark size="md" light={light} showSlogan={false} />}
       {small && (
         <span
           className={cn(

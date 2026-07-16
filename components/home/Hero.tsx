@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { Button } from "@/components/ui/Button";
 
 export function Hero() {
@@ -23,16 +24,8 @@ export function Hero() {
       />
 
       <div className="container-narrow relative flex min-h-[78vh] flex-col justify-end pb-14 pt-24 sm:min-h-[85vh] sm:pb-20 sm:pt-28">
-        <div className="max-w-2xl animate-[hero-panel-in_0.9s_cubic-bezier(0.16,1,0.3,1)_both]">
-          <Image
-            src="/images/brand-hasadnaya-transparent.png"
-            alt="הסדנאייה — ערכות יצירה ובנייה מעץ לילדים"
-            width={1024}
-            height={682}
-            priority
-            className="h-auto w-full max-w-lg drop-shadow-[0_12px_28px_rgba(0,0,0,0.35)] sm:max-w-xl md:max-w-2xl"
-            sizes="(max-width:768px) 90vw, 640px"
-          />
+        <div className="max-w-xl animate-[hero-panel-in_0.9s_cubic-bezier(0.16,1,0.3,1)_both]">
+          <BrandMark size="hero" />
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/summer-kits">
               <Button size="lg">לקולקציית הקיץ</Button>
