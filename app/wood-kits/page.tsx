@@ -19,6 +19,7 @@ export default async function WoodKitsPage() {
         title={info.title}
         description={info.description}
         breadcrumb={info.title}
+        image={info.image}
       />
       <ProductGridClient products={products} showControls />
     </div>

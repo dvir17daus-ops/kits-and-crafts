@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { StarRating } from "@/components/ui/StarRating";
 import { Reveal } from "@/components/ui/Reveal";
+import { ProductImageGallery } from "@/components/products/ProductImageGallery";
 import { formatPrice } from "@/utils/formatPrice";
 import { BUSINESS, GUIDANCE, LOW_STOCK_THRESHOLD } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -92,19 +93,16 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
       className="group cursor-pointer overflow-hidden rounded-2xl border border-sand/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-sand hover:shadow-[0_20px_40px_-20px_rgba(28,43,58,0.2)]"
       onClick={() => onOpenModal(product)}
     >
-      <div
-        ref={imageRef}
-        className="relative aspect-[4/5] overflow-hidden bg-cream-dark sm:aspect-square"
-      >
-        <Image
-          src={product.image}
-          alt={product.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+      <div className="relative">
+        <ProductImageGallery
+          product={product}
+          variant="card"
+          imageRef={imageRef}
+          enableLightbox
+          lightboxOnImageClick={false}
         />
         {primaryBadge === "bestseller" && (
-          <div className="absolute right-3 top-3">
+          <div className="absolute right-3 top-3 z-20">
             <Badge variant="bestseller">
               <Sparkles className="mr-1 h-3 w-3" aria-hidden="true" />
               הכי נמכר
@@ -112,12 +110,12 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
           </div>
         )}
         {primaryBadge === "deal" && product.discountPercent && (
-          <div className="absolute right-3 top-3 rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-white">
+          <div className="absolute right-3 top-3 z-20 rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-white">
             -{product.discountPercent}%
           </div>
         )}
         {primaryBadge === "fair" && (
-          <div className="absolute right-3 top-3">
+          <div className="absolute right-3 top-3 z-20">
             <Badge variant="gold">מומלץ ליריד</Badge>
           </div>
         )}
@@ -313,14 +311,8 @@ export function ProductModal({
   return (
     <Modal isOpen={!!product} onClose={onClose} title={product.title} size="xl">
       <div className="grid gap-6 md:grid-cols-2">
-        <div ref={modalImageRef} className="relative aspect-square overflow-hidden rounded-xl">
-          <Image
-            src={product.image}
-            alt={product.title}
-            fill
-            className="object-cover"
-            sizes="(max-width:768px) 100vw, 50vw"
-          />
+        <div ref={modalImageRef}>
+          <ProductImageGallery product={product} variant="modal" enableLightbox />
         </div>
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">

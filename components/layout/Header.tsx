@@ -36,17 +36,12 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-teal-deep/20 bg-teal-dark/95 text-white shadow-sm backdrop-blur-md transition-all duration-300",
+        "sticky top-0 z-40 border-b border-teal-deep/20 bg-teal-dark/95 text-white shadow-sm backdrop-blur-md transition-[background-color,box-shadow] duration-300",
         scrolled ? "bg-teal-deep/98 shadow-md" : ""
       )}
     >
-      <div
-        className={cn(
-          "container-narrow flex items-center justify-between gap-4 transition-all duration-300",
-          scrolled ? "min-h-12 py-1" : "min-h-16 py-2"
-        )}
-      >
-        <Logo light small={scrolled} />
+      <div className="container-narrow flex min-h-16 items-center justify-between gap-4 py-2">
+        <Logo light />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">
           {NAV_LINKS.map((link) => (

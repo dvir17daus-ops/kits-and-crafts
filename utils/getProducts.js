@@ -19,6 +19,7 @@ const CATEGORY_FROM_HE = {
   "אומנות בחוטים": "string-art",
   "string-art": "string-art",
   "יצירות חגי ישראל": "holiday-craft",
+  "ערכות חגי ישראל": "holiday-craft",
   "חגי ישראל": "holiday-craft",
   "holiday-craft": "holiday-craft",
   מבצעים: "bundle-deal",
@@ -63,8 +64,9 @@ function toNumber(value, fallback = null) {
 function toList(value) {
   if (Array.isArray(value)) return value.map(String).map((s) => s.trim()).filter(Boolean);
   if (value === undefined || value === null || value === "") return [];
+  // Supports: newlines (Excel Alt+Enter / ⌥Enter), | , ; and Arabic comma
   return String(value)
-    .split(/[|،,;]/)
+    .split(/[\n\r|،,;]+/)
     .map((s) => s.trim())
     .filter(Boolean);
 }
@@ -97,18 +99,36 @@ export function normalizeImageUrl(raw) {
   return url;
 }
 
+function parseImageList(...rawValues) {
+  const urls = [];
+  for (const raw of rawValues) {
+    if (raw === undefined || raw === null || raw === "") continue;
+    for (const part of toList(raw)) {
+      const url = normalizeImageUrl(part);
+      if (url) urls.push(url);
+    }
+  }
+  return [...new Set(urls)];
+}
+
 /**
  * Maps a Google Sheets / opensheet row (Hebrew or English headers) into a Product.
  */
 export function normalizeProductRow(row, index = 0) {
   // Already a well-formed Product object (local JSON / previous normalize)
   if (row && typeof row === "object" && row.id && row.title && row.price != null && Array.isArray(row.whatsInTheBox)) {
+    const images = parseImageList(
+      ...(Array.isArray(row.images) ? row.images : []),
+      row.image
+    );
+    const image = images[0] || normalizeImageUrl(row.image) || "";
     return {
       ...row,
       price: Number(row.price),
       originalPrice: row.originalPrice == null || row.originalPrice === "" ? null : Number(row.originalPrice),
       category: normalizeCategory(row.category),
-      image: normalizeImageUrl(row.image),
+      image,
+      images: images.length ? images : image ? [image] : [],
       videoUrl: row.videoUrl || null,
       guidancePrice:
         row.guidancePrice === undefined || row.guidancePrice === null || row.guidancePrice === ""
@@ -129,6 +149,16 @@ export function normalizeProductRow(row, index = 0) {
   const originalPrice = toNumber(pick(row, "מחיר מקורי", "originalPrice", "original_price"), null);
   const discountPercent = toNumber(pick(row, "אחוז הנחה", "discountPercent", "discount"), null);
 
+  const images = parseImageList(
+    pick(row, "קישור לתמונה", "image", "תמונה", "Image"),
+    pick(row, "תמונות נוספות", "images", "תמונות"),
+    pick(row, "תמונה 2", "image2", "Image 2"),
+    pick(row, "תמונה 3", "image3", "Image 3"),
+    pick(row, "תמונה 4", "image4", "Image 4"),
+    pick(row, "תמונה 5", "image5", "Image 5")
+  );
+  const image = images[0] || "";
+
   return {
     id,
     title: String(title),
@@ -136,7 +166,8 @@ export function normalizeProductRow(row, index = 0) {
     price,
     originalPrice,
     category: normalizeCategory(pick(row, "קטגוריה", "category", "Category")),
-    image: normalizeImageUrl(pick(row, "קישור לתמונה", "image", "תמונה", "Image") || ""),
+    image,
+    images,
     videoUrl: (() => {
       const v = pick(row, "קישור לסרטון", "videoUrl", "video", "סרטון");
       return v ? String(v) : null;
@@ -168,8 +199,8 @@ export function normalizeProductRow(row, index = 0) {
 
 /**
  * Collapse sheet rows into products.
- * Extra rows that only fill "מה בקופסה" are appended to the previous product
- * (common when pasting a list down the column in Excel/Sheets).
+ * Extra rows that only fill "מה בקופסה" or image columns are appended
+ * to the previous product (common when pasting lists down in Excel/Sheets).
  */
 function normalizeProducts(rows) {
   if (!Array.isArray(rows)) return [];
@@ -180,10 +211,23 @@ function normalizeProducts(rows) {
     const boxOnly = pick(row, "מה בקופסה", "whatsInTheBox", "whats_in_the_box");
 
     if (!title) {
-      if (boxOnly && products.length > 0) {
-        const extras = toList(boxOnly);
+      if (products.length > 0) {
         const prev = products[products.length - 1];
-        prev.whatsInTheBox = [...(prev.whatsInTheBox || []), ...extras];
+        if (boxOnly) {
+          prev.whatsInTheBox = [
+            ...(prev.whatsInTheBox || []),
+            ...toList(boxOnly),
+          ];
+        }
+        const extraImages = parseImageList(
+          pick(row, "קישור לתמונה", "image", "תמונה", "Image"),
+          pick(row, "תמונות נוספות", "images", "תמונות")
+        );
+        if (extraImages.length) {
+          const merged = [...(prev.images || []), ...extraImages];
+          prev.images = [...new Set(merged)];
+          if (!prev.image && prev.images[0]) prev.image = prev.images[0];
+        }
       }
       continue;
     }

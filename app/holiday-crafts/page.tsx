@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import { getProductsByCategory } from "@/utils/getProducts";
 
 export const metadata = createPageMetadata(
-  "יצירות חגי ישראל",
+  "ערכות חגי ישראל",
   "ערכות יצירה לחגי ישראל — ראש השנה, סוכות, חנוכה, פורים ועוד. מתאים לגנים, בתי ספר ומשפחות."
 );
 
@@ -19,6 +19,7 @@ export default async function HolidayCraftsPage() {
         title={info.title}
         description={info.description}
         breadcrumb={info.title}
+        image={info.image}
       />
       <ProductGridClient products={products} showControls />
     </div>

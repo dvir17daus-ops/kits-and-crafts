@@ -27,38 +27,42 @@ export const NAV_LINKS = [
   { href: "/summer-kits", label: "ערכות יצירה בקיץ" },
   { href: "/wood-kits", label: "ערכות בנייה בעץ" },
   { href: "/string-art", label: "ערכות אומנות בחוטים" },
-  { href: "/holiday-crafts", label: "יצירות חגי ישראל" },
+  { href: "/holiday-crafts", label: "ערכות חגי ישראל" },
   { href: "/deals", label: "מבצעים" },
   { href: "/contact", label: "צור קשר" },
 ] as const;
 
 export const CATEGORY_INFO: Record<
   string,
-  { title: string; description: string; href: string }
+  { title: string; description: string; href: string; image?: string }
 > = {
   "summer-craft": {
     title: "ערכות יצירה בקיץ",
     description:
       "פעילויות יצירה וחוץ לקיץ — מושלם לקייטנות, ימי כיף וירידי קיץ בבית הספר.",
     href: "/summer-kits",
+    image: "/images/category-summer.jpg",
   },
   "wood-building": {
     title: "ערכות בנייה בעץ",
     description:
       "ערכות נגרות ובנייה מעץ אמיתי — חוויה מלאה עם כלים בטוחים והוראות בעברית.",
     href: "/wood-kits",
+    image: "/images/category-wood.jpg",
   },
   "string-art": {
     title: "ערכות אומנות בחוטים",
     description:
       "יצירות String Art מרהיבות — פעילות יצירתית שמתאימה לכל הגילאים.",
     href: "/string-art",
+    image: "/images/category-string-art.jpg",
   },
   "holiday-craft": {
-    title: "יצירות חגי ישראל",
+    title: "ערכות חגי ישראל",
     description:
       "ערכות יצירה לחגי ישראל — ראש השנה, סוכות, חנוכה, פורים ועוד. מתאים לגנים, בתי ספר ומשפחות.",
     href: "/holiday-crafts",
+    image: "/images/category-holiday.jpg",
   },
   "bundle-deal": {
     title: "מבצעים והנחות",

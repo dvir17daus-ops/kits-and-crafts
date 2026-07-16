@@ -14,7 +14,10 @@ export interface Product {
   price: number;
   originalPrice: number | null;
   category: Category;
+  /** Primary / cover image (first of `images`). */
   image: string;
+  /** All product photos; first item matches `image`. */
+  images?: string[];
   ageGroup: string;
   size: string;
   whatsInTheBox: string[];
