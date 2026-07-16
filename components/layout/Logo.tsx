@@ -32,7 +32,7 @@ export function Logo({ light = false, small = false }: LogoProps) {
       {small && (
         <span
           className={cn(
-            "font-brand text-base font-bold sm:hidden",
+            "font-brand text-base font-normal sm:hidden",
             light ? "text-white" : "text-brand-teal"
           )}
         >

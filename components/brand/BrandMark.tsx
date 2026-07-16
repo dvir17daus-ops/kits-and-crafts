@@ -36,12 +36,13 @@ export function BrandMark({
     >
       <p
         className={cn(
-          "m-0 font-brand font-bold leading-[0.92] tracking-[-0.02em]",
+          /* Makabi YG is already a heavy display face — avoid faux-bold */
+          "m-0 font-brand font-normal leading-[0.95] tracking-tight",
           {
             "text-lg": size === "sm",
             "text-xl sm:text-2xl": size === "md",
-            "text-3xl tracking-[-0.025em]": size === "lg",
-            "text-[2.9rem] tracking-[-0.03em] sm:text-6xl md:text-7xl lg:text-[5.25rem]":
+            "text-3xl tracking-[-0.01em]": size === "lg",
+            "text-[3rem] tracking-[-0.015em] sm:text-6xl md:text-7xl lg:text-[5.4rem]":
               size === "hero",
           }
         )}
@@ -56,12 +57,12 @@ export function BrandMark({
       {showSlogan ? (
         <p
           className={cn(
-            "m-0 font-brand font-medium leading-snug tracking-[0.01em]",
+            "m-0 font-brand font-normal leading-snug tracking-[0.02em]",
             {
               "mt-1 text-[10px]": size === "sm",
               "mt-1.5 text-xs": size === "md",
               "mt-2 text-sm": size === "lg",
-              "mt-4 max-w-md text-base sm:text-lg md:text-xl md:leading-relaxed":
+              "mt-4 max-w-md text-base opacity-95 sm:text-lg md:text-xl md:leading-relaxed":
                 size === "hero",
             },
             light || onHero ? "text-white/95" : "text-brand-brown"

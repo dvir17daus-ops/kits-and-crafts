@@ -33,9 +33,9 @@
   --color-brand-brown: #4a3c2b;
 
   --font-sans: var(--font-assistant), ui-sans-serif, system-ui, sans-serif;
-  /* Rounded display for brand + section headings */
-  --font-logo: var(--font-fredoka), var(--font-varela), var(--font-sans);
-  --font-brand: var(--font-fredoka), var(--font-varela), var(--font-sans);
+  /* Makabi YG — rounded Hebrew brand / headings */
+  --font-logo: var(--font-makabiyg), var(--font-fredoka), var(--font-varela), var(--font-sans);
+  --font-brand: var(--font-makabiyg), var(--font-fredoka), var(--font-varela), var(--font-sans);
 
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
@@ -62,7 +62,7 @@ body {
   }
 
   .heading-accent {
-    @apply font-logo font-bold tracking-tight;
+    @apply font-logo font-normal tracking-tight;
   }
 
   .card-premium {

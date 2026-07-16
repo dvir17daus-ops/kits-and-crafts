@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Assistant, Fredoka, Varela_Round } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -26,11 +27,28 @@ const varelaRound = Varela_Round({
   weight: "400",
 });
 
-/** Rounded playful Hebrew display — closest free match to the brand wordmark */
 const fredoka = Fredoka({
   subsets: ["hebrew", "latin"],
   variable: "--font-fredoka",
   weight: ["400", "500", "600", "700"],
+});
+
+/** Makabi YG — rounded Hebrew display (GPL, Yoram Gnat) */
+const makabiyg = localFont({
+  src: [
+    {
+      path: "./fonts/makabiyg/makabiyg-webfont.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/makabiyg/makabiyg-webfont.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-makabiyg",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -63,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${assistant.variable} ${varelaRound.variable} ${fredoka.variable} font-sans antialiased`}
+        className={`${assistant.variable} ${varelaRound.variable} ${fredoka.variable} ${makabiyg.variable} font-sans antialiased`}
       >
         <CartProvider>
           <ToastProvider>
